@@ -1,10 +1,19 @@
-import React from 'react'
+import React, { useEffect } from "react";
+import ImagesComponent from "./components/ImagesComponent";
+
+
 
 
 function App() {
+
+
   return (
-	<div>App</div>
+    <>
+    <h1>Hello</h1>
+    <ImagesComponent />
+    
+    </>
   )
 }
 
-export default App
+export default App;

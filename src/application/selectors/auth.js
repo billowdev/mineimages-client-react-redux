@@ -1,0 +1,1 @@
+export const signin = state = state.authen.id;

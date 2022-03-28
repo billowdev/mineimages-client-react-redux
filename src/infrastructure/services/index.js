@@ -1,10 +1,13 @@
-import consoleLogger from './logger/console';
-import elasticSearchLogger from './logger/elastic-search'
-import api from './api';
+import consoleLogger from "./logger/console";
+import elasticSearchLogger from "./logger/elastic-search";
+import api from "./api";
 
-const env = process.NODE_ENV
+const env = "development";
+// process.NODE_ENV
 
 const services = {
-	log: env === 'development' ? consoleLogger : elasticSearchLogger,
-	api,
-}
+  log: env === "development" ? consoleLogger : elasticSearchLogger,
+  api,
+};
+
+export default services;
