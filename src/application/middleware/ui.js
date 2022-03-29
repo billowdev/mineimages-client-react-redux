@@ -1,5 +1,4 @@
 import { PAGE_LOADED } from "../actions/ui";
-import * as authenActions from "../actions/authen";
 import * as imagesActions from "../actions/images";
 
 const pageLoadedFlow =
@@ -11,7 +10,6 @@ const pageLoadedFlow =
 
     if (action.type === PAGE_LOADED) {
       console.log("page loaded");
-      // dispatch(authenActions.loadAuthen);
       dispatch(imagesActions.loadImages);
     }
   };

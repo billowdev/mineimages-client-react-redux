@@ -1,9 +1,9 @@
 import ui from './ui';
-// import authen from './authen';
 import images from './images';
+import auth from './auth';
 
 export default [
     ...ui,
-    // ...authen,
+    ...auth,
     ...images
 ]

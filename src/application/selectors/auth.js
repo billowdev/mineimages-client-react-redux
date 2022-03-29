@@ -1,1 +1,1 @@
-export const signin = state = state.authen.id;
+export const getStatus = state => state.auth
