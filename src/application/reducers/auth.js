@@ -13,7 +13,8 @@ const initialState = {
   permission: null,
   email: null,
   firstName: null,
-  password: null,
+  isSignupSuccess: false,
+  isValidateSuccess: false,
   error: null,
 };
 
@@ -33,7 +34,6 @@ const reducer = (state = initialState, action) => {
       permission: null,
       email: null,
       firstName: null,
-      password: null,
       error: null,
     };
   } else {

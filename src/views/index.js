@@ -25,7 +25,7 @@ function App() {
 
       <NavbarComponent />
       <Home />
-      <Signup />
+      <Signin />
       <Footer />
     </>
   );

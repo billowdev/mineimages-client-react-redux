@@ -1,16 +1,20 @@
 import {
   loadAuthSuccess,
   loadAuthFailed,
-  LOAD_AUTH,
-  loadSigup,
+  loadSignupSuccess,
+  loadSignupFailed,
+  loadValidationSuccess,
+  loadValidationFailed,
+
   SIGNUP_ACTION,
   ISAUTH_ACTION,
   SIGNIN_ACTION,
   SIGNOUT_ACTION,
+  EMAIL_VALIDATION,
 } from "../actions/auth";
 import * as uiActions from "../actions/ui";
 import Cookies from "js-cookie";
-import toast from "react-hot-toast";
+
 
 const isAuthFlow =
   ({ api }) =>
@@ -22,11 +26,11 @@ const isAuthFlow =
       try {
         dispatch(uiActions.setLoading(true));
         const auth = await api.auth.isSignin();
-        dispatch(loadAuthSuccess(auth));
+        // dispatch(loadAuthSuccess(auth));
         dispatch(uiActions.setLoading(false));
       } catch (err) {
         console.log("Invalid credential user not authentication");
-        dispatch(loadAuthFailed(err));
+        // dispatch(loadAuthFailed(err));
       }
     }
   };
@@ -42,19 +46,35 @@ const signupFlow =
       try {
         dispatch(uiActions.setLoading(true));
         const response = await api.auth.signup(action.payload);
+        loadSignupSuccess(response)
         dispatch(uiActions.setLoading(false));
       } catch (err) {
-        dispatch(loadAuthFailed(err));
+        dispatch(loadSignupFailed(err));
       }
     }
   };
+
+  const emailValidationFlow = ({api}) =>({dispatch})=>next=>async action=>{
+    next(action);
+    if(action.type === EMAIL_VALIDATION){
+      try {
+        dispatch(uiActions.setLoading(true));
+        console.log("Email validation", action.payload);
+
+        // const validate = await api.auth.validate(action.payload)
+        // dispatch(loadValidationSuccess(validate))
+        dispatch(uiActions.setLoading(false));
+      } catch (err) {
+        dispatch(loadValidationFailed(err));
+      }
+    }
+  }
 
 const signinFlow =
   ({ api }) =>
   ({ dispatch }) =>
   (next) =>
   async (action) => {
-    next(action);
     if (action.type === SIGNIN_ACTION) {
       try {
         dispatch(uiActions.setLoading(true));
@@ -63,9 +83,12 @@ const signinFlow =
         dispatch(loadAuthSuccess(auth));
         dispatch(uiActions.setLoading(false));
       } catch (err) {
+        dispatch(uiActions.setLoading(true));
         dispatch(loadAuthFailed(err));
+        dispatch(uiActions.setLoading(false));
       }
     }
+    next(action);
   };
 
 const signoutFlow =
@@ -81,4 +104,4 @@ const signoutFlow =
     next(action);
   };
 
-export default [signupFlow, isAuthFlow, signinFlow, signoutFlow];
+export default [signupFlow, isAuthFlow, signinFlow, signoutFlow, emailValidationFlow];
