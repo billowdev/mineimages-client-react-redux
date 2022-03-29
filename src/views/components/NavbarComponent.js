@@ -1,9 +1,21 @@
 import React, { useEffect } from "react";
-import { Navbar, Container, Nav, NavDropdown, Button } from "react-bootstrap";
+import {
+  Navbar,
+  Container,
+  Nav,
+  NavDropdown,
+  Button,
+  NavItem,
+} from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { getStatus } from "../../application/selectors/auth";
 
-import { signinAction } from "../../application/actions/auth";
+import {
+  signinAction,
+  isAuthAction,
+  signoutAction,
+} from "../../application/actions/auth";
+import "../assets/css/style.css"
 
 export default function NavbarComponent() {
   const dispatch = useDispatch();
@@ -15,10 +27,13 @@ export default function NavbarComponent() {
     dispatch(signinAction({ email, password }));
     console.log("hadnlelogin click");
   };
-  const handleCheck = () => {
+  const handleLogout = () => {
+    dispatch(signoutAction());
     console.log("auth state on Navbar", authStatus);
   };
-  useEffect(() => {}, [dispatch]);
+  useEffect(() => {
+    dispatch(isAuthAction());
+  }, [dispatch]);
 
   return (
     <div>
@@ -46,15 +61,31 @@ export default function NavbarComponent() {
             </Nav>
 
             <Nav>
+              <Nav.Link>
+                {authStatus.isAuth && (
+                  <h3>Hello {`${authStatus.firstName}`} </h3>
+                ) }
+                {/* <Button onClick={() => console.log("on index", authStatus)}>
+                  Check
+                </Button> */}
+              </Nav.Link>
               <>
-                <Nav.Link href="">
-                  <Button onClick={handleLogin}>Login</Button>
-                </Nav.Link>
-                {authStatus.isAuth ?  <Nav.Link href="">
-                    <p> is login </p>
-                  </Nav.Link> :  <Nav.Link href="">
-                    <p> is not login </p>
-                  </Nav.Link> }
+                {authStatus.isAuth ? (
+                  <>
+                    <Nav.Link href="">
+                      <Button onClick={handleLogout}>logout</Button>
+                    </Nav.Link>
+                  </>
+                ) : (
+                  <>
+                    <Nav.Link href="">
+                      <Button onClick={handleLogin}>Login</Button>
+                    </Nav.Link>
+                    <Nav.Link href="">
+                      <Button onClick={handleLogin}>Register</Button>
+                    </Nav.Link>
+                  </>
+                )}
               </>
             </Nav>
           </Navbar.Collapse>

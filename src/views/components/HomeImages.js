@@ -10,7 +10,8 @@ import { putImages } from "../../application/actions/images";
 import { pageLoaded } from "../../application/actions/ui";
 import { getLoading } from "../../application/selectors/ui";
 
-export default function ImagesComponent() {
+
+export default function HomeImages() {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
 
@@ -24,11 +25,11 @@ export default function ImagesComponent() {
 
   return (
     <>
-      <h1>MineImages</h1>
       {loading ? (
         "Loading  images..."
-      ) : (
-        <div>
+        ) : (
+          
+          <div className="gallery">
           {images.map((image, index) => (
             <Image
               key={index}

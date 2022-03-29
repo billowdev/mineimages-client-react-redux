@@ -1,0 +1,528 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600&display=swap');
+
+
+/* ############# All Section #############  */
+/*	
+	- Variables CSS Section
+  
+  - BASE
+  - REUSABLE CSS CLASSES
+  - NAV
+  - SignIn Section
+  - HOME
+  - BUTTONS
+  - ImagesComponent
+  - Profile
+	- EditProfile Section
+  - ImageHistory
+	- Footer Section
+*/
+
+/* Variables CSS Section */
+:root {
+
+  --header-heifht: 3rem;
+
+  /* Color Section */
+  --hue-color: 179;
+  /*Purple 250 - Green 142 - Blue 230 - Pink 340*/
+
+  /* HSL Color mode */
+  /* https://www.w3schools.com/colors/colors_hsl.asp */
+  --main-color: hsl(var(--hue-color), 52%, 41%);
+  --main-color-second: hsl(var(--hue-color), 49%, 39%);
+  --main-color-alt: hsl(var(--hue-color), 40%, 33%);
+  --main-color-lighter: hsl(var(--hue-color), 75%, 65%);
+  --c1-color: #ddd;
+  --c2-color: #666;
+
+  --title-color: hsl(var(--hue-color), 8%, 15%);
+  --text-color: hsl(var(--hue-color), 8%, 45%);
+  --text-color-light: hsl(var(--hue-color), 8%, 65%);
+  --input-color: hsl(var(--hue-color), 70%, 96%);
+  --body-color: hsl(var(--hue-color), 60%, 99%);
+  --container-color: #fff;
+  --scroll-bar-color: hsl(var(--hue-color), 12%, 90%);
+  --scroll-thumb-color: hsl(var(--hue-color), 12%, 80%);
+
+  --progress-color: hsl(var(--hue-color), 56%, 29%);
+
+  /* Font and typeography */
+  --body-font: 'Fredoka', sans-serif;
+  /* .5rem = 8px, 1rem = 16px, 1.5rem = 24px ... */
+  --big-font-size: 2rem;
+  --h1-font-size: 1.5rem;
+  --h2-font-size: 1.25rem;
+  --h3-font-size: 1.125rem;
+  --normal-font-size: .938rem;
+  --small-font-size: .813rem;
+  --smaller-font-size: .75rem;
+
+  /* Font weight */
+  --font-medium: 500;
+  --font-semi-bold: 600;
+
+  /* Margenes Bottom */
+  /* .25rem = 4px, .5rem = 8px, .75rem = 12px ... */
+  --mb-0-25: .25rem;
+  --mb-0-5: .5rem;
+  --mb-0-75: .75rem;
+  --mb-1: 1rem;
+  --mb-1-5: 1.5rem;
+  --mb-2: 2rem;
+  --mb-2-5: 2.5rem;
+  --mb-3: 3rem;
+
+  /* z index */
+  --z-tooltip: 10;
+  --z-fixed: 100;
+  --z-modal: 1000;
+}
+
+/*==================== BASE ====================*/
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+
+
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+.App {
+  margin: 0 0 var(--header-height) 0;
+  font-family: var(--body-font);
+  font-size: var(--normal-font-size);
+  background-color: var(--body-color);
+  color: var(--text-color);
+  min-height: 100vh;
+}
+
+h1, h2, h3, h4 {
+  color: var(--title-color);
+  font-weight: var(--font-semi-bold);
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/*==================== REUSABLE CSS CLASSES ====================*/
+.section {
+  padding: 2rem 0 4rem;
+}
+
+.section__title {
+  font-size: var(--h1-font-size);
+  color: var(--title-color);
+}
+
+.section__subtitle {
+  display: block;
+  font-size: var(--small-font-size);
+  margin-bottom: var(--mb-3);
+}
+
+.section__title,
+.section__subtitle {
+  text-align: center;
+}
+
+/*==================== LAYOUT ====================*/
+.container {
+  max-width: 768px;
+  margin-left: var(--mb-1-5);
+  margin-right: var(--mb-1-5);
+}
+
+.grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.header {
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: var(--z-fixed);
+  background-color: var(--body-color);
+}
+
+.title {
+  color: var(--main-color);
+}
+
+/* Font size for large device */
+@media screen and (min-width: 968px) {
+  :root {
+    --big-font-size: 3rem;
+    --h1-font-size: 2.25rem;
+    --h2-font-size: 1.5rem;
+    --h3-font-size: 1.25rem;
+    --normal-font-size: 1rem;
+    --small-font-size: .875rem;
+    --smaller-font-size: .813rem;
+  }
+}
+
+/* Dark theme variable Section*/
+.logo {
+  max-width: 100% !important;
+  width: 100px !important;
+  height: auto !important;
+}
+
+
+/*==================== NAV ====================*/
+.Navbar__brand, .Nav-link {
+  text-decoration: none;
+}
+
+.bgImg {
+  background-image: url("../images/bg.jpg");
+}
+
+/*==================== SignIn Section ====================*/
+.sign-up {
+  margin-top: 1rem;
+  margin-bottom: 10rem;
+}
+
+.sign-in {
+  margin-top: 10rem;
+  margin-bottom: 30rem;
+}
+
+/*==================== HOME ====================*/
+.home-image {
+  /* background-image: url("../images/bg.jpg"); */
+  /* height: 70%; */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+
+.home-text {
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--title-color);
+}
+
+.home-text button {
+  /* border: none; */
+  /* /* outline: 0; */
+  display: inline-block;
+  padding: 10px 25px;
+  /* color: var(--title-color); */
+  /* background-color: var(--main-color-lighter); */
+}
+
+.home-text button:hover {
+  background-color: var(--c1-color);
+  color: var(--title-color);
+}
+
+
+/* Section Header */
+.page-header{
+  height: 400px;
+  background-image: url(../images/bg.jpg);
+  background-size: cover;
+  background-position: top;
+  text-align: center;
+  color: #FFF;
+}
+
+.avatar{
+  display: block;
+  width: 160px;
+  height: 160px;
+  margin: -120px auto 10px;
+  border-radius: 40%;
+  box-shadow: 0px 4px 23px rgb(0, 0, 0, 0.1);
+
+}
+
+
+
+/*==================== BUTTONS ====================*/
+.btn-login {
+  margin-right: var(--mb-0-25);
+}
+
+.btn-change-image {
+  margin-bottom: 1rem;
+
+}
+
+/* .btn__search {
+
+} */
+
+.App-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 16px;
+  row-gap: 16px;
+  max-width: 800px;
+  justify-content: center;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: var(--body-color);
+}
+
+.ImageItem img {
+  display: block;
+  width: 100%;
+}
+
+/*==================== ImagesComponent ====================*/
+.gallery {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, 300px);
+	grid-gap: 2em;
+	justify-content: center;
+  }
+  
+  @media (max-width: 786px){
+	.gallety{
+	  grid-template-columns: 1fr;
+	  justify-items: center;
+	}
+  }
+
+
+
+/*==================== Profile ====================*/
+.user-images{
+  margin-top: 5rem;
+  margin-bottom: 5rem;
+}
+
+/*==================== User Images Section ====================*/
+.table-header {
+  display: inline-block;
+}
+
+
+
+/*==================== EditProfile Section ====================*/
+
+.about textarea {
+  width: 50%;
+  height: 100%;
+}
+
+.edit-section {
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+}
+
+.container .group-button {
+  margin-top: 3rem;
+  text-align: end;
+}
+
+
+.container .btn-edit {
+  text-align: end;
+}
+
+.profile-body {
+  margin: 0;
+  margin-top: 5rem;
+  margin-bottom: 10rem;
+  padding-top: 40px;
+  color: #2e323c;
+  background: #ffffff;
+  /* position: absolute; */
+  height: 100%;
+}
+
+.account-settings .user-profile {
+  margin: 0 0 1rem 0;
+  padding-bottom: 1rem;
+  text-align: center;
+}
+
+.account-settings .user-profile .user-avatar {
+  margin: 0 0 1rem 0;
+}
+
+.account-settings .user-profile .user-avatar img {
+  width: 90px;
+  height: 90px;
+  -webkit-border-radius: 100px;
+  -moz-border-radius: 100px;
+  border-radius: 100px;
+}
+
+.account-settings .user-profile h5.user-name {
+  margin: 0 0 0.5rem 0;
+}
+
+.account-settings .user-profile h6.user-email {
+  margin: 0;
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: #9fa8b9;
+}
+
+.account-settings .about {
+  margin: 2rem 0 0 0;
+  text-align: center;
+}
+
+.account-settings .about h5 {
+  margin: 0 0 15px 0;
+  color: #007ae1;
+}
+
+.account-settings .about p {
+  font-size: 0.825rem;
+}
+
+.form-control {
+  border: 1px solid #cfd1d8;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+  font-size: .825rem;
+  background: #ffffff;
+  color: #2e323c;
+}
+
+.card {
+  background: #ffffff;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  border: 0;
+  margin-bottom: 1rem;
+}
+
+/*==================== ImageHistory ====================*/
+.image-history {
+	
+}
+
+/*==================== Footer Section ====================*/
+
+.footer{
+	padding-top: 2rem;
+}
+
+.footer_container{
+	row-gap: 3.5rem;
+}
+
+.footer_bg{
+	background-color: var(--main-color-second);
+	padding: 2rem 0 3rem;
+}
+
+.footer_title{
+	font-size: var(--h1-font-size);
+	margin-bottom: var(--mb-0-25);
+}
+
+.footer_subtitle{
+	font-size: var(--small-font-size);
+}
+
+.footer_links{
+	display: flex;
+	flex-direction: column;
+	row-gap: 1.5rem;
+}
+
+.footer_link:hover{
+	color: var(--first-color-lighter);
+}
+
+.footer_social{
+	font-size: 1.25rem;
+	margin-right: var(--mb-1-5);
+}
+
+.footer_social:hover{
+	color: var(--first-color-lighter);
+}
+
+.footer_copy{
+	font-size: var(--small-font-size);
+	text-align: center;
+	color: var(--text-color-light);
+	margin-top: var(--mb-3);
+}
+
+.footer_title,
+.footer_subtitle,
+.footer_link,
+.footer_social{
+	color: #fff;
+}
+
+
+
+
+/*==================== MEDIA QUERIES ====================*/
+
+/* Small devices */
+@media screen and (max-width: 350px) {
+  .sign-in, .sign-up {
+    margin-top: -1rem;
+  }
+
+}
+
+/* Medium devices */
+@media screen and (min-width: 568px) {}
+
+@media screen and (min-width: 768px) {
+	.footer_container{
+		padding: 0 1rem;
+	}
+	.footer_container{
+		grid-template-columns: repeat(3, 1fr);
+	}
+	.footer_bg{
+		padding: 3rem 0 3.5rem;
+	}
+	.footer_links{
+		flex-direction: row;
+		column-gap: 2rem;
+	}
+	.footer_socials{
+		justify-self: flex-end;
+	}
+	.footer_copy{
+		margin-top: 4.5rem;
+	}
+}
+
+/* Large devices */
+@media screen and (min-width: 1024px) {
+	.footer_container{
+		padding: 0;
+	}
+}
+

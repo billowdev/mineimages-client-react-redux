@@ -1,4 +1,11 @@
-import { LOAD_AUTH_SUCCESS, SIGNIN_ACTION, SIGNUP_ACTION} from "../actions/auth";
+import {
+  LOAD_AUTH_SUCCESS,
+  SIGNIN_ACTION,
+  SIGNUP_ACTION,
+  SIGNOUT_ACTION,
+  LOAD_AUTH_FAILED,
+  ISAUTH_ACTION,
+} from "../actions/auth";
 
 const initialState = {
   isAuth: false,
@@ -19,22 +26,18 @@ const reducer = (state = initialState, action) => {
       permission: action.payload.permission,
       error: null,
     };
-  } else if (action.type === SIGNIN_ACTION) {
+  } else if (action.type === SIGNOUT_ACTION) {
     return {
-      isAuth: action.payload.isAuth,
-      id: action.payload.id,
-      error: null,
-    };
-	
-  } else if (action.type === SIGNUP_ACTION) {
-    return {
-      isAuth: action.payload.isAuth,
-      id: action.payload.id,
+      isAuth: false,
+      id: null,
+      permission: null,
+      email: null,
+      firstName: null,
+      password: null,
       error: null,
     };
   } else {
     return state;
   }
-  
 };
 export default reducer;
