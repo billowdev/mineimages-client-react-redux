@@ -21,7 +21,6 @@ export const loadAuth = {
 };
 
 
-
 export const loadSignupSuccess = (signup) => ({
   type: LOAD_SIGNUP_SUCCESS,
   payload: signup,

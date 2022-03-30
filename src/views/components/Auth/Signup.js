@@ -12,7 +12,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 import { useDispatch } from "react-redux";
-import {signupAction} from '../../application/actions/auth';
+import {signupAction} from '../../../application/actions/auth';
 
 export default function Signup() {
   const initialValues = {

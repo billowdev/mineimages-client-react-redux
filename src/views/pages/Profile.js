@@ -9,24 +9,30 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getProfile } from "../../application/selectors/profile";
 import { loadProfile } from "../../application/actions/profile";
-import { loading } from "../../application/selectors/ui";
-import { pageLoaded } from "../../application/actions/ui";
 import { getLoading } from "../../application/selectors/ui";
+import { pageLoaded } from "../../application/actions/ui";
+
 import { Card } from "react-bootstrap";
+import NavbarComponent from "../components/NavbarComponent";
+
 
 export default function Profile() {
   const dispatch = useDispatch();
   const profile = useSelector(getProfile);
   const loading = useSelector(getLoading);
+
   useEffect(() => {
     dispatch(loadProfile);
   }, [dispatch]);
   return (
     <>
+    
       {loading ? (
         "Loading  profile..."
       ) : (
         <>
+        <h1>{console.log(profile)}</h1>
+        
           <div className="container mt-5 d-flex justify-content-center">
             <div className="card p-3">
               <div className="btn-edit">
@@ -40,7 +46,7 @@ export default function Profile() {
               <div className="d-flex align-items-center">
                 <div className="image">
                   <img
-                    src={profile.user[0].avartar}
+                    src={profile.avartar}
                     className="rounded"
                     width="155"
                   />
@@ -48,13 +54,13 @@ export default function Profile() {
 
                 <div className="ml-3 w-100">
                   {profile && (
-                    <h4 className="mb-0 mt-0">{`${profile.user[0].firstName} ${profile.user[0].lastName}`}</h4>
+                    <h4 className="mb-0 mt-0">{`${profile.firstName} ${profile.lastName}`}</h4>
                   )}
 
                   <div className="p-2 mt-2 bg-primary d-flex justify-content-between rounded text-white stats">
                     <div class="d-flex flex-column">
                       <span class="articles">About</span>
-                      <span class="number1">{profile.user[0].about}</span>
+                      <span class="number1">{profile.about}</span>
                     </div>
                   </div>
                   <div className="button mt-2 d-flex flex-row align-items-center">
@@ -88,16 +94,17 @@ export default function Profile() {
               <Card.Body>
                 <Card.Title>address</Card.Title>
                 <Card.Text>
-                  {profile.address[0].addressLine1}{" "}
-                  {profile.address[0].addressLine2}
-                  {profile.address[0].city} {profile.address[0].postalCode}{" "}
-                  {profile.address[0].country}
+                  {profile.addressLine1}
+                  {profile.addressLine2}
+                  {profile.city} {profile.postalCode}
+                  {profile.country}
                 </Card.Text>
               </Card.Body>
             </Card>
           </div>
         </>
       )}
+      {/* <Footer /> */}
     </>
   );
 }

@@ -1,4 +1,4 @@
-import { PAGE_LOADED } from "../actions/ui";
+import { PAGE_LOADED, PROFILE_PAGE_LOADED} from "../actions/ui";
 import * as imagesActions from "../actions/images";
 import * as profileActions from "../actions/profile";
 import * as authActions from "../actions/auth";
@@ -14,7 +14,6 @@ const pageLoadedFlow =
     if (action.type === PAGE_LOADED) {
       console.log("page loaded");
       dispatch(imagesActions.loadImages);
-      dispatch(profileActions.loadProfile);
     }
   };
 
@@ -43,4 +42,23 @@ const signinLoadedFlow =
       console.log("Sign up Failed");
     }
   };
-export default [pageLoadedFlow, signinLoadedFlow];
+
+  const updateProfileFlow =
+  ({ log }) =>
+  ({ dispatch }) =>
+  (next) =>
+  (action) => {
+    next(action);
+    if (action.type === profileActions.UPLOAD_AVARTAR_SUCCESS) {
+     console.log("upload avartar success")
+     dispatch(profileActions.loadProfile);
+    }
+    if(action.type === profileActions.UPLOAD_AVARTAR_FAILED) {
+      console.log("Upload avartar faile")
+    }
+  };
+
+  
+  
+
+export default [pageLoadedFlow, signinLoadedFlow, updateProfileFlow];

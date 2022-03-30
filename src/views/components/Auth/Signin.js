@@ -7,9 +7,9 @@ import { faEnvelope, faUnlockAlt } from "@fortawesome/free-solid-svg-icons";
 import Swal from "sweetalert2";
 import { Link, useNavigate } from "react-router-dom";
 
-import { signinAction, isAuthAction } from "../../application/actions/auth";
+import { signinAction, isAuthAction } from "../../../application/actions/auth";
 import { Col, Row, Form, InputGroup } from "react-bootstrap";
-import { getAuthStatus } from "../../application/selectors/auth";
+import { getAuthStatus } from "../../../application/selectors/auth";
 
 export default function Signin() {
   const dispatch = useDispatch();
