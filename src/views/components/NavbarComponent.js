@@ -8,18 +8,20 @@ import {
   NavItem,
 } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { getStatus } from "../../application/selectors/auth";
+import { getAuthStatus } from "../../application/selectors/auth";
+
+import { Route, Link } from "react-router-dom";
 
 import {
   signinAction,
   isAuthAction,
   signoutAction,
 } from "../../application/actions/auth";
-import "../assets/css/style.css"
+import "../assets/css/style.css";
 
 export default function NavbarComponent() {
   const dispatch = useDispatch();
-  const authStatus = useSelector(getStatus);
+  const authStatus = useSelector(getAuthStatus);
 
   const handleLogin = () => {
     const email = "lacakkarapon@gmail.com";
@@ -33,13 +35,14 @@ export default function NavbarComponent() {
   };
   useEffect(() => {
     dispatch(isAuthAction());
+    console.log(authStatus);
   }, [dispatch]);
 
   return (
     <div>
       <Navbar bg="light" expand="lg">
         <Container>
-          <Navbar.Brand href="#home">MINEIMAGE REDUX</Navbar.Brand>
+          <Navbar.Brand href="#">MINEIMAGE REDUX</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
@@ -61,29 +64,23 @@ export default function NavbarComponent() {
             </Nav>
 
             <Nav>
-              <Nav.Link>
-                {authStatus.isAuth && (
-                  <h3>Hello {`${authStatus.firstName}`} </h3>
-                ) }
-                {/* <Button onClick={() => console.log("on index", authStatus)}>
-                  Check
-                </Button> */}
-              </Nav.Link>
+              {authStatus.isAuth && (
+                <>
+                  <Nav.Link href="/profile">
+                    {`${authStatus.firstName}`}'s Profile
+                  </Nav.Link>
+                </>
+              )}
+
               <>
                 {authStatus.isAuth ? (
                   <>
-                    <Nav.Link href="">
-                      <Button onClick={handleLogout}>logout</Button>
-                    </Nav.Link>
+                    <Nav.Link onClick={handleLogout}>logout</Nav.Link>
                   </>
                 ) : (
                   <>
-                    <Nav.Link href="">
-                      <Button onClick={handleLogin}>Login</Button>
-                    </Nav.Link>
-                    <Nav.Link href="">
-                      <Button onClick={handleLogin}>Register</Button>
-                    </Nav.Link>
+                    <Nav.Link href="/login">Login</Nav.Link>
+                    <Nav.Link href="/register">Register</Nav.Link>
                   </>
                 )}
               </>

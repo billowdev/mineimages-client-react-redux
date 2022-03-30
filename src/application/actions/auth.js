@@ -8,6 +8,9 @@ export const EMAIL_VALIDATION = "[auth] validation";
 export const LOAD_VALIDATION_SUCCESS = "[auth] validation success";
 export const LOAD_VALIDATION_FAILED = "[auth] validation failed";
 
+export const LOAD_ISAUTH_SUCCESS = "[auth] valid credential ";
+export const LOAD_ISAUTH_FAILED = "[auth] invalid credential !";
+
 export const ISAUTH_ACTION = "[auth] is auth";
 export const SIGNUP_ACTION = "[auth] signup";
 export const SIGNIN_ACTION = "[auth] signin";
@@ -57,6 +60,16 @@ export const loadAuthFailed = (error) => ({
 export const isAuthAction = (auth) => ({
   type: ISAUTH_ACTION,
   payload: auth,
+});
+
+export const loadIsAuthSuccess = (auth) => ({
+  type: LOAD_ISAUTH_SUCCESS,
+  payload: auth,
+});
+
+export const loadIsAuthFailed = (error) => ({
+  type: LOAD_ISAUTH_FAILED,
+  payload: error,
 });
 
 export const signupAction = (auth) => ({

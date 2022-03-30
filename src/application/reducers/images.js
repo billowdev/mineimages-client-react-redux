@@ -6,12 +6,19 @@ const initialState = {
 };
 
 const reducer = (state = initialState, action) => {
-  if (action.type === LOAD_IMAGES_SUCCESS) {
-    return { allImages: action.payload, error: null };
-  } else if (action.type === SET_IMAGES) {
-    return { allImages: action.payload, error: null };
-  } else {
-    return state;
+  switch (action.type) {
+    case LOAD_IMAGES_SUCCESS:
+      return {
+        allImages: action.payload,
+        error: null,
+      };
+    case SET_IMAGES:
+      return {
+        allImages: action.payload,
+        error: null,
+      };
+    default:
+      return state;
   }
 };
 

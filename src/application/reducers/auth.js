@@ -1,10 +1,7 @@
 import {
   LOAD_AUTH_SUCCESS,
-  SIGNIN_ACTION,
-  SIGNUP_ACTION,
   SIGNOUT_ACTION,
-  LOAD_AUTH_FAILED,
-  ISAUTH_ACTION,
+  LOAD_ISAUTH_SUCCESS,
 } from "../actions/auth";
 
 const initialState = {
@@ -19,25 +16,34 @@ const initialState = {
 };
 
 const reducer = (state = initialState, action) => {
-  if (action.type === LOAD_AUTH_SUCCESS) {
-    return {
-      isAuth: true,
-      id: action.payload.id,
-      firstName: action.payload.firstName,
-      permission: action.payload.permission,
-      error: null,
-    };
-  } else if (action.type === SIGNOUT_ACTION) {
-    return {
-      isAuth: false,
-      id: null,
-      permission: null,
-      email: null,
-      firstName: null,
-      error: null,
-    };
-  } else {
-    return state;
+  switch (action.type) {
+    case LOAD_AUTH_SUCCESS:
+      return {
+        isAuth: true,
+        id: action.payload.id,
+        firstName: action.payload.firstName,
+        permission: action.payload.permission,
+        error: null,
+      };
+    case LOAD_ISAUTH_SUCCESS:
+      return {
+        isAuth: true,
+        id: action.payload.id,
+        firstName: action.payload.firstName,
+        permission: action.payload.permission,
+        error: null,
+      };
+    case SIGNOUT_ACTION:
+      return {
+        isAuth: false,
+        id: null,
+        permission: null,
+        email: null,
+        firstName: null,
+        error: null,
+      };
+    default:
+      return state;
   }
 };
 export default reducer;

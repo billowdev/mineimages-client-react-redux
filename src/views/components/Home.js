@@ -1,5 +1,5 @@
 import React from "react";
-import ImagesComponent from "./HomeImages";
+import HomeImages from "./HomeImages";
 
 export default function Home() {
   return (
@@ -37,7 +37,7 @@ export default function Home() {
           </section>
         </div>
       </section>
-      <ImagesComponent></ImagesComponent>
+      <HomeImages></HomeImages>
     </div>
   );
 }
