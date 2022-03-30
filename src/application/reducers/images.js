@@ -1,7 +1,12 @@
-import { LOAD_IMAGES_SUCCESS, SET_IMAGES } from "../actions/images";
+import {
+  GET_IMAGE_BY_ID_SUCCESS,
+  LOAD_IMAGES_SUCCESS,
+  SET_IMAGES,
+} from "../actions/images";
 
 const initialState = {
   allImages: [],
+  modalImages: {},
   error: null,
 };
 
@@ -17,6 +22,13 @@ const reducer = (state = initialState, action) => {
         allImages: action.payload,
         error: null,
       };
+    case GET_IMAGE_BY_ID_SUCCESS:
+      return {
+        ...state,
+        modalImages: action.payload,
+        error: null,
+      };
+
     default:
       return state;
   }

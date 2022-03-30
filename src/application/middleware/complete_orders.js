@@ -11,11 +11,10 @@ const loadOrdersFlow =
   ({ dispatch }) =>
   (next) =>
   async (action) => {
-    next(action);
     if (action.type === LOAD_COMPLETE_ORDERS) {
       try {
         dispatch(uiActions.setLoading(true));
-
+        
         const orders = await api.orders.getCompleteOrders();
         dispatch(loadCompleteOrdersSuccess(orders));
         dispatch(uiActions.setLoading(false));
@@ -23,6 +22,7 @@ const loadOrdersFlow =
         dispatch(loadCompleteOrdersFailed(err));
       }
     }
+    next(action);
   };
 
 export default [loadOrdersFlow];

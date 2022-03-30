@@ -4,6 +4,8 @@ import {
   LOAD_IMAGES,
   PUT_IMAGE,
   setImages,
+  GET_IMAGE_BY_ID,
+  getImageByIdSuccess,
 } from "../actions/images";
 
 import * as uiActions from "../actions/ui";
@@ -48,4 +50,21 @@ const putImageFlow =
     next(action);
   };
 
-export default [loadImagesFlow, putImageFlow];
+const getImageByIdFlow =
+  ({ api }) =>
+  ({ dispatch }) =>
+  (next) =>
+  async (action) => {
+    next(action);
+
+   try{
+    if(action.type === GET_IMAGE_BY_ID){
+      console.log("On middleware get image by id : ", action.payload)
+      const images = await api.images.getImageById(action.payload);
+      dispatch(getImageByIdSuccess(images));
+    }
+   } catch(err){
+     console.log("ERROR ON MIDDLEWARE images.getImageByIdFlow")
+   }
+  };
+export default [loadImagesFlow, putImageFlow, getImageByIdFlow];
