@@ -4,12 +4,12 @@ import {
   LOAD_PROFILE,
   UPLOAD_AVARTAR,
   UPDATE_PROFILE,
+  updateProfileSuccess,
   uploadAvartarSuccess,
   uploadAvartarFailed,
 } from "../actions/profile";
 
 import * as uiActions from "../actions/ui";
-
 
 const loadProfileFlow =
   ({ api }) =>
@@ -57,13 +57,13 @@ const updateProfileFlow =
     if (action.type === UPDATE_PROFILE) {
       try {
         dispatch(uiActions.setLoading(true));
-        console.log(action.payload);
-        // const update = await api.profile.updateProfile(action.payload);
-        // console.log("on middle ware avartar update", update)
-        // dispatch(loadProfileSuccess(update));
+        // console.log("On middleware profile update profile : action=", action.payload);
+        const update = await api.profile.updateProfile(action.payload);
+        console.log("On middleware profile updateProfile: ", update);
+        dispatch(updateProfileSuccess(update));
         dispatch(uiActions.setLoading(false));
       } catch (err) {
-        // dispatch(loadProfileFailed(err));
+        dispatch(loadProfileFailed(err));
       }
     }
   };

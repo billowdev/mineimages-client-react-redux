@@ -11,7 +11,8 @@ import { loadProfile } from "../../../application/actions/profile";
 import { getLoading } from "../../../application/selectors/ui";
 import { updateProfile } from "../../../application/actions/profile";
 
-import {Link} from 'react-router-dom'
+import toast from "react-hot-toast";
+import { Link } from "react-router-dom";
 
 export default function Edit() {
   const [firstName, setFirstName] = useState(null);
@@ -71,7 +72,9 @@ export default function Edit() {
         delete updateUserAddress[key];
       }
     });
-    dispatch(updateProfile({ updateUserData, updateUserAddress }));
+    const update = dispatch(
+      updateProfile({ updateUserData, updateUserAddress })
+    );
   };
 
   const dispatch = useDispatch();
@@ -84,7 +87,7 @@ export default function Edit() {
   return (
     <>
       {loading ? (
-        "Loading  profile..."
+        "loading...."
       ) : (
         <>
           <Container className="item-center profile-body ">
@@ -96,10 +99,7 @@ export default function Edit() {
                       <div className="account-settings">
                         <div className="user-profile">
                           <div className="user-avatar">
-                            <img
-                              src={profile.avartar}
-                              alt="Maxwell Admin"
-                            />
+                            <img src={profile.avartar} alt="Maxwell Admin" />
                           </div>
 
                           <div>
@@ -112,20 +112,15 @@ export default function Edit() {
                             </Button>
                           </div>
                           <h5 className="user-name">
-                            {profile.firstName}{" "}
-                            {profile.lastName}
+                            {profile.firstName} {profile.lastName}
                           </h5>
-                          <h6 className="user-email">
-                            {profile.email}
-                          </h6>
+                          <h6 className="user-email">{profile.email}</h6>
                         </div>
                         <div className="about">
                           <h5>Address</h5>
                           <p>
-                            {profile.addressLine1}{" "}
-                            {profile.addressLine2}{" "}
-                            {profile.city}{" "}
-                            {profile.postalCode}
+                            {profile.addressLine1} {profile.addressLine2}{" "}
+                            {profile.city} {profile.postalCode}
                             <br /> {profile.country}
                           </p>
                         </div>

@@ -1,4 +1,4 @@
-import { LOAD_PROFILE_SUCCESS } from "../actions/profile";
+import { LOAD_PROFILE_SUCCESS, UPDATE_PROFILE_SUCCESS } from "../actions/profile";
 const initialState = {
   id: null,
   email: null,
@@ -35,9 +35,14 @@ const reducer = (state = initialState, action) => {
         country: action.payload.country,
         error: null,
       };
+    case UPDATE_PROFILE_SUCCESS:
+      return {
+       state
+      }
     default:
       return state;
   }
 };
+
 
 export default reducer;

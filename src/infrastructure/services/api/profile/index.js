@@ -20,7 +20,21 @@ export default {
       },
     });
     return response.data;
-
-
+  },
+  updateProfile: async (props) => {
+    // const data = props;
+    // console.log("On api profile-updateProfile: ", props.updateUserAddress)
+    var url = `${API_URL}/user/profile`;
+    const response = await axios.patch(
+      url,
+      JSON.stringify(props),
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "access-token": token,
+        },
+      }
+    );
+    return response.data
   },
 };

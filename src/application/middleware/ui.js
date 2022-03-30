@@ -1,4 +1,4 @@
-import { PAGE_LOADED, PROFILE_PAGE_LOADED} from "../actions/ui";
+import { PAGE_LOADED, PROFILE_PAGE_LOADED, SET_LOADING_OFF, SET_LOADING_ON} from "../actions/ui";
 import * as imagesActions from "../actions/images";
 import * as profileActions from "../actions/profile";
 import * as authActions from "../actions/auth";
@@ -14,6 +14,12 @@ const pageLoadedFlow =
     if (action.type === PAGE_LOADED) {
       console.log("page loaded");
       dispatch(imagesActions.loadImages);
+    }
+    if(action.type===SET_LOADING_ON){
+      toast.loading("loading...")
+    }
+    if(action.type===SET_LOADING_OFF){
+      toast.dismiss();
     }
   };
 
@@ -50,9 +56,18 @@ const signinLoadedFlow =
   (action) => {
     next(action);
     if (action.type === profileActions.UPLOAD_AVARTAR_SUCCESS) {
-     console.log("upload avartar success")
+    //  console.log("upload avartar success")
      dispatch(profileActions.loadProfile);
     }
+    if (action.type === profileActions.UPDATE_PROFILE_SUCCESS) {
+      Swal.fire({
+        icon: "success",
+        title: "อัปเดตข้อมูลโปรไฟล์สำเร็จ",
+        text: `ข้อมูลของคุณถูกอัปเดตแล้ว !`,
+        // footer: '<a href="/profile">Profile</a>'
+      });
+      dispatch(profileActions.loadProfile);
+     }
     if(action.type === profileActions.UPLOAD_AVARTAR_FAILED) {
       console.log("Upload avartar faile")
     }

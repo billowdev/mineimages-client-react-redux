@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faSignOut } from "@fortawesome/free-solid-svg-icons";
-import Swal from "sweetalert2";
 import { Button } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -18,11 +17,13 @@ import TabContent from "../components/Profile/TabContent";
 import { loadCompleteOrders } from "../../application/actions/complete_orders";
 import { getCompleteOrders } from "../../application/selectors/complete_orders";
 
+
 export default function Profile() {
   const dispatch = useDispatch();
   const profile = useSelector(getProfile);
   const loading = useSelector(getLoading);
   const contentData = useSelector(getCompleteOrders);
+
   useEffect(() => {
     dispatch(loadProfile);
     dispatch(loadCompleteOrders);
@@ -30,7 +31,7 @@ export default function Profile() {
   return (
     <>
       {loading ? (
-        "Loading  profile..."
+        <p>loading</p>
       ) : (
         <>
           <div className="container mt-5 d-flex justify-content-center">

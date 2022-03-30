@@ -8,6 +8,8 @@ export const UPDATE_PROFILE = "[profile] update profile";
 export const UPLOAD_AVARTAR_SUCCESS = "[profile] upload success";
 export const UPLOAD_AVARTAR_FAILED = "[profile] upload failed";
 
+export const UPDATE_PROFILE_SUCCESS = "[profile] update profile-success";
+
 
 export const loadProfile = {
   type: LOAD_PROFILE,
@@ -40,5 +42,10 @@ export const uploadAvartarFailed = (error) => ({
 
 export const updateProfile = (profile) =>({
   type: UPDATE_PROFILE,
+  payload: profile
+})
+
+export const updateProfileSuccess = (profile) =>({
+  type: UPDATE_PROFILE_SUCCESS,
   payload: profile
 })
