@@ -13,7 +13,7 @@ import { updateProfile } from "../../../application/actions/profile";
 
 import {Link} from 'react-router-dom'
 
-export default function ProfileEdit() {
+export default function Edit() {
   const [firstName, setFirstName] = useState(null);
   const [lastName, setLastName] = useState(null);
   // const [email, setEmail] = useState(null);

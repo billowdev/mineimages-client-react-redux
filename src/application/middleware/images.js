@@ -6,7 +6,6 @@ import {
   setImages,
 } from "../actions/images";
 
-
 import * as uiActions from "../actions/ui";
 
 const loadImagesFlow =
@@ -48,6 +47,5 @@ const putImageFlow =
     }
     next(action);
   };
-
 
 export default [loadImagesFlow, putImageFlow];

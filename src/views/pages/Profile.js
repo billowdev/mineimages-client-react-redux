@@ -14,25 +14,25 @@ import { pageLoaded } from "../../application/actions/ui";
 
 import { Card } from "react-bootstrap";
 import NavbarComponent from "../components/NavbarComponent";
-
+import TabContent from "../components/Profile/TabContent";
+import { loadCompleteOrders } from "../../application/actions/complete_orders";
+import { getCompleteOrders } from "../../application/selectors/complete_orders";
 
 export default function Profile() {
   const dispatch = useDispatch();
   const profile = useSelector(getProfile);
   const loading = useSelector(getLoading);
-
+  const contentData = useSelector(getCompleteOrders);
   useEffect(() => {
     dispatch(loadProfile);
+    dispatch(loadCompleteOrders);
   }, [dispatch]);
   return (
     <>
-    
       {loading ? (
         "Loading  profile..."
       ) : (
         <>
-        <h1>{console.log(profile)}</h1>
-        
           <div className="container mt-5 d-flex justify-content-center">
             <div className="card p-3">
               <div className="btn-edit">
@@ -45,11 +45,7 @@ export default function Profile() {
 
               <div className="d-flex align-items-center">
                 <div className="image">
-                  <img
-                    src={profile.avartar}
-                    className="rounded"
-                    width="155"
-                  />
+                  <img src={profile.avartar} className="rounded" width="155" />
                 </div>
 
                 <div className="ml-3 w-100">
@@ -102,9 +98,9 @@ export default function Profile() {
               </Card.Body>
             </Card>
           </div>
+          <TabContent props={contentData} />
         </>
       )}
-      {/* <Footer /> */}
     </>
   );
 }

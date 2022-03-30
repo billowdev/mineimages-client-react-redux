@@ -5,7 +5,7 @@ import Footer from "./components/FooterComponent";
 
 import Signin from "./components/Auth/Signin";
 import Signup from "./components/Auth/Signup";
-import ProfileEdit from "./components/Profile/ProfileEdit";
+import ProfileEdit from "./components/Profile/Edit";
 
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";

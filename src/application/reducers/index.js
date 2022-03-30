@@ -3,10 +3,12 @@ import ui from "./ui";
 import auth from "./auth";
 import images from "./images";
 import profile from "./profile";
+import complete_orders from "./complete_orders";
 
 export default combineReducers({
   ui,
   auth,
   images,
-  profile
+  profile,
+  complete_orders
 });

@@ -4,6 +4,7 @@ export const LOAD_IMAGES_FAILED = "[image] load failed";
 export const SET_IMAGES = "[image] set";
 export const PUT_IMAGE = "[image] put";
 
+
 export const loadImages = {
   type: LOAD_IMAGES,
 };
@@ -27,3 +28,5 @@ export const putImage = (image) => ({
   type: PUT_IMAGE,
   payload: image,
 });
+
+

@@ -11,7 +11,7 @@ import { pageLoaded } from "../../../application/actions/ui";
 import { getLoading } from "../../../application/selectors/ui";
 
 
-export default function HomeImages() {
+export default function Images() {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
 

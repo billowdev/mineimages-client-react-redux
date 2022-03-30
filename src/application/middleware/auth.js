@@ -30,7 +30,7 @@ const isAuthFlow =
         dispatch(uiActions.setLoading(false));
       } catch (err) {
         console.log("Invalid credential user not authentication");
-        dispatch(loadIsAuthFailed(err));
+        // dispatch(loadIsAuthFailed(err));
       }
     }
   };
@@ -84,12 +84,11 @@ const signinFlow =
         dispatch(uiActions.setLoading(true));
         const auth = await api.auth.signin(action.payload);
         Cookies.set("access-token", auth.token, { expires: 7 });
-
-        setTimeout(
-          // simulates an async action
-          () => console.log(`action.payload ${action.payload}`, getState()),
-          0
-        );
+        // setTimeout(
+        //   // simulates an async action
+        //   () => console.log(`action.payload ${action.payload}`, getState()),
+        //   0
+        // );
 
         dispatch(loadAuthSuccess(auth));
         dispatch(uiActions.setLoading(false));
