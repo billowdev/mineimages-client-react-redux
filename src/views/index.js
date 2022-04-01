@@ -32,6 +32,7 @@ import {
 } from "react-router-dom";
 
 import { Toaster } from "react-hot-toast";
+import ImagesUpload from "./pages/UserImages";
 
 function App() {
   return (
@@ -47,7 +48,8 @@ function App() {
             <Route index element={<Home />} />
             <Route path="/" element={<Home />} />
             <Route path="profile" element={<Profile />} />
-
+            <Route path="profile/Images" element={<ImagesUpload />} />
+            
             <Route path="/register" element={<Signup />} />
             <Route path="/login" element={<Signin />} />
 

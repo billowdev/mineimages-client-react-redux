@@ -6,6 +6,12 @@ import {
   setImages,
   GET_IMAGE_BY_ID,
   getImageByIdSuccess,
+  GET_USER_IMAGES,
+  getUserImagesSuccess,
+  getUserImagesFailed,
+  UPDATE_IMAGE,
+  updateImageSuccess,
+  updateImageFailed
 } from "../actions/images";
 
 import * as uiActions from "../actions/ui";
@@ -67,4 +73,45 @@ const getImageByIdFlow =
      console.log("ERROR ON MIDDLEWARE images.getImageByIdFlow")
    }
   };
-export default [loadImagesFlow, putImageFlow, getImageByIdFlow];
+
+
+  const getUserImagesFlow =
+  ({ api }) =>
+  ({ dispatch }) =>
+  (next) =>
+  async (action) => {
+    next(action);
+    if (action.type === GET_USER_IMAGES) {
+      try {
+        dispatch(uiActions.setLoading(true));
+        const images = await api.images.getUserImages(action.payload);
+        dispatch(getUserImagesSuccess(images));
+        dispatch(uiActions.setLoading(false));
+      } catch (err) {
+        dispatch(getUserImagesFailed(err));
+      }
+    }
+  };
+
+  const updateImageFlow =
+  ({ api }) =>
+  ({ dispatch }) =>
+  (next) =>
+  async (action) => {
+    next(action);
+    if (action.type === UPDATE_IMAGE) {
+      try {
+        dispatch(uiActions.setLoading(true));
+        const changeVisibleResp = await api.images.updateImage(action.payload);
+        // console.log("On middleware:",action.payload)
+        // console.log(`Change visible resp on middleware ${changeVisibleResp}`)
+        dispatch(updateImageSuccess(true));
+        dispatch(uiActions.setLoading(false));
+      } catch (err) {
+        dispatch(updateImageFailed(err));
+      }
+    }
+  };
+
+
+export default [loadImagesFlow, putImageFlow, getImageByIdFlow, getUserImagesFlow, updateImageFlow];
