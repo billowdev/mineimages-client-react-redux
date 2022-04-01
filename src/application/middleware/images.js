@@ -6,6 +6,9 @@ import {
   setImages,
   GET_IMAGE_BY_ID,
   getImageByIdSuccess,
+  GET_USER_IMAGES,
+  getUserImagesSuccess,
+  getUserImagesFailed
 } from "../actions/images";
 
 import * as uiActions from "../actions/ui";
@@ -67,4 +70,25 @@ const getImageByIdFlow =
      console.log("ERROR ON MIDDLEWARE images.getImageByIdFlow")
    }
   };
-export default [loadImagesFlow, putImageFlow, getImageByIdFlow];
+
+
+  const getUserImagesFlow =
+  ({ api }) =>
+  ({ dispatch }) =>
+  (next) =>
+  async (action) => {
+    next(action);
+    if (action.type === GET_USER_IMAGES) {
+      try {
+        dispatch(uiActions.setLoading(true));
+        const images = await api.images.getUserImages();
+        dispatch(getUserImagesSuccess(images));
+        dispatch(uiActions.setLoading(false));
+      } catch (err) {
+        dispatch(getUserImagesFailed(err));
+      }
+    }
+  };
+
+
+export default [loadImagesFlow, putImageFlow, getImageByIdFlow, getUserImagesFlow];

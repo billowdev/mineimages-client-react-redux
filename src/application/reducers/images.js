@@ -1,5 +1,6 @@
 import {
   GET_IMAGE_BY_ID_SUCCESS,
+  GET_USER_IMAGES_SUCCESS,
   LOAD_IMAGES_SUCCESS,
   SET_IMAGES,
 } from "../actions/images";
@@ -7,6 +8,7 @@ import {
 const initialState = {
   allImages: [],
   modalImages: {},
+  userImages: [],
   error: null,
 };
 
@@ -26,6 +28,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         modalImages: action.payload,
+        error: null,
+      };
+    case GET_USER_IMAGES_SUCCESS:
+      return {
+        userImages: action.payload.images,
         error: null,
       };
 
