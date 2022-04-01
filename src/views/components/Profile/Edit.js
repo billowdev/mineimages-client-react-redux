@@ -13,6 +13,9 @@ import { updateProfile } from "../../../application/actions/profile";
 
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
+import NavbarComponent from "../NavbarComponent";
+import Footer from "../FooterComponent";
+import Layout from "../Layout";
 
 export default function Edit() {
   const [firstName, setFirstName] = useState(null);
@@ -84,7 +87,8 @@ export default function Edit() {
   useEffect(() => {
     dispatch(loadProfile);
   }, [dispatch]);
-  return (
+
+  const editProfileSection = (
     <>
       {loading ? (
         "loading...."
@@ -335,4 +339,5 @@ export default function Edit() {
       )}
     </>
   );
+  return <Layout>{editProfileSection}</Layout>;
 }

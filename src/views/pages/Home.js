@@ -14,6 +14,7 @@ import {
 import { pageLoaded } from "../../application/actions/ui";
 import { getLoading } from "../../application/selectors/ui";
 import Gallery from "react-grid-gallery";
+import Layout from "../components/Layout";
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -36,15 +37,15 @@ export default function Home() {
     dispatch(pageLoaded);
   }, [dispatch]);
 
-  return (
-    <div classname="home-body">
-      <header className="page-header d-flex align-items-center">
+  const bannerSection = (
+    <section>
+      <div className="page-header d-flex align-items-center">
         <div className="container">
           <h1 className="fw-bold"> MineImages </h1>
           <h2> Welcome </h2>
         </div>
-      </header>
-      <section className="container">
+      </div>
+      <div className="container">
         <div className="row justify-content-center">
           <section className="col-12 col-md-8">
             <img
@@ -70,70 +71,83 @@ export default function Home() {
             <h3>รูปภาพ</h3>
           </section>
         </div>
-      </section>
-      <>
-        {loading ? (
-          "Loading  images..."
-          // <></>
-        ) : (
-          <>
-            <div className="gallery">
-              {images.map((image, index) => (
-                <Image
-                  key={index}
-                  cloudName={CLOUDINARY_NAME}
-                  alt={image}
-                  publicId={image}
-                  crop="scale"
-                  onClick={handleOnImageClick}
-                >
-                  <Transformation
-                    crop="scale"
-                    width="300"
-                    height="200"
-                    dpr="auto"
-                    responsive_placeholder="blank"
-                  />
-                </Image>
-              ))}
-            </div>
+      </div>
+    </section>
+  );
 
-            <Modal show={show} onHide={handleClose} animation={false}>
-              <Modal.Header closeButton>
-                <Modal.Title>
-                  ภาพ:{ModalImageData && ModalImageData.name}
-                </Modal.Title>
-              </Modal.Header>
-              <Modal.Body>
-                <img
-                  src={ModalImageData && ModalImageData.pathWatermark}
-                  width="200px"
-                  height="200px"
+  const imageSection = (
+    <>
+      {loading ? (
+        "Loading  images..."
+      ) : (
+        // <></>
+        <>
+          <div className="gallery">
+            {images.map((image, index) => (
+              <Image
+                key={index}
+                cloudName={CLOUDINARY_NAME}
+                alt={image}
+                publicId={image}
+                crop="scale"
+                onClick={handleOnImageClick}
+              >
+                <Transformation
+                  crop="scale"
+                  width="300"
+                  height="200"
+                  dpr="auto"
+                  responsive_placeholder="blank"
                 />
-                <h6>
-                  เจ้าของภาพ :{" "}
-                  <span>{ModalImageData && ModalImageData.owner}</span>
-                </h6>
-                <h6>
-                  ราคา : <span>{ModalImageData && ModalImageData.price}</span>
-                </h6>
-                <h6>
-                  รายละเอียด :{" "}
-                  <span>{ModalImageData && ModalImageData.detail}</span>
-                </h6>
-              </Modal.Body>
-              <Modal.Footer>
-                <Button variant="secondary" onClick={handleClose}>
-                  ปิด
-                </Button>
-                <Button variant="primary" type="submit" onClick={handleOrder}>
-                  สั่งซื้อ
-                </Button>
-              </Modal.Footer>
-            </Modal>
-          </>
-        )}
-      </>
-    </div>
+              </Image>
+            ))}
+          </div>
+
+          <Modal show={show} onHide={handleClose} animation={false}>
+            <Modal.Header closeButton>
+              <Modal.Title>
+                ภาพ:{ModalImageData && ModalImageData.name}
+              </Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <img
+                src={ModalImageData && ModalImageData.pathWatermark}
+                width="200px"
+                height="200px"
+              />
+              <h6>
+                เจ้าของภาพ :{" "}
+                <span>{ModalImageData && ModalImageData.owner}</span>
+              </h6>
+              <h6>
+                ราคา : <span>{ModalImageData && ModalImageData.price}</span>
+              </h6>
+              <h6>
+                รายละเอียด :{" "}
+                <span>{ModalImageData && ModalImageData.detail}</span>
+              </h6>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant="secondary" onClick={handleClose}>
+                ปิด
+              </Button>
+              <Button variant="primary" type="submit" onClick={handleOrder}>
+                สั่งซื้อ
+              </Button>
+            </Modal.Footer>
+          </Modal>
+        </>
+      )}
+    </>
+  );
+  return (
+    <>
+      <Layout>
+        <div classname="home-body">
+          {bannerSection}
+          {imageSection}
+        </div>
+      </Layout>
+    </>
   );
 }

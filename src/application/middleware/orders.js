@@ -15,11 +15,10 @@ const loadOrdersFlow =
     if (action.type === LOAD_ORDERS) {
       try {
         dispatch(uiActions.setLoading(true));
-
         console.log("on middle ware orders", action.payload);
-        //   const orders = await api.orders.getOrders(action.payload);
-        //   console.log("on middle ware orders", orders)
-        //   dispatch(loadOrdersSuccess(orders));
+          const orders = await api.orders.getOrders(action.payload);
+          console.log("on middle ware orders", orders)
+          dispatch(loadOrdersSuccess(orders));
         dispatch(uiActions.setLoading(false));
       } catch (err) {
         dispatch(loadOrdersFailed(err));

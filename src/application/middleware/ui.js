@@ -38,7 +38,13 @@ const signinLoadedFlow =
       });
     }
     if (action.type === authActions.LOAD_AUTH_FAILED) {
-      toast.error("Login failed");
+      Swal.fire({
+        icon: "error",
+        title: "Login failed",
+        text: `Please  try again`,
+        // footer: '<a href="/profile">Profile</a>'
+      })
+      // toast.error("Login failed");
     }
 
     if (action.type === authActions.LOAD_SIGNUP_SUCCESS) {

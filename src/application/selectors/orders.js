@@ -1,1 +1,1 @@
-export const getOrders = state => state.orders;
+export const getUserOrders = state => state.orders.allUserOrders;

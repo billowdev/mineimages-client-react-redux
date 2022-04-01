@@ -3,12 +3,25 @@ import React, { useEffect } from "react";
 import NavbarComponent from "./components/NavbarComponent";
 import Footer from "./components/FooterComponent";
 
-import Signin from "./components/Auth/Signin";
-import Signup from "./components/Auth/Signup";
-import ProfileEdit from "./components/Profile/Edit";
+// import Signin from "./components/Auth/Signin";
+// import Signup from "./components/Auth/Signup";
+// import ProfileEdit from "./components/Profile/Edit";
+// import Home from "./pages/Home";
+// import Profile from "./pages/Profile";
 
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
+import Signup from "./components/Auth/Signup";
+import Signin from "./components/Auth/Signin";
+import Edit from "./components/Profile/Edit";
+import Admin from "./Admin";
+import Users from "./Admin/components/Users";
+import Orders from "./Admin/components/Orders";
+import Transactions from "./Admin/components/Transactions";
+import Images from "./Admin/components/Images";
+import Categories from "./Admin/components/Categories";
+import OrderHistory from "./pages/OrderHistory";
+
 import {
   BrowserRouter as Router,
   Routes,
@@ -28,18 +41,31 @@ function App() {
         reverseOrder={false}
         />
       </div>
-      <Router>
-        <NavbarComponent />
-        <Routes>
-          <Route path="/" exact element={<Home />}></Route>
-          <Route path="profile" element={<Profile />} />
-          <Route path="/register" element={<Signup />} />
-          <Route path="/login" element={<Signin />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/profile/edit" element={<ProfileEdit />} exact />
-        </Routes>
-        <Footer />
-      </Router>
+      <Routes>
+            {/* <Route element={<Layout />} /> */}
+            <Route index element={<Home />} />
+            <Route path="/" element={<Home />} />
+            <Route path="profile" element={<Profile />} />
+
+            <Route path="/register" element={<Signup />} />
+            <Route path="/login" element={<Signin />} />
+
+            <Route path="/profile/edit" element={<Edit />} exact />
+            <Route path="/profile/orders" element={<OrderHistory />} exact />
+
+            <Route path="/mineimages/admin" element={<Admin />} exact />
+            <Route path="/mineimages/admin/users" element={<Users />} />
+            <Route path="/mineimages/admin/orders" element={<Orders />} />
+            <Route
+              path="/mineimages/admin/Transactions"
+              element={<Transactions />}
+            />
+            <Route path="/mineimages/admin/images" element={<Images />} />
+            <Route
+              path="/mineimages/admin/categories"
+              element={<Categories />}
+            />
+          </Routes>
     </>
   );
 }

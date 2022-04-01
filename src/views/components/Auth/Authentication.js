@@ -12,7 +12,7 @@ export default function Authentication() {
   useEffect(() => {
     const data = window.location.pathname.split("/");
     const token = { token: data[3] };
-    dispatch()
+    // dispatch()
   }, [dispatch]);
 
   return (
