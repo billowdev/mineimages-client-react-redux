@@ -144,7 +144,11 @@ function UserImages() {
       }
     });
   };
-
+  const handleChangeVisible =(e, id)=>{
+    console.log(`change to\n  ${e.target.value} \n where ${id}`)
+  }
+  const [fastVisibleState, setFastVisibleState] = useState(false);
+ 
   const columns = [
     {
       name: "image",
@@ -187,7 +191,19 @@ function UserImages() {
       selector: (row) => row.visible,
       cell: (row) => (
         <div>
-          <span>{row.visible}</span>
+          <div name="visible" className="form-check form-switch">
+            <input
+              className="form-check-input"
+              type="checkbox"
+              id="visible"
+              value={row.visible=="public"? 'private': 'public'}
+              defaultChecked={row.visible == 'public' ? true : false}
+              onClick={(e)=>{handleChangeVisible(e, row.id)}}
+            />
+            {/* <label className="form-check-label" htmlFor="visible">
+              visible
+            </label> */}
+          </div>
         </div>
       ),
       width: "100px",
@@ -212,24 +228,24 @@ function UserImages() {
       ),
       width: "90px",
     },
-    {
-      name: "",
-      selector: (row) => row,
-      cell: (row) => (
-        <div>
-          <button
-            className="btn btn-success"
-            value={row.id}
-            onClick={(e) => {
-              handleDelete(row.id);
-            }}
-          >
-            delete
-          </button>
-        </div>
-      ),
-      width: "120px",
-    },
+    // {
+    //   name: "",
+    //   selector: (row) => row,
+    //   cell: (row) => (
+    //     <div>
+    //       <button
+    //         className="btn btn-warning"
+    //         value={row.id}
+    //         onClick={(e) => {
+    //           handleDelete(row.id);
+    //         }}
+    //       >
+    //         delete
+    //       </button>
+    //     </div>
+    //   ),
+    //   width: "120px",
+    // },
   ];
 
   useEffect(() => {
@@ -238,29 +254,26 @@ function UserImages() {
   return (
     <Layout>
       <Container>
-        <form onSubmit={handleSearchSubmit}>
-          <div class="input-group">
-            <input
-              type="search"
-              class="form-control rounded"
-              placeholder="Search"
-              aria-label="Search"
-              aria-describedby="search-addon"
-              onChange={handleSearchChange}
-            />
-            <button type="submit" class="btn btn-outline-primary">
-              search
-            </button>
-          </div>
-        </form>
-
-        <div className="image-history align-content-end">
+        <div className="image-history align-content-end mt-4">
           <h3 className="text-align-center">MineImages</h3>
-          <Link to="/profile/images/upload">
-            <button class="btn btn-outline-primary" href="/">
-              Upload Image
-            </button>
-          </Link>
+          <form onSubmit={handleSearchSubmit}>
+            <div class="input-group">
+              <input
+                type="search"
+                class="form-control rounded"
+                placeholder="Search"
+                aria-label="Search"
+                aria-describedby="search-addon"
+                onChange={handleSearchChange}
+              />
+              <button type="submit" class="btn btn-outline-success ms-2">
+                search
+              </button>
+              <button class="btn btn-outline-success ms-2" href="/">
+                Upload Image
+              </button>
+            </div>
+          </form>
         </div>
 
         <div style={{ marginTop: "2rem" }}>
