@@ -5,44 +5,21 @@ import { Container } from "react-bootstrap";
 import axios from "axios";
 import DataTable from "react-data-table-component";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { updateImage, getUserImages } from "../../application/actions/images";
+import { getUserImagesData } from "../../application/selectors/images";
 
 function UserImages() {
-  const [data, setData] = useState([]);
+  const dispatch = useDispatch();
+  const ImagesData = useSelector(getUserImagesData);
+
   const [loading, setLoading] = useState(false);
-  const [totalRows, setTotalRows] = useState(0);
   const [perPage, setPerPage] = useState(10);
   const [page, setPage] = useState(1);
   const [sortColumn, setSortColumn] = useState("");
   const [sortColumnDirection, setSortColumnDirection] = useState("");
 
   const [search, setSearch] = useState("");
-
-  const { API_URL, token } = require("../../utils/api");
-  const fetchImageData = async () => {
-    setLoading(true);
-
-    var url = `${API_URL}/user/images?page=${page}&per_page=${perPage}&delay=1`;
-    if (sortColumn) {
-      url += `&sort_column=${sortColumn}&sort_direction=${sortColumnDirection}`;
-    }
-    if (search) {
-      url += `&search=${search}`;
-    }
-    await axios
-      .get(url, {
-        method: "get",
-        headers: { "access-token": token },
-      })
-      .then((response) => {
-        return response;
-      })
-      .then((resp) => {
-        console.log(resp.data.data.images);
-        setData(resp.data.data.images);
-        setTotalRows(resp.data.data.total);
-        setLoading(false);
-      });
-  };
 
   const handlePageChange = (page) => {
     setPage(page);
@@ -59,12 +36,29 @@ function UserImages() {
 
   const handleSearchChange = (event) => {
     setSearch(event.target.value);
+    fetchImagesData();
+  };
+  const fetchImagesData = () => {
+    setLoading(true);
+    var url = `?page=${page}&per_page=${perPage}&delay=1`;
+    if (sortColumn) {
+      url += `&sort_column=${sortColumn}&sort_direction=${sortColumnDirection}`;
+    }
+    if (search) {
+      url += `&search=${search}`;
+    }
+    dispatch(getUserImages(url));
+    setLoading(false);
   };
 
   const handleSearchSubmit = (event) => {
     event.preventDefault();
-    fetchImageData();
+    fetchImagesData();
   };
+
+  useEffect(() => {
+    fetchImagesData();
+  }, [page, sortColumn, sortColumnDirection, perPage, dispatch]);
 
   const [checkState, setCheckState] = useState(false);
   //Edit data
@@ -107,7 +101,7 @@ function UserImages() {
     console.log("handle Edit form click");
   };
 
-  const handleFormSave = (e) => {
+  const handleFormSave = async (e) => {
     e.preventDefault();
     let visible;
     if (checkState) {
@@ -123,8 +117,16 @@ function UserImages() {
       visible: visible,
       status: editFormData.status,
     };
+    dispatch(updateImage(saveimage));
+    Swal.fire({
+      icon: "success",
+      title: "เรียบร้อย",
+      text: `ข้อมูลของคุณถูกอัปเดตแล้ว !`,
+    }).then(() => {
+      window.location.reload();
+    });
 
-    console.log(saveimage);
+    console.log("data form save", typeof saveimage);
   };
   const handleDelete = (id) => {
     Swal.fire({
@@ -144,11 +146,11 @@ function UserImages() {
       }
     });
   };
-  const handleChangeVisible =(e, id)=>{
-    console.log(`change to\n  ${e.target.value} \n where ${id}`)
-  }
+  const handleupdateImage = (e, id) => {
+    dispatch(updateImage({ id: id, visible: e.target.value }));
+  };
   const [fastVisibleState, setFastVisibleState] = useState(false);
- 
+
   const columns = [
     {
       name: "image",
@@ -196,9 +198,11 @@ function UserImages() {
               className="form-check-input"
               type="checkbox"
               id="visible"
-              value={row.visible=="public"? 'private': 'public'}
-              defaultChecked={row.visible == 'public' ? true : false}
-              onClick={(e)=>{handleChangeVisible(e, row.id)}}
+              value={row.visible == "public" ? "private" : "public"}
+              defaultChecked={row.visible == "public" ? true : false}
+              onClick={(e) => {
+                handleupdateImage(e, row.id);
+              }}
             />
             {/* <label className="form-check-label" htmlFor="visible">
               visible
@@ -248,9 +252,6 @@ function UserImages() {
     // },
   ];
 
-  useEffect(() => {
-    fetchImageData();
-  }, [page, sortColumn, sortColumnDirection, perPage]);
   return (
     <Layout>
       <Container>
@@ -280,11 +281,11 @@ function UserImages() {
           <DataTable
             //   title="MineImages"
             columns={columns}
-            data={data}
+            data={ImagesData.images}
             progressPending={loading}
             pagination
             paginationServer
-            paginationTotalRows={totalRows}
+            paginationTotalRows={ImagesData.totalRows}
             onChangeRowsPerPage={handlePerRowsChange}
             onChangePage={handlePageChange}
             onSort={handleSort}
@@ -367,7 +368,7 @@ function UserImages() {
                         type="checkbox"
                         id="visible"
                         checked={checkState}
-                        onClick={() => {
+                        onChange={() => {
                           setCheckState(!checkState);
                         }}
                       />

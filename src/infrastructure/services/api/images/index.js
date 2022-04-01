@@ -12,10 +12,23 @@ export default {
     });
     return response.data;
   },
-  getUserImages: async () => {
-    const response = await axios.get(`${API_URL}/user/images`, {
+  getUserImages: async (props) => {
+    const response = await axios.get(`${API_URL}/user/images${props}`, {
       headers: { "access-token": token },
     });
+    return response.data;
+  },
+  updateImage: async (props) => {
+    const response = await axios.patch(
+      `${API_URL}/images`,
+      JSON.stringify(props),
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "access-token": token,
+        },
+      },
+    );
     return response.data;
   },
 };
