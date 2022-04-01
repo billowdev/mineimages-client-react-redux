@@ -1,9 +1,9 @@
 import { compose, applyMiddleware, createStore } from "redux";
 import reducers from "./reducers";
 import middleware from "./middleware";
-import { persistReducer } from "redux-persist";
-import storage from "redux-persist/lib/storage";
-import persistStore from "redux-persist/es/persistStore";
+// import storage from "redux-persist/lib/storage";
+// import { persistReducer } from "redux-persist";
+// import persistStore from "redux-persist/es/persistStore";
 
 // dev tool
 const composeEnhancers =
@@ -11,16 +11,16 @@ const composeEnhancers =
     window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) ||
   compose;
 
-const persistConfig = {
-  key: "root",
-  storage: storage,
-};
+// const persistConfig = {
+//   key: "root",
+//   storage: storage,
+// };
 
-const persistedReducer = persistReducer(persistConfig, reducers);
+// const persistedReducer = persistReducer(persistConfig, reducers);
 
 export const configureStore = (services) =>
   createStore(
-    persistedReducer,
+    reducers,
     composeEnhancers(applyMiddleware(...middleware.map((f) => f(services))))
   );
 

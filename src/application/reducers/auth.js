@@ -10,8 +10,6 @@ const initialState = {
   permission: null,
   email: null,
   firstName: null,
-  isSignupSuccess: false,
-  isValidateSuccess: false,
   error: null,
 };
 

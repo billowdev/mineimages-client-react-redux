@@ -9,18 +9,18 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { Provider } from "react-redux";
 import { configureStore } from "./application/store";
 import services from "./infrastructure/services";
-import { PersistGate } from "redux-persist/lib/integration/react";
-import { persistStore } from "redux-persist";
-const persistor = persistStore(configureStore(services));
+// import { PersistGate } from "redux-persist/lib/integration/react";
+// import { persistStore } from "redux-persist";
+// const persistor = persistStore(configureStore(services));
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={configureStore(services)}>
-      <PersistGate loading={null} persistor={persistor}>
+      {/* <PersistGate loading={null} persistor={persistor}> */}
         <Router>
           <App />
         </Router>
-      </PersistGate>
+      {/* </PersistGate> */}
     </Provider>
   </React.StrictMode>,
   document.getElementById("root")

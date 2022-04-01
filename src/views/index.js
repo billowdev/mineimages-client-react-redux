@@ -13,6 +13,7 @@ import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 import Signup from "./components/Auth/Signup";
 import Signin from "./components/Auth/Signin";
+import Authentication from "./components/Auth/Authentication";
 import Edit from "./components/Profile/Edit";
 import Admin from "./Admin";
 import Users from "./Admin/components/Users";
@@ -65,6 +66,11 @@ function App() {
               path="/mineimages/admin/categories"
               element={<Categories />}
             />
+             <Route
+                path="/authentication/activate/:token"
+                exact
+                element={<Authentication />}
+              />
           </Routes>
     </>
   );

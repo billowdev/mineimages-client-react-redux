@@ -1,7 +1,14 @@
-import { PAGE_LOADED, PROFILE_PAGE_LOADED, SET_LOADING_OFF, SET_LOADING_ON} from "../actions/ui";
+import {
+  PAGE_LOADED,
+  PROFILE_PAGE_LOADED,
+  SET_LOADING_OFF,
+  SET_LOADING_ON,
+} from "../actions/ui";
 import * as imagesActions from "../actions/images";
 import * as profileActions from "../actions/profile";
 import * as authActions from "../actions/auth";
+import * as orderActions from "../actions/orders";
+
 import toast from "react-hot-toast";
 import Swal from "sweetalert2";
 
@@ -14,12 +21,6 @@ const pageLoadedFlow =
     if (action.type === PAGE_LOADED) {
       console.log("page loaded");
       dispatch(imagesActions.loadImages);
-    }
-    if(action.type===SET_LOADING_ON){
-      toast.loading("loading...")
-    }
-    if(action.type===SET_LOADING_OFF){
-      toast.dismiss();
     }
   };
 
@@ -35,6 +36,8 @@ const signinLoadedFlow =
         title: "Signin success",
         text: `Welcome to mineimages `,
         // footer: '<a href="/profile">Profile</a>'
+      }).then(function () {
+        window.location = "/";
       });
     }
     if (action.type === authActions.LOAD_AUTH_FAILED) {
@@ -43,29 +46,20 @@ const signinLoadedFlow =
         title: "Login failed",
         text: `Please  try again`,
         // footer: '<a href="/profile">Profile</a>'
-      })
+      });
       // toast.error("Login failed");
-    }
-
-    if (action.type === authActions.LOAD_SIGNUP_SUCCESS) {
-      console.log("Email has send success please check your email");
-    }
-    if (action.type === authActions.LOAD_SIGNUP_FAILED) {
-      console.log("Sign up Failed");
     }
   };
 
-  const updateProfileFlow =
+const updateProfileFlow =
   ({ log }) =>
   ({ dispatch }) =>
   (next) =>
   (action) => {
     next(action);
     if (action.type === profileActions.UPLOAD_AVARTAR_SUCCESS) {
-    //  console.log("upload avartar success")
-     dispatch(profileActions.loadProfile);
-    }
-    if (action.type === profileActions.UPDATE_PROFILE_SUCCESS) {
+      dispatch(profileActions.loadProfile);
+    } else if (action.type === profileActions.UPDATE_PROFILE_SUCCESS) {
       Swal.fire({
         icon: "success",
         title: "อัปเดตข้อมูลโปรไฟล์สำเร็จ",
@@ -73,13 +67,24 @@ const signinLoadedFlow =
         // footer: '<a href="/profile">Profile</a>'
       });
       dispatch(profileActions.loadProfile);
-     }
-    if(action.type === profileActions.UPLOAD_AVARTAR_FAILED) {
-      console.log("Upload avartar faile")
+    } else if (action.type === profileActions.UPLOAD_AVARTAR_FAILED) {
+      console.log("Upload avartar faile");
+    } else {
+      next(action);
     }
   };
 
-  
-  
+const orderFlow =
+  ({ log }) =>
+  ({ dispatch }) =>
+  (next) =>
+  (action) => {
+    next(action);
+    if (action.type === orderActions.USER_ORDER_SUCCESS) {
+      console.log("ON UI MIDDLEWARE ORDER SUCCESS");
+    } else {
+      next(action);
+    }
+  };
 
 export default [pageLoadedFlow, signinLoadedFlow, updateProfileFlow];

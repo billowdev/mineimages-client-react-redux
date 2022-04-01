@@ -21,9 +21,12 @@ export default function Home() {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
 
-  const handleOrder = () => {};
+  const handleOrder = () => {
+    console.log("order", ModalImageData.id);
 
-  const dataImage = "";
+  };
+
+
   const images = useSelector(getImages);
   const loading = useSelector(getLoading);
   const ModalImageData = useSelector(getModalImages);
@@ -34,6 +37,7 @@ export default function Home() {
   };
 
   useEffect(() => {
+    setShow(false)
     dispatch(pageLoaded);
   }, [dispatch]);
 
@@ -80,7 +84,6 @@ export default function Home() {
       {loading ? (
         "Loading  images..."
       ) : (
-        // <></>
         <>
           <div className="gallery">
             {images.map((image, index) => (

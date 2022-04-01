@@ -1,23 +1,34 @@
 import React, { useEffect, useState } from "react";
-import {
-  Row,
-  Button,
-  Container,
-} from "react-bootstrap";
+import { Row, Button, Container } from "react-bootstrap";
 import toast from "react-hot-toast";
-import { useDispatch } from "react-redux";
-
+import { validate } from "../../../infrastructure/services/api/auth";
+import Layout from "../Layout";
 export default function Authentication() {
-  const dispatch = useDispatch();
+  const [activated, setActivated] = useState();
+
   useEffect(() => {
     const data = window.location.pathname.split("/");
     const token = { token: data[3] };
-    // dispatch()
-  }, [dispatch]);
+    const activate = validate(token).then((resp) => {
+      console.log(resp);
+      if (resp.error) {
+        setActivated(false);
+      } else {
+        setActivated(true);
+      }
+    });
+    toast.promise(activate, {
+      loading: "Loading...",
+      success: "Activate account success",
+      error: "link activation has already expriry",
+    });
+  }, []);
 
-  return (
+  const activationSection = (
     <div>
-      {activated && <Container>
+      {activated && console.log(activated)}
+      {activated && (
+        <Container>
           <Row className="mt-5">
             <div
               className="shadow-sm  p-3 text-center rounded"
@@ -28,11 +39,13 @@ export default function Authentication() {
                 Welcome to mineimages
               </h1>
               <hr />
-              <Button className="btn-success" href="/auth/signin">Sign in</Button>
+              <Button className="btn-success" href="/auth/signin">
+                Sign in
+              </Button>
             </div>
-            
           </Row>
-        </Container>}
+        </Container>
+      )}
       {!activated && (
         <Container>
           <Row className="mt-5">
@@ -42,14 +55,16 @@ export default function Authentication() {
             >
               <h1 className="text-warning">
                 Account have been activated <br />
-              </h1>
-              <hr />
-              <Button className="btn-success" href="/auth/signin">Sign in</Button>
+              </h1> 
             </div>
-            
           </Row>
         </Container>
       )}
     </div>
+  );
+  return (
+    <Layout>
+      <div style={{marginBottom: "20rem"}}>{activationSection}</div>
+    </Layout>
   );
 }

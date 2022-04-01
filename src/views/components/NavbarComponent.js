@@ -36,19 +36,14 @@ export default function NavbarComponent() {
   const dispatch = useDispatch();
   const authStatus = useSelector(getAuthStatus);
 
-  const handleLogin = () => {
-    const email = "lacakkarapon@gmail.com";
-    const password = "12341234";
-    dispatch(signinAction({ email, password }));
-    console.log("hadnlelogin click");
-  };
   const handleLogout = () => {
     dispatch(signoutAction());
-    console.log("auth state on Navbar", authStatus);
+    window.location = "/";
   };
+
   useEffect(() => {
     dispatch(isAuthAction());
-    console.log(authStatus);
+    // console.log(authStatus);
   }, [dispatch]);
 
   return (
