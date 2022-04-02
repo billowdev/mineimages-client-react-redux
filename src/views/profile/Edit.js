@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
-import { Container, Button } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEdit, faSignOut } from "@fortawesome/free-solid-svg-icons";
+import { faEdit } from "@fortawesome/free-solid-svg-icons";
 
 import { useDispatch, useSelector } from "react-redux";
 import { uploadAvartar } from "../../application/actions/profile";
@@ -11,11 +11,15 @@ import { loadProfile } from "../../application/actions/profile";
 import { getLoading } from "../../application/selectors/ui";
 import { updateProfile } from "../../application/actions/profile";
 
-import toast from "react-hot-toast";
+
 import { Link } from "react-router-dom";
 import Layout from "../components/Layout";
 
 export default function Edit() {
+  const dispatch = useDispatch();
+  const profile = useSelector(getProfile);
+  const loading = useSelector(getLoading);
+
   const [firstName, setFirstName] = useState(null);
   const [lastName, setLastName] = useState(null);
   // const [email, setEmail] = useState(null);
@@ -54,7 +58,7 @@ export default function Edit() {
       reader.readAsDataURL(file);
     }
   };
-  const handleUpdateProfile = (event) => {
+  const handleUpdateProfile = (e) => {
     let updateUserData = { firstName, lastName, telephone, about };
     let updateUserAddress = {
       addressLine1,
@@ -73,14 +77,8 @@ export default function Edit() {
         delete updateUserAddress[key];
       }
     });
-    const update = dispatch(
-      updateProfile({ updateUserData, updateUserAddress })
-    );
+    dispatch(updateProfile({ updateUserData, updateUserAddress }));
   };
-
-  const dispatch = useDispatch();
-  const profile = useSelector(getProfile);
-  const loading = useSelector(getLoading);
 
   useEffect(() => {
     dispatch(loadProfile);
@@ -92,7 +90,7 @@ export default function Edit() {
         "loading...."
       ) : (
         <>
-          <Container className="item-center profile-body ">
+          <div className="container item-center profile-body ">
             <div className="edit-section">
               <div className="row">
                 <div className="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
@@ -175,6 +173,7 @@ export default function Edit() {
                             <label htmlFor="eMail">Email</label>
                             <input
                               value={profile.email}
+                              readOnly
                               type="email"
                               className="form-control"
                               id="eMail"
@@ -316,9 +315,11 @@ export default function Edit() {
                               </button>
                             </Link>
                             <button
-                              type="button"
-                              // id="submit"
-                              onClick={handleUpdateProfile}
+                              type="submit"
+                              id="submit"
+                              onClick={(e) => {
+                                handleUpdateProfile(e);
+                              }}
                               name="submit"
                               className="btn btn-primary"
                             >
@@ -332,7 +333,7 @@ export default function Edit() {
                 </div>
               </div>
             </div>
-          </Container>
+          </div>
         </>
       )}
     </>

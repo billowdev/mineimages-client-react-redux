@@ -1,6 +1,6 @@
 {
-  "name": "essential-todos",
-  "version": "0.1.0",
+  "name": "mineimages",
+  "version": "0.4.0",
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.1.1",

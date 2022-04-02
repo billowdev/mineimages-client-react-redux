@@ -6,7 +6,11 @@ import axios from "axios";
 import DataTable from "react-data-table-component";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { updateImage, getUserImages } from "../../application/actions/images";
+import {
+  updateImage,
+  getUserImages,
+  userDeleteImage,
+} from "../../application/actions/images";
 import { getUserImagesData } from "../../application/selectors/images";
 
 function UserImages() {
@@ -122,12 +126,9 @@ function UserImages() {
       icon: "success",
       title: "เรียบร้อย",
       text: `ข้อมูลของคุณถูกอัปเดตแล้ว !`,
-    }).then(() => {
-      window.location.reload();
     });
-
-    console.log("data form save", typeof saveimage);
   };
+
   const handleDelete = (id) => {
     Swal.fire({
       title: "คุณต้องการที่จะลบหรือไม่?",
@@ -142,18 +143,23 @@ function UserImages() {
       },
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire("Saved!", `ลบรูปภาพเรียบร้อย ${id}`, "success");
+        Swal.fire("Saved!", `ลบรูปภาพเรียบร้อย ${id}`, "success").then(
+          (resp) => {
+            dispatch(userDeleteImage(id));
+          }
+        );
       }
     });
   };
-  const handleupdateImage = (e, id) => {
-    dispatch(updateImage({ id: id, visible: e.target.value }));
-  };
-  const [fastVisibleState, setFastVisibleState] = useState(false);
+
+  // const handleupdateImage = (e, id) => {
+  //   dispatch(updateImage({ id: id, visible: e.target.value }));
+  // };
+  // const [fastVisibleState, setFastVisibleState] = useState(false);
 
   const columns = [
     {
-      name: "image",
+      name: "Images",
       selector: (row) => row.pathOrigin,
       cell: (row) => (
         <img src={row.pathOrigin} width={240} height={240} alt={row.name} />
@@ -170,7 +176,6 @@ function UserImages() {
       selector: (row) => row.detail,
       sortable: true,
       cell: (row) => <p>{row.detail}</p>,
-      // width: "300px",
     },
     {
       name: "price",
@@ -179,7 +184,7 @@ function UserImages() {
       width: "100px",
     },
     {
-      name: "status",
+      name: "Status",
       selector: (row) => row.status,
       cell: (row) => (
         <div>
@@ -193,7 +198,8 @@ function UserImages() {
       selector: (row) => row.visible,
       cell: (row) => (
         <div>
-          <div name="visible" className="form-check form-switch">
+          <span>{row.visible}</span>
+          {/* <div name="visible" className="form-check form-switch">
             <input
               className="form-check-input"
               type="checkbox"
@@ -204,13 +210,10 @@ function UserImages() {
                 handleupdateImage(e, row.id);
               }}
             />
-            {/* <label className="form-check-label" htmlFor="visible">
-              visible
-            </label> */}
-          </div>
+          </div> */}
         </div>
       ),
-      width: "100px",
+      width: "120px",
     },
     {
       name: "",
@@ -226,30 +229,12 @@ function UserImages() {
               handleEditImageForm(e, row);
             }}
           >
-            Edit
+            แก้ไข
           </button>
         </div>
       ),
-      width: "90px",
+      width: "100px",
     },
-    // {
-    //   name: "",
-    //   selector: (row) => row,
-    //   cell: (row) => (
-    //     <div>
-    //       <button
-    //         className="btn btn-warning"
-    //         value={row.id}
-    //         onClick={(e) => {
-    //           handleDelete(row.id);
-    //         }}
-    //       >
-    //         delete
-    //       </button>
-    //     </div>
-    //   ),
-    //   width: "120px",
-    // },
   ];
 
   return (
@@ -258,7 +243,7 @@ function UserImages() {
         <div className="image-history align-content-end mt-4">
           <h3 className="text-align-center">MineImages</h3>
           <form onSubmit={handleSearchSubmit}>
-            <div class="input-group">
+            <div className="input-group">
               <input
                 type="search"
                 class="form-control rounded"
@@ -268,16 +253,10 @@ function UserImages() {
                 onChange={handleSearchChange}
               />
               <button type="submit" class="btn btn-outline-success ms-2">
-                search
+                ค้นหา
               </button>
               <Link to="/profile/images/upload">
-                {" "}
-                <button
-                  class="btn btn-outline-success ms-2"
-                  
-                >
-                  Upload Image
-                </button>
+                <button class="btn btn-outline-success ms-2">อัปโหลด</button>
               </Link>
             </div>
           </form>
@@ -291,7 +270,7 @@ function UserImages() {
             progressPending={loading}
             pagination
             paginationServer
-            paginationTotalRows={ImagesData.totalRows}
+            paginationTotalRows={ImagesData.total}
             onChangeRowsPerPage={handlePerRowsChange}
             onChangePage={handlePageChange}
             onSort={handleSort}
@@ -308,7 +287,7 @@ function UserImages() {
               <div className="modal-content">
                 <div className="modal-header">
                   <h5 className="modal-title" id="exampleModalLabel">
-                    Edit image
+                    แก้ไขรูปภาพ
                   </h5>
                   <button
                     type="button"
@@ -318,7 +297,7 @@ function UserImages() {
                   ></button>
                 </div>
                 <div className="modal-body">
-                  <form onSubmit={handleFormSave}>
+                  <form>
                     <div className="mb-3">
                       <label className="form-label">ID</label>
                       <input
@@ -332,7 +311,7 @@ function UserImages() {
                       />
                     </div>
                     <div className="mb-3">
-                      <label className="form-label">name</label>
+                      <label className="form-label">ชื่อ</label>
                       <input
                         type="text"
                         className="form-control"
@@ -343,7 +322,7 @@ function UserImages() {
                       />
                     </div>
                     <div className="mb-3">
-                      <label className="form-label">detail</label>
+                      <label className="form-label">รายละเอียด</label>
                       <textarea
                         rows="4"
                         cols="50"
@@ -355,7 +334,7 @@ function UserImages() {
                       ></textarea>
                     </div>
                     <div className="mb-3">
-                      <label className="form-label">price</label>
+                      <label className="form-label">ราคา</label>
                       <input
                         type="number"
                         min="0"
@@ -379,31 +358,29 @@ function UserImages() {
                         }}
                       />
                       <label className="form-check-label" htmlFor="visible">
-                        visible
+                        ระดับการมองเห็น
                       </label>
                     </div>
-
-                    <div className="modal-footer d-block">
-                      <button
-                        type="submit"
-                        data-bs-dismiss="modal"
-                        className="btn btn-success float-end"
-                      >
-                        Save Row
-                      </button>
-
-                      <button
-                        type="submit"
-                        data-bs-dismiss="modal"
-                        className="btn btn-danger float-start"
-                        onClick={() => {
-                          handleDelete(editFormData.id);
-                        }}
-                      >
-                        Delete Row
-                      </button>
-                    </div>
                   </form>
+                  <div className="modal-footer d-block">
+                    <button
+                      type="submit"
+                      data-bs-dismiss="modal"
+                      className="btn btn-success float-end"
+                      onClick={handleFormSave}
+                    >
+                      บันทึก
+                    </button>
+                    <button
+                      data-bs-dismiss="modal"
+                      className="btn btn-danger float-start"
+                      onClick={(e) => {
+                        handleDelete(editFormData.id);
+                      }}
+                    >
+                      ลบ
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>

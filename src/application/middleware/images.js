@@ -9,7 +9,10 @@ import {
   getUserImagesFailed,
   UPDATE_IMAGE,
   updateImageSuccess,
-  updateImageFailed
+  updateImageFailed,
+  USER_DELETE_IMAGE,
+  userDeleteImageSuccess,
+  userDeleteImageFailed
 } from "../actions/images";
 
 import * as uiActions from "../actions/ui";
@@ -38,7 +41,6 @@ const getImageByIdFlow =
   (next) =>
   async (action) => {
     next(action);
-
     try {
       if (action.type === GET_IMAGE_BY_ID) {
         // console.log(`ON IMAGE MIDDLEWARE ${action.payload}`)
@@ -61,7 +63,6 @@ const getUserImagesFlow =
       try {
         dispatch(uiActions.setLoading(true));
         const images = await api.images.getUserImages(action.payload);
-      
         dispatch(getUserImagesSuccess(images));
         dispatch(uiActions.setLoading(false));
       } catch (err) {
@@ -85,12 +86,31 @@ const updateImageFlow =
       } catch (err) {
         dispatch(updateImageFailed(err));
       }
+    } 
+  };
+
+  const deleteImageFlow =
+  ({ api }) =>
+  ({ dispatch }) =>
+  (next) =>
+  async (action) => {
+    next(action);
+    if (action.type === USER_DELETE_IMAGE) {
+      try {
+        console.log("on middle ware", action.payload)
+        // await api.images.userDeleteImage(action.payload);
+        dispatch(userDeleteImageSuccess());
+      } catch (err) {
+        // dispatch(userDeleteImageFailed(err));
+      }
     }
   };
 
+  
 export default [
   loadImagesFlow,
   getImageByIdFlow,
   getUserImagesFlow,
   updateImageFlow,
+  deleteImageFlow
 ];
