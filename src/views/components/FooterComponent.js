@@ -1,13 +1,15 @@
 import React from "react";
 
-export default function Footer() {
+export default function FooterComponent() {
   return (
     <footer className="footer">
       <div className="footer_bg">
         <div className="footer_container container grid">
           <div>
             <h1 className="footer_title">MineImages</h1>
-            <span className="footer_subtitle">การเขียนโปรแกรมบนเว็บเพื่อท้องถิ่น</span>
+            <span className="footer_subtitle">
+              การเขียนโปรแกรมบนเว็บเพื่อท้องถิ่น
+            </span>
           </div>
           <ul className="footer_links">
             <li>
@@ -25,7 +27,7 @@ export default function Footer() {
                 Cart
               </a>
             </li>
-			<li>
+            <li>
               <a href="#contact" className="footer_link">
                 Contact
               </a>

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faSignOut } from "@fortawesome/free-solid-svg-icons";
 import { Button } from "react-bootstrap";
@@ -9,13 +8,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { getProfile } from "../../application/selectors/profile";
 import { loadProfile } from "../../application/actions/profile";
 import { getLoading } from "../../application/selectors/ui";
-import { pageLoaded } from "../../application/actions/ui";
+// import { pageLoaded } from "../../application/actions/ui";
 
 import { Card } from "react-bootstrap";
 import NavbarComponent from "../components/NavbarComponent";
-import TabContent from "../components/Profile/TabContent";
-import { loadCompleteOrders } from "../../application/actions/complete_orders";
-import { getCompleteOrders } from "../../application/selectors/complete_orders";
+import TabContent from "./TabContent";
+import { loadCompleteOrders } from "../../application/actions/orders";
+import { getCompleteOrders } from "../../application/selectors/orders";
 import Footer from "../components/FooterComponent";
 import Layout from "../components/Layout";
 

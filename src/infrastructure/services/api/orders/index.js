@@ -1,5 +1,5 @@
 import axios from "axios";
-const { API_URL, token } = require("../../../../utils/api");
+const { API_URL, token } = require("../config");
 
 export default {
   getOrders: async (props) => {
@@ -15,7 +15,7 @@ export default {
     return response.data;
   },
   userOrder: async (props) => {
-    const response = await axios.post(`${API_URL}/order`, props, {
+    const response = await axios.post(`${API_URL}/order`, {id:props}, {
       headers: { "access-token": token },
     });
     return response.data;

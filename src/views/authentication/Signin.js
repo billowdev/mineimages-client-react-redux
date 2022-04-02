@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import { Container, Button } from "react-bootstrap";
-import { useDispatch } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faUnlockAlt } from "@fortawesome/free-solid-svg-icons";
-import { useNavigate } from "react-router-dom";
-import { signinAction, isAuthAction } from "../../../application/actions/auth";
 import { Col, Row, Form, InputGroup } from "react-bootstrap";
-import Layout from "../Layout";
+import Layout from "../components/Layout";
+import { useDispatch } from "react-redux";
+import { loadSignin } from "../../application/actions/auth";
 
 export default function Signin() {
   const dispatch = useDispatch();
@@ -14,11 +13,10 @@ export default function Signin() {
   const [password, setPassword] = useState("");
 
   const handleLogin = () => {
-    dispatch(signinAction({ email, password }));
+    dispatch(loadSignin({ email, password }));
     setEmail("");
     setPassword("");
   };
-
   const signin = (
     <Container className="sign-in">
       <Row className="mt-5">

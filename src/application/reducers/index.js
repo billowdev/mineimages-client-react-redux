@@ -1,18 +1,16 @@
-import { combineReducers } from "redux";
-import ui from "./ui";
-import auth from "./auth";
-import images from "./images";
-import profile from "./profile";
-import complete_orders from "./complete_orders";
-import orders from "./orders";
-import admin from "./admin";
+import { combineReducers } from 'redux';
+import ui from './ui';
+import auth from './auth';
+import images from './images';
+import orders from './orders';
+import profile from './profile';
+import categories from './categories';
 
 export default combineReducers({
-  ui,
-  auth,
-  images,
-  profile,
-  complete_orders,
-  orders,
-  admin
-});
+    ui,
+    auth,
+    images,
+    orders,
+    profile,
+    categories,
+})

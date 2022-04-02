@@ -1,17 +1,9 @@
 import React, { useEffect } from "react";
-import {
-  Navbar,
-  Container,
-  Nav,
-  NavDropdown,
-  Button,
-  NavItem,
-} from "react-bootstrap";
+import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
+import { loadAuth, loadSignout } from "../../application/actions/auth";
 import { getAuthStatus } from "../../application/selectors/auth";
-
-import { Route, Link } from "react-router-dom";
-
+import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPowerOff,
@@ -25,11 +17,6 @@ import {
   faUnlockKeyhole,
 } from "@fortawesome/free-solid-svg-icons";
 
-import {
-  signinAction,
-  isAuthAction,
-  signoutAction,
-} from "../../application/actions/auth";
 import "../assets/css/style.css";
 
 export default function NavbarComponent() {
@@ -37,13 +24,12 @@ export default function NavbarComponent() {
   const authStatus = useSelector(getAuthStatus);
 
   const handleLogout = () => {
-    dispatch(signoutAction());
+    dispatch(loadSignout);
     window.location = "/";
   };
 
   useEffect(() => {
-    dispatch(isAuthAction());
-    // console.log(authStatus);
+    dispatch(loadAuth());
   }, [dispatch]);
 
   return (
@@ -64,7 +50,7 @@ export default function NavbarComponent() {
                   <NavDropdown
                     title={
                       <>
-                        <FontAwesomeIcon icon={faUser} /> {authStatus.firstName}
+                        <FontAwesomeIcon icon={faUser} /> {authStatus.authState.firstName}
                       </>
                     }
                     id="basic-nav-dropdown"
@@ -103,12 +89,12 @@ export default function NavbarComponent() {
               <>
                 {!authStatus.isAuth && (
                   <>
-                    <Nav.Link href="/login">
+                    <Nav.Link href="/signin">
                       <FontAwesomeIcon icon={faRightToBracket} />
-                      Login
+                      Signin
                     </Nav.Link>
-                    <Nav.Link href="/register">
-                      <FontAwesomeIcon icon={faRegistered} /> Register
+                    <Nav.Link href="/signup">
+                      <FontAwesomeIcon icon={faRegistered} /> Signup
                     </Nav.Link>
                   </>
                 )}

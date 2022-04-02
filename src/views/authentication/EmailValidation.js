@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Row, Button, Container } from "react-bootstrap";
 import toast from "react-hot-toast";
-import { validate } from "../../../infrastructure/services/api/auth";
-import Layout from "../Layout";
-export default function Authentication() {
+import { validate } from "../../infrastructure/services/api/auth";
+import Layout from "../components/Layout";
+
+export default function EmailValidation() {
   const [activated, setActivated] = useState();
 
   useEffect(() => {

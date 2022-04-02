@@ -1,5 +1,5 @@
 import axios from "axios";
-const { API_URL, token } = require("../../../../utils/api");
+const { API_URL, token } = require("../config");
 
 export default {
   getProfile: async () => {
@@ -22,8 +22,6 @@ export default {
     return response.data;
   },
   updateProfile: async (props) => {
-    // const data = props;
-    // console.log("On api profile-updateProfile: ", props.updateUserAddress)
     var url = `${API_URL}/user/profile`;
     const response = await axios.patch(
       url,

@@ -5,17 +5,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faSignOut } from "@fortawesome/free-solid-svg-icons";
 
 import { useDispatch, useSelector } from "react-redux";
-import { uploadAvartar } from "../../../application/actions/profile";
-import { getProfile } from "../../../application/selectors/profile";
-import { loadProfile } from "../../../application/actions/profile";
-import { getLoading } from "../../../application/selectors/ui";
-import { updateProfile } from "../../../application/actions/profile";
+import { uploadAvartar } from "../../application/actions/profile";
+import { getProfile } from "../../application/selectors/profile";
+import { loadProfile } from "../../application/actions/profile";
+import { getLoading } from "../../application/selectors/ui";
+import { updateProfile } from "../../application/actions/profile";
 
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
-import NavbarComponent from "../NavbarComponent";
-import Footer from "../FooterComponent";
-import Layout from "../Layout";
+import Layout from "../components/Layout";
 
 export default function Edit() {
   const [firstName, setFirstName] = useState(null);

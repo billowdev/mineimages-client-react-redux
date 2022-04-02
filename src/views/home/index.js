@@ -1,31 +1,25 @@
 import React, { useState, useEffect } from "react";
-import { API_URL, CLOUDINARY_NAME, AccessHeader } from "../../utils/api";
-import Swal from "sweetalert2";
+import { CLOUDINARY_NAME } from "../../infrastructure/services/api/config";
 import { Image, Transformation } from "cloudinary-react";
 import { Modal, Button } from "react-bootstrap";
-
 import { useDispatch, useSelector } from "react-redux";
 import { getImages, getModalImages } from "../../application/selectors/images";
-import {
-  getImageById,
-  loadImages,
-  putImages,
-} from "../../application/actions/images";
 import { pageLoaded } from "../../application/actions/ui";
+import { getImageById } from "../../application/actions/images";
 import { getLoading } from "../../application/selectors/ui";
-import Gallery from "react-grid-gallery";
 import Layout from "../components/Layout";
+import Banner from "./Banner";
+import { userOrder } from "../../application/actions/orders";
 
-export default function Home() {
+function Home() {
   const dispatch = useDispatch();
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
 
   const handleOrder = () => {
-    console.log("order", ModalImageData.id);
-
+    dispatch(userOrder(ModalImageData.id))
+    setShow(false)
   };
-
 
   const images = useSelector(getImages);
   const loading = useSelector(getLoading);
@@ -37,49 +31,11 @@ export default function Home() {
   };
 
   useEffect(() => {
-    setShow(false)
+    setShow(false);
     dispatch(pageLoaded);
   }, [dispatch]);
 
-  const bannerSection = (
-    <section>
-      <div className="page-header d-flex align-items-center">
-        <div className="container">
-          <h1 className="fw-bold"> MineImages </h1>
-          <h2> Welcome </h2>
-        </div>
-      </div>
-      <div className="container">
-        <div className="row justify-content-center">
-          <section className="col-12 col-md-8">
-            <img
-              src={require("../assets/images/mineimageslogo.png")}
-              className="avatar"
-            />
-            <div className="input-group mb-3">
-              <input
-                type="search"
-                className="form-control rounded"
-                placeholder="Search"
-                aria-label="Search"
-                aria-describedby="search-addon"
-              />
-              <button type="submit" className="btn btn-outline-success">
-                search
-              </button>
-            </div>
-          </section>
-        </div>
-        <div className="row py-5 g-3">
-          <section className="col-12 pb-3 text-center">
-            <h3>รูปภาพ</h3>
-          </section>
-        </div>
-      </div>
-    </section>
-  );
-
-  const imageSection = (
+  const ImagesSection = (
     <>
       {loading ? (
         "Loading  images..."
@@ -90,10 +46,10 @@ export default function Home() {
               <Image
                 key={index}
                 cloudName={CLOUDINARY_NAME}
-                alt={image}
-                publicId={image}
+                alt={image.id}
+                publicId={image.publicId}
                 crop="scale"
-                onClick={handleOnImageClick}
+                onClick={(e)=>{handleOnImageClick(e)}}
               >
                 <Transformation
                   crop="scale"
@@ -144,13 +100,11 @@ export default function Home() {
     </>
   );
   return (
-    <>
-      <Layout>
-        <div classname="home-body">
-          {bannerSection}
-          {imageSection}
-        </div>
-      </Layout>
-    </>
+    <Layout>
+      <Banner />
+      {ImagesSection}
+    </Layout>
   );
 }
+
+export default Home;

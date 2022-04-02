@@ -1,15 +1,7 @@
-export const LOAD_PROFILE = "[profile] load";
-export const LOAD_PROFILE_SUCCESS = "[profile] load success";
-export const LOAD_PROFILE_FAILED = "[profile] load failed";
-
-export const UPLOAD_AVARTAR = "[profile] upload avartar";
-export const UPDATE_PROFILE = "[profile] update profile";
-
-export const UPLOAD_AVARTAR_SUCCESS = "[profile] upload success";
-export const UPLOAD_AVARTAR_FAILED = "[profile] upload failed";
-
-export const UPDATE_PROFILE_SUCCESS = "[profile] update profile-success";
-
+// =================== LOAD PROFILE DATA =================== 
+export const LOAD_PROFILE = "[PROFILE] load";
+export const LOAD_PROFILE_SUCCESS = "[PROFILE] LOAD SUCCESS";
+export const LOAD_PROFILE_FAILED = "[PROFILE] LOAD FAILED";
 
 export const loadProfile = {
   type: LOAD_PROFILE,
@@ -25,6 +17,10 @@ export const loadProfileFailed = (error) => ({
   payload: error,
 });
 
+export const UPLOAD_AVARTAR = "[PROFILE] UPLOAD AVARTAR";
+export const UPLOAD_AVARTAR_SUCCESS = "[PROFILE] upload success";
+export const UPLOAD_AVARTAR_FAILED = "[profilPROFILEe] upLOAD FAILED";
+
 export const uploadAvartar = (profile) => ({
   type: UPLOAD_AVARTAR,
   payload: profile,
@@ -39,13 +35,15 @@ export const uploadAvartarFailed = (error) => ({
   payload: error,
 });
 
+export const UPDATE_PROFILE = "[PROFILE] UPDATE";
+export const UPDATE_PROFILE_SUCCESS = "[PROFILE] UPDATE SUCCESS";
 
-export const updateProfile = (profile) =>({
+export const updateProfile = (profile) => ({
   type: UPDATE_PROFILE,
-  payload: profile
-})
+  payload: profile,
+});
 
-export const updateProfileSuccess = (profile) =>({
+export const updateProfileSuccess = (profile) => ({
   type: UPDATE_PROFILE_SUCCESS,
-  payload: profile
-})
+  payload: profile,
+});

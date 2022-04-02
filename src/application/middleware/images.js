@@ -2,8 +2,6 @@ import {
   loadImageSuccess,
   loadImageFailed,
   LOAD_IMAGES,
-  PUT_IMAGE,
-  setImages,
   GET_IMAGE_BY_ID,
   getImageByIdSuccess,
   GET_USER_IMAGES,
@@ -34,28 +32,6 @@ const loadImagesFlow =
     }
   };
 
-const putImageFlow =
-  () =>
-  ({ dispatch, getState }) =>
-  (next) =>
-  (action) => {
-    if (action.type === PUT_IMAGE) {
-      const oldImageClone = getState().images.allImages.map((image) => ({
-        ...image,
-      }));
-
-      const newImage = action.payload;
-
-      const index = oldImageClone.findIndex(
-        (image) => image.id === newImage.id
-      );
-
-      oldImageClone[index] = newImage;
-      dispatch(setImages(oldImageClone));
-    }
-    next(action);
-  };
-
 const getImageByIdFlow =
   ({ api }) =>
   ({ dispatch }) =>
@@ -63,19 +39,19 @@ const getImageByIdFlow =
   async (action) => {
     next(action);
 
-   try{
-    if(action.type === GET_IMAGE_BY_ID){
-      console.log("On middleware get image by id : ", action.payload)
-      const images = await api.images.getImageById(action.payload);
-      dispatch(getImageByIdSuccess(images));
+    try {
+      if (action.type === GET_IMAGE_BY_ID) {
+        // console.log(`ON IMAGE MIDDLEWARE ${action.payload}`)
+        const images = await api.images.getImageById(action.payload);
+        // console.log("On middleware get image by id : ", images)
+        dispatch(getImageByIdSuccess(images));
+      }
+    } catch (err) {
+      console.log("ERROR ON MIDDLEWARE images.getImageByIdFlow");
     }
-   } catch(err){
-     console.log("ERROR ON MIDDLEWARE images.getImageByIdFlow")
-   }
   };
 
-
-  const getUserImagesFlow =
+const getUserImagesFlow =
   ({ api }) =>
   ({ dispatch }) =>
   (next) =>
@@ -85,6 +61,7 @@ const getImageByIdFlow =
       try {
         dispatch(uiActions.setLoading(true));
         const images = await api.images.getUserImages(action.payload);
+      
         dispatch(getUserImagesSuccess(images));
         dispatch(uiActions.setLoading(false));
       } catch (err) {
@@ -93,7 +70,7 @@ const getImageByIdFlow =
     }
   };
 
-  const updateImageFlow =
+const updateImageFlow =
   ({ api }) =>
   ({ dispatch }) =>
   (next) =>
@@ -102,9 +79,7 @@ const getImageByIdFlow =
     if (action.type === UPDATE_IMAGE) {
       try {
         dispatch(uiActions.setLoading(true));
-        const changeVisibleResp = await api.images.updateImage(action.payload);
-        // console.log("On middleware:",action.payload)
-        // console.log(`Change visible resp on middleware ${changeVisibleResp}`)
+        await api.images.updateImage(action.payload);
         dispatch(updateImageSuccess(true));
         dispatch(uiActions.setLoading(false));
       } catch (err) {
@@ -113,5 +88,9 @@ const getImageByIdFlow =
     }
   };
 
-
-export default [loadImagesFlow, putImageFlow, getImageByIdFlow, getUserImagesFlow, updateImageFlow];
+export default [
+  loadImagesFlow,
+  getImageByIdFlow,
+  getUserImagesFlow,
+  updateImageFlow,
+];
