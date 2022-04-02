@@ -1,4 +1,4 @@
-// =================== LOAD ORDER =================== 
+// =================== LOAD ORDER ===================
 export const LOAD_ORDERS = "[ORDERS] LOAD ORDERS";
 export const LOAD_ORDERS_SUCCESS = "[ORDERS] LOAD ORDERS SUCCESS";
 export const LOAD_ORDERS_FAILED = "[ORDERS] LOAD ORDERS FAILED";
@@ -18,29 +18,32 @@ export const loadOrdersFailed = (error) => ({
   payload: error,
 });
 
-// =================== LOAD USER ORDER =================== 
+// =================== LOAD USER ORDER ===================
 export const USER_ORDER = "[ORDERS] USER ORDER";
 export const USER_ORDER_SUCCESS = "[ORDERS] USER ORDER SUCCESS";
 export const USER_ORDER_FAILED = "[ORDERS] USER FAILED";
 
-export const userOrder = (order) =>({
+export const userOrder = (order) => ({
   type: USER_ORDER,
   payload: order,
-})
+});
 
-export const userOrderSuccess  = {
+export const userOrderSuccess = (order) => ({
   type: USER_ORDER_SUCCESS,
-}
+  payload: order,
+});
 
 export const userOrderFailed = (error) => ({
   type: USER_ORDER_FAILED,
   payload: error,
 });
 
-// =================== LOAD USER ORDER COMPLETE ORDER =================== 
+// =================== LOAD USER ORDER COMPLETE ORDER ===================
 export const LOAD_COMPLETE_ORDERS = "[COMPLETE_ORDER] load complete order";
-export const LOAD_COMPLETE_ORDERS_SUCCESS = "[COMPLETE_ORDER] load complete order success";
-export const LOAD_COMPLETE_ORDERS_FAILED = "[COMPLETE_ORDER] load complete order failed";
+export const LOAD_COMPLETE_ORDERS_SUCCESS =
+  "[COMPLETE_ORDER] load complete order success";
+export const LOAD_COMPLETE_ORDERS_FAILED =
+  "[COMPLETE_ORDER] load complete order failed";
 
 export const loadCompleteOrders = {
   type: LOAD_COMPLETE_ORDERS,

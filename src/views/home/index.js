@@ -5,9 +5,11 @@ import { Modal, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { getImages, getModalImages } from "../../application/selectors/images";
 import { pageLoaded } from "../../application/actions/ui";
+import { getImageById } from "../../application/actions/images";
 import { getLoading } from "../../application/selectors/ui";
 import Layout from "../components/Layout";
 import Banner from "./Banner";
+import { userOrder } from "../../application/actions/orders";
 
 function Home() {
   const dispatch = useDispatch();
@@ -15,7 +17,8 @@ function Home() {
   const handleClose = () => setShow(false);
 
   const handleOrder = () => {
-    console.log("order", ModalImageData.id);
+    dispatch(userOrder(ModalImageData.id))
+    setShow(false)
   };
 
   const images = useSelector(getImages);
@@ -24,7 +27,7 @@ function Home() {
 
   const handleOnImageClick = async (event) => {
     setShow(true);
-    // dispatch(getImageById(event.target.alt));
+    dispatch(getImageById(event.target.alt));
   };
 
   useEffect(() => {
@@ -43,10 +46,10 @@ function Home() {
               <Image
                 key={index}
                 cloudName={CLOUDINARY_NAME}
-                alt={image}
-                publicId={image}
+                alt={image.id}
+                publicId={image.publicId}
                 crop="scale"
-                onClick={handleOnImageClick}
+                onClick={(e)=>{handleOnImageClick(e)}}
               >
                 <Transformation
                   crop="scale"

@@ -41,8 +41,9 @@ const getImageByIdFlow =
 
     try {
       if (action.type === GET_IMAGE_BY_ID) {
-        // console.log("On middleware get image by id : ", action.payload)
+        // console.log(`ON IMAGE MIDDLEWARE ${action.payload}`)
         const images = await api.images.getImageById(action.payload);
+        // console.log("On middleware get image by id : ", images)
         dispatch(getImageByIdSuccess(images));
       }
     } catch (err) {
@@ -60,6 +61,7 @@ const getUserImagesFlow =
       try {
         dispatch(uiActions.setLoading(true));
         const images = await api.images.getUserImages(action.payload);
+      
         dispatch(getUserImagesSuccess(images));
         dispatch(uiActions.setLoading(false));
       } catch (err) {

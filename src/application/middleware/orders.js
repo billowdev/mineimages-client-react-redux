@@ -40,12 +40,13 @@ const userOrderFlow =
     next(action);
     if (action.type === USER_ORDER) {
       try {
-        dispatch(uiActions.setLoading(true));
-        console.log("on middle ware orders", action.payload);
         const orders = await api.orders.userOrder(action.payload);
-        console.log("on middle ware orders", orders);
-        dispatch(userOrderSuccess());
-        dispatch(uiActions.setLoading(false));
+        const state = orders.success;
+        if (state === true) {
+          dispatch(userOrderSuccess(orders));
+        } else {
+          dispatch(userOrderFailed(orders));
+        }
       } catch (err) {
         dispatch(userOrderFailed(err));
       }
