@@ -2,7 +2,9 @@ import { PAGE_LOADED } from "../actions/ui";
 import Swal from "sweetalert2";
 import * as imagesActions from "../actions/images";
 import * as authActions from "../actions/auth";
-import * as ordersActions from "../actions/orders"
+import * as ordersActions from "../actions/orders";
+import * as profileActions from "../actions/profile";
+
 const pageLoadedFlow =
   ({ log }) =>
   ({ dispatch }) =>
@@ -45,6 +47,31 @@ const loadAuthActionFlow =
     }
   };
 
+const updateProfileFlow =
+  ({ log }) =>
+  ({ dispatch }) =>
+  (next) =>
+  (action) => {
+    next(action);
+    if (action.type === profileActions.UPLOAD_AVARTAR_SUCCESS) {
+      dispatch(profileActions.loadProfile);
+    } else if (action.type === profileActions.UPDATE_PROFILE_SUCCESS) {
+      Swal.fire({
+        icon: "success",
+        title: "อัปเดตข้อมูลโปรไฟล์สำเร็จ",
+        text: `ข้อมูลของคุณถูกอัปเดตแล้ว !`,
+        // footer: '<a href="/profile">Profile</a>'
+      });
+      dispatch(profileActions.loadProfile);
+    } else if (action.type === profileActions.UPLOAD_AVARTAR_FAILED) {
+      console.log("Upload avartar faile");
+    } else if (action.type === imagesActions.USER_DELETE_IMAGE_SUCCESS) {
+      window.location.reload();
+    } else {
+      next(action);
+    }
+  };
+
 const loadOrderFlow =
   ({ log }) =>
   ({ dispatch }) =>
@@ -58,7 +85,7 @@ const loadOrderFlow =
         text: `${action.payload.msg} please check your cart`,
       });
     }
-    if(action.type === ordersActions.USER_ORDER_FAILED){
+    if (action.type === ordersActions.USER_ORDER_FAILED) {
       Swal.fire({
         icon: "error",
         title: "ไม่สามารถสั่งซื้อได้",
@@ -67,4 +94,9 @@ const loadOrderFlow =
     }
   };
 
-export default [pageLoadedFlow, loadAuthActionFlow, loadOrderFlow];
+export default [
+  pageLoadedFlow,
+  loadAuthActionFlow,
+  loadOrderFlow,
+  updateProfileFlow,
+];

@@ -72,4 +72,22 @@ export const updateImage = (visible) => ({
   })
 
 
+// ============================== UPDATE IMAGES ACTION  ==============================
+export const USER_DELETE_IMAGE_SUCCESS = "[IMAGE] USER DELETE  SUCCESS";
+export const USER_DELETE_IMAGE_FAILED = "[IMAGE] USER DELETE IMAGE FAILED";
+export const USER_DELETE_IMAGE = "[IMAGE] USER DELETE IMAGE";
 
+export const userDeleteImage = (id) => ({
+	type: USER_DELETE_IMAGE,
+	payload: id
+  });
+  
+  export const userDeleteImageSuccess = (state) =>({
+	type: USER_DELETE_IMAGE_SUCCESS,
+	payload: state
+  })
+  
+  export const userDeleteImageFailed = (error) =>({
+	type: USER_DELETE_IMAGE_FAILED,
+	payload: error
+  })

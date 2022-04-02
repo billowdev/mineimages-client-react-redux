@@ -32,4 +32,17 @@ export default {
     );
     return response.data;
   },
+  userDeleteImage: async (props) =>{
+    const response = await axios.patch(
+      `${API_URL}/delete`,
+      JSON.stringify(props),
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "access-token": token,
+        },
+      },
+    );
+    return response.data;
+  }
 };
