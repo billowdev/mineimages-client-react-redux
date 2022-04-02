@@ -33,7 +33,7 @@ export default function Home() {
 
   const handleOnImageClick = async (event) => {
     setShow(true);
-    dispatch(getImageById(event.target.alt));
+    // dispatch(getImageById(event.target.alt));
   };
 
   useEffect(() => {

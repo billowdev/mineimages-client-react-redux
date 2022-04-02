@@ -43,7 +43,6 @@ export default function NavbarComponent() {
 
   useEffect(() => {
     dispatch(isAuthAction());
-    // console.log(authStatus);
   }, [dispatch]);
 
   return (

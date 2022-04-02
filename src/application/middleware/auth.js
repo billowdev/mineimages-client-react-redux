@@ -17,10 +17,10 @@ const isAuthFlow =
     next(action);
     if (action.type === ISAUTH_ACTION) {
       try {
-        dispatch(uiActions.setLoading(true));
+        // dispatch(uiActions.setLoading(true));
         const auth = await api.auth.isSignin();
         dispatch(loadIsAuthSuccess(auth));
-        dispatch(uiActions.setLoading(false));
+        // dispatch(uiActions.setLoading(false));
       } catch (err) {
         console.log("Invalid credential user not authentication");
         // dispatch(loadIsAuthFailed(err));

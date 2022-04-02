@@ -1,12 +1,13 @@
 import axios from "axios";
 const { API_URL, token } = require("../../../../utils/api");
+
 export default {
   getAll: async () => {
     const response = await axios.get(`${API_URL}/images/all`);
     return response.data;
   },
-  getImageById: async (props) => {
-    console.log("ON API image.getImageById", props);
+  getImageById: ({log}) =>async (props)=> {
+    log("ON API image.getImageById", props);
     const response = await axios.post(`${API_URL}/images/detail`, {
       imgid: props,
     });

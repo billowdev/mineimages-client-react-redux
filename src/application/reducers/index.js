@@ -6,6 +6,7 @@ import profile from "./profile";
 import complete_orders from "./complete_orders";
 import orders from "./orders";
 import admin from "./admin";
+import categories from "./categories";
 
 export default combineReducers({
   ui,
@@ -14,5 +15,6 @@ export default combineReducers({
   profile,
   complete_orders,
   orders,
-  admin
+  admin,
+  categories
 });

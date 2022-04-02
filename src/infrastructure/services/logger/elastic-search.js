@@ -1,4 +1,4 @@
-const log = message =>{
-	console.log('Sending to Elastic Search: ', message);
+const log = message => {
+    console.log('Sending to Elastic Search: ', message);
 }
-export default log
+export default log;

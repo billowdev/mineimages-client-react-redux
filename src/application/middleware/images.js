@@ -56,7 +56,7 @@ const putImageFlow =
     next(action);
   };
 
-const getImageByIdFlow =
+const getImageByIdFlow = 
   ({ api }) =>
   ({ dispatch }) =>
   (next) =>
@@ -65,7 +65,7 @@ const getImageByIdFlow =
 
    try{
     if(action.type === GET_IMAGE_BY_ID){
-      console.log("On middleware get image by id : ", action.payload)
+      // console.log("On middleware get image by id : ", action.payload)
       const images = await api.images.getImageById(action.payload);
       dispatch(getImageByIdSuccess(images));
     }

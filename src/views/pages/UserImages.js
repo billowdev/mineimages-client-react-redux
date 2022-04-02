@@ -270,9 +270,15 @@ function UserImages() {
               <button type="submit" class="btn btn-outline-success ms-2">
                 search
               </button>
-              <button class="btn btn-outline-success ms-2" href="/">
-                Upload Image
-              </button>
+              <Link to="/profile/images/upload">
+                {" "}
+                <button
+                  class="btn btn-outline-success ms-2"
+                  
+                >
+                  Upload Image
+                </button>
+              </Link>
             </div>
           </form>
         </div>

@@ -59,7 +59,7 @@ export default function TabContent(data) {
                 <div className="col-md-8">
                   <div className="card mb-4">
                     <div className="card-header py-3">
-                      <h5 className="mb-0">Order History</h5>
+                      <h5 className="mb-0">Your order images </h5>
                     </div>
                     <div className="card-body">
                       {propsData != [] ? (
