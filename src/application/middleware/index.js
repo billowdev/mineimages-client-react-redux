@@ -1,17 +1,7 @@
-import ui from "./ui";
-import images from "./images";
-import auth from "./auth";
-import profile from "./profile";
-import orders from "./orders";
-import categories from "./categories";
-import complete_orders from "./complete_orders";
+import ui from './ui';
+import auth from './auth';
 
 export default [
-  ...ui,
-  ...auth,
-  ...images,
-  ...profile,
-  ...orders,
-  ...complete_orders,
-  ...categories,
-];
+    ...ui,
+    ...auth,
+]

@@ -13,11 +13,11 @@ import {
   faMobile,
 } from "@fortawesome/free-solid-svg-icons";
 
-import { SignupApi } from "../../../infrastructure/services/api/auth";
+import { SignupApi } from "../../infrastructure/services/api/auth";
 
-import { useDispatch } from "react-redux";
-import { signupAction } from "../../../application/actions/auth";
-import Layout from "../Layout";
+// import { useDispatch } from "react-redux";
+// import { loadSignup } from "../../application/actions/auth";
+import Layout from "../components/Layout";
 export default function Signup() {
   let navigate = useNavigate();
   const initialValues = {
@@ -47,7 +47,7 @@ export default function Signup() {
           icon: "success",
           title: "Signup successfuly",
           text: `Email has send success please check your email`,
-          footer: '<a href="/login">login</a>',
+          footer: '<a href="/signin">login</a>',
         }).then(function () {
           window.location = "/";
         });
@@ -60,11 +60,6 @@ export default function Signup() {
         text: `email has already exist please try another`,
       });
     });
-    // toast.promise(register, {
-    //   loading: "Loading...",
-    //   success: "Please verify your email.",
-    //   error: "sign up failed!! please try again",
-    // });
   };
 
   const signup = (

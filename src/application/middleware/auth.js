@@ -1,29 +1,38 @@
+import Cookies from "js-cookie";
 import {
-  loadAuthSuccess,
-  loadAuthFailed,
-  loadIsAuthSuccess,
-  ISAUTH_ACTION,
-  SIGNIN_ACTION,
-  SIGNOUT_ACTION,
+  LOAD_AUTH,
+  loadAuthValid,
+  loadAuthInvalid,
+  loadSiginSuccess,
+  loadSigninFailed,
+  SIGNUP,
+  loadSignupSuccess,
+  loadSignupFailed,
+  SIGNOUT,
+  loadSignoutSuccess,
+  loadSignoutFailed,
+  SIGNIN,
 } from "../actions/auth";
 import * as uiActions from "../actions/ui";
-import Cookies from "js-cookie";
 
-const isAuthFlow =
+const loadAuthFlow =
   ({ api }) =>
   ({ dispatch }) =>
   (next) =>
   async (action) => {
     next(action);
-    if (action.type === ISAUTH_ACTION) {
+
+    if (action.type === LOAD_AUTH) {
       try {
-        // dispatch(uiActions.setLoading(true));
-        const auth = await api.auth.isSignin();
-        dispatch(loadIsAuthSuccess(auth));
-        // dispatch(uiActions.setLoading(false));
-      } catch (err) {
-        console.log("Invalid credential user not authentication");
-        // dispatch(loadIsAuthFailed(err));
+        const auth = await api.auth.getAuthState(action.payload);
+        if(auth.success == false){
+          console.log("INVALID CREDENTIAL")
+        }else{
+          dispatch(loadAuthValid(auth));
+          window.location.href("/")
+        }
+      } catch (error) {
+        dispatch(loadAuthInvalid(error));
       }
     }
   };
@@ -33,37 +42,30 @@ const signinFlow =
   ({ dispatch }) =>
   (next) =>
   async (action) => {
-    if (action.type === SIGNIN_ACTION) {
+    next(action);
+
+    if (action.type === SIGNIN) {
       try {
-        dispatch(uiActions.setLoading(true));
-        const auth = await api.auth.signin(action.payload);
-        Cookies.set("access-token", auth.token, { expires: 7 });
-        dispatch(loadAuthSuccess(auth));
-        dispatch(uiActions.setLoading(false));
-      } catch (err) {
-        dispatch(uiActions.setLoading(true));
-        dispatch(loadAuthFailed(err));
-        dispatch(uiActions.setLoading(false));
+        const signin = await api.auth.signin(action.payload);
+
+        Cookies.set("access-token", signin.token, { expires: 7 });
+        dispatch(loadSiginSuccess(signin));
+      } catch (error) {
+        dispatch(loadSigninFailed(error));
       }
     }
-    next(action);
   };
 
 const signoutFlow =
   () =>
-  ({ dispatch, getState }) =>
+  ({ dispatch }) =>
   (next) =>
   (action) => {
-    if (action.type === SIGNOUT_ACTION) {
-      dispatch(uiActions.setLoading(true));
+    if (action.type === SIGNOUT) {
       Cookies.remove("access-token");
-      dispatch(uiActions.setLoading(false));
+      loadSignoutSuccess(true);
     }
     next(action);
   };
 
-export default [
-  isAuthFlow,
-  signinFlow,
-  signoutFlow,
-];
+export default [loadAuthFlow, signinFlow, signoutFlow];

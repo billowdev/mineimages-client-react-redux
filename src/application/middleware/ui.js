@@ -1,16 +1,7 @@
-import {
-  PAGE_LOADED,
-  PROFILE_PAGE_LOADED,
-  SET_LOADING_OFF,
-  SET_LOADING_ON,
-} from "../actions/ui";
-import * as imagesActions from "../actions/images";
-import * as profileActions from "../actions/profile";
-import * as authActions from "../actions/auth";
-import * as orderActions from "../actions/orders";
-
-import toast from "react-hot-toast";
+import { PAGE_LOADED } from "../actions/ui";
 import Swal from "sweetalert2";
+// import * as imagesActions from '../actions/images';
+import * as authActions from "../actions/auth";
 
 const pageLoadedFlow =
   ({ log }) =>
@@ -18,73 +9,41 @@ const pageLoadedFlow =
   (next) =>
   (action) => {
     next(action);
+
     if (action.type === PAGE_LOADED) {
-      console.log("page loaded");
-      dispatch(imagesActions.loadImages);
+      log("page loaded");
+      // dispatch(imagesActions.loadImages);
     }
   };
 
-const signinLoadedFlow =
+const loadAuthActionFlow =
   ({ log }) =>
   ({ dispatch }) =>
   (next) =>
   (action) => {
     next(action);
-    if (action.type === authActions.LOAD_AUTH_SUCCESS) {
+    if (action.type === authActions.SIGNIN_SUCCESS) {
       Swal.fire({
         icon: "success",
         title: "Signin success",
         text: `Welcome to mineimages `,
-        // footer: '<a href="/profile">Profile</a>'
       }).then(function () {
         window.location = "/";
       });
-    }
-    if (action.type === authActions.LOAD_AUTH_FAILED) {
+    } else if (action.type === authActions.SIGNIN_FAILED) {
       Swal.fire({
         icon: "error",
         title: "Login failed",
         text: `Please  try again`,
-        // footer: '<a href="/profile">Profile</a>'
       });
-      // toast.error("Login failed");
+    } else if (action.type === authActions.SIGNIN_SUCCESS) {
+      log("SIGNOUT SUCCESS")
     }
+
+    if(action.type === authActions.LOAD_AUTH_INVALID)  {
+      log("INVALID CREDENTIAL")
+    }
+
   };
 
-const updateProfileFlow =
-  ({ log }) =>
-  ({ dispatch }) =>
-  (next) =>
-  (action) => {
-    next(action);
-    if (action.type === profileActions.UPLOAD_AVARTAR_SUCCESS) {
-      dispatch(profileActions.loadProfile);
-    } else if (action.type === profileActions.UPDATE_PROFILE_SUCCESS) {
-      Swal.fire({
-        icon: "success",
-        title: "อัปเดตข้อมูลโปรไฟล์สำเร็จ",
-        text: `ข้อมูลของคุณถูกอัปเดตแล้ว !`,
-        // footer: '<a href="/profile">Profile</a>'
-      });
-      dispatch(profileActions.loadProfile);
-    } else if (action.type === profileActions.UPLOAD_AVARTAR_FAILED) {
-      console.log("Upload avartar faile");
-    } else {
-      next(action);
-    }
-  };
-
-const orderFlow =
-  ({ log }) =>
-  ({ dispatch }) =>
-  (next) =>
-  (action) => {
-    next(action);
-    if (action.type === orderActions.USER_ORDER_SUCCESS) {
-      console.log("ON UI MIDDLEWARE ORDER SUCCESS");
-    } else {
-      next(action);
-    }
-  };
-
-export default [pageLoadedFlow, signinLoadedFlow, updateProfileFlow];
+export default [pageLoadedFlow, loadAuthActionFlow];
