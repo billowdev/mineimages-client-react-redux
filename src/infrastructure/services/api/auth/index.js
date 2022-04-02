@@ -7,7 +7,6 @@ export default {
     return response.data;
   },
   getAuthState: async () => {
-    console.log("token is ", token);
     if (token != null) {
       var url = `${API_URL}/auth/authenticated`;
       const response = await axios.get(url, {

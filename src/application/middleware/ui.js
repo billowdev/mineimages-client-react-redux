@@ -1,6 +1,6 @@
 import { PAGE_LOADED } from "../actions/ui";
 import Swal from "sweetalert2";
-// import * as imagesActions from '../actions/images';
+import * as imagesActions from '../actions/images';
 import * as authActions from "../actions/auth";
 
 const pageLoadedFlow =
@@ -12,7 +12,7 @@ const pageLoadedFlow =
 
     if (action.type === PAGE_LOADED) {
       log("page loaded");
-      // dispatch(imagesActions.loadImages);
+      dispatch(imagesActions.loadImages);
     }
   };
 

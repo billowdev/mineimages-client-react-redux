@@ -47,7 +47,6 @@ const signinFlow =
     if (action.type === SIGNIN) {
       try {
         const signin = await api.auth.signin(action.payload);
-
         Cookies.set("access-token", signin.token, { expires: 7 });
         dispatch(loadSiginSuccess(signin));
       } catch (error) {
