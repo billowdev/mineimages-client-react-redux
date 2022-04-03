@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import DataTable from "react-data-table-component";
 import { useDispatch, useSelector } from "react-redux";
-import Layout from "./Layout";
+import Layout from "../components/Layout";
 
 
 

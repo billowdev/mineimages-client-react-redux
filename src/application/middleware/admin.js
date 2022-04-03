@@ -57,23 +57,26 @@ const loadOrdersFlow =
     next(action);
     if (action.type === adminActions.ADMIN_UPDATE_CATEGORIES) {
       try {
-          // dispatch(uiActions.setLoading(true));
         const Categories = await api.admin.updateCatefories(action.payload);
         dispatch(adminActions.updateCategoriesSuccess(Categories));
-      
-        //   dispatch(uiActions.setLoading(false));
       } catch (err) {
         dispatch(adminActions.updateCategoriesFailed(err));
       }
     }
     if (action.type === adminActions.ADMIN_DELETE_CATEGORIES) {
       try {
-          // dispatch(uiActions.setLoading(true));
         const Categories = await api.admin.deleteCategories(action.payload);
         dispatch(adminActions.deleteCategoriesSuccess(Categories));
-        //   dispatch(uiActions.setLoading(false));
       } catch (err) {
         dispatch(adminActions.deleteCategoriesFailed(err));
+      }
+    }
+    if (action.type === adminActions.ADMIN_LOAD_CATEGORIES_BY_ID) {
+      try {
+        const Categories = await api.admin.getCategoriesById(action.payload);
+        dispatch(adminActions.loadCategoriesByIdSuccess(Categories));
+      } catch (err) {
+        dispatch(adminActions.loadCategoriesByIdFailed(err));
       }
     }
   };

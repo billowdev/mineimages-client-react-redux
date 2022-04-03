@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Layout from "./Layout";
+import Layout from "../components/Layout";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoading } from "../../../application/actions/ui";
 import { getAllImages } from "../../../application/selectors/admin";

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import Layout from "./Layout";
+import Layout from "../components/Layout";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllCaterories } from "../../../application/selectors/categories";
 import { loadCategories } from "../../../application/actions/categories";

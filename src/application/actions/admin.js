@@ -217,6 +217,24 @@ export const deleteCategoriesFailed = (error) => ({
   payload: error,
 });
 
+export const ADMIN_LOAD_CATEGORIES_BY_ID = "[ADMIN.CATEGORIES] GET ID";
+export const ADMIN_LOAD_CATEGORIES_BY_ID_SUCCESS = "[ADMIN.CATEGORIES] GET ID SUCCESS";
+export const ADMIN_LOAD_CATEGORIES_BY_ID_FAILED = "[ADMIN.CATEGORIES] GET ID FAILED";
+
+export const loadCategoriesById = (id) => ({
+  type: ADMIN_LOAD_CATEGORIES_BY_ID,
+  payload: id,
+});
+
+export const loadCategoriesByIdSuccess = (categories) => ({
+  type: ADMIN_LOAD_CATEGORIES_BY_ID_SUCCESS,
+  payload: categories,
+});
+
+export const loadCategoriesByIdFailed = (error) => ({
+  type: ADMIN_LOAD_CATEGORIES_BY_ID_FAILED,
+  payload: error,
+});
 
 
 // ================================================================================//

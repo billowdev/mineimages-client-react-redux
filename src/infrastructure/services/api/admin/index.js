@@ -17,16 +17,33 @@ export default {
     });
     return resp.data;
   },
-  updateCategories: async (props) => {
-    const resp = await axios.post(`${API_URL}/admin/categories/update`, props, {
-      headers: { "access-token": token },
-    });
+
+  getCategoriesById: async (props) => {
+    const resp = await axios.get(
+      `${API_URL}/admin/categories/get/${props}`,
+      {
+        headers: { "access-token": token },
+      }
+    );
     return resp.data;
   },
+  updateCategories: async (props) => {
+    const resp = await axios.patch(
+      `${API_URL}/admin/categories/update/${props}`,
+      {
+        headers: { "access-token": token },
+      }
+    );
+    return resp.data;
+  },
+
   deleteCategories: async (props) => {
-    const resp = await axios.post(`${API_URL}/admin/categories/delete`, props, {
-      headers: { "access-token": token },
-    });
+    const resp = await axios.post(
+      `${API_URL}/admin/categories/delete/${props}`,
+      {
+        headers: { "access-token": token },
+      }
+    );
     return resp.data;
   },
 };
