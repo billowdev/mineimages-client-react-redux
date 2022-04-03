@@ -164,14 +164,14 @@ export const ADMIN_INSERT_CATEGORIES = "[ADMIN.CATEGORIES] INSERT";
 export const ADMIN_INSERT_CATEGORIES_SUCCESS = "[ADMIN.CATEGORIES] INSERT SUCCESS";
 export const ADMIN_INSERT_CATEGORIES_FAILED = "[ADMIN.CATEGORIES] INSERT FAILED";
 
-export const InsertCategories = (categories) => ({
+export const InsertCategories = (category) => ({
   type: ADMIN_INSERT_CATEGORIES,
-  payload: categories,
+  payload: category,
 });
 
-export const InsertCategoriesSuccess = (order) => ({
+export const InsertCategoriesSuccess = (category) => ({
   type: ADMIN_INSERT_CATEGORIES_SUCCESS,
-  payload: order,
+  payload: category,
 });
 
 export const InsertCategoriesFailed = (error) => ({
@@ -183,14 +183,14 @@ export const ADMIN_UPDATE_CATEGORIES = "[ADMIN.CATEGORIES] UPDATE ";
 export const ADMIN_UPDATE_CATEGORIES_SUCCESS = "[ADMIN.CATEGORIES] UPDATE SUCCESS";
 export const ADMIN_UPDATE_CATEGORIES_FAILED = "[ADMIN.CATEGORIES] UPDATE FAILED";
 
-export const updateCategories = (order) => ({
+export const updateCategories = (category) => ({
   type: ADMIN_UPDATE_CATEGORIES,
-  payload: order,
+  payload: category,
 });
 
-export const updateCategoriesSuccess = (order) => ({
+export const updateCategoriesSuccess = (category) => ({
   type: ADMIN_UPDATE_CATEGORIES_SUCCESS,
-  payload: order,
+  payload: category,
 });
 
 export const updateCategoriesFailed = (error) => ({
@@ -226,9 +226,9 @@ export const loadCategoriesById = (id) => ({
   payload: id,
 });
 
-export const loadCategoriesByIdSuccess = (categories) => ({
+export const loadCategoriesByIdSuccess = (category) => ({
   type: ADMIN_LOAD_CATEGORIES_BY_ID_SUCCESS,
-  payload: categories,
+  payload: category,
 });
 
 export const loadCategoriesByIdFailed = (error) => ({

@@ -27,7 +27,7 @@ import Images from "./admin/images/Images";
 import Categories from "./admin/categories";
 import Images__add from "./admin/images/Add";
 import Images__update from "./admin/images/Update";
-import Categories__update from "./admin/categories/Update";
+import Categories__Update from "./admin/categories/Categories__Update";
 
 export default () => {
   return (
@@ -43,9 +43,7 @@ export default () => {
         <Route path="/profile/images" element={<UserImages />} />
         <Route path="/profile/images/upload" element={<AddImages />} />
 
-        <Route path="/admin" element={<Admin />}>
-          
-          </Route>
+        <Route path="/admin" element={<Admin />} />
         <Route path="/admin/users" element={<Users />} />
         <Route path="/admin/orders" element={<Orders />} />
         <Route path="/admin/Transactions" element={<Transactions />} />
@@ -53,7 +51,10 @@ export default () => {
         <Route path="/admin/images/add" element={<Images__add />} />
         <Route path="/admin/images/update/:id" element={<Images__update />} />
         <Route path="/admin/categories" element={<Categories />} />
-        <Route path="/admin/categories/update/:id" element={<Categories__update />} />
+        <Route
+          path="/admin/categories/update/:id"
+          element={<Categories__Update />}
+        />
 
         <Route
           path="/authentication/activate/:token"

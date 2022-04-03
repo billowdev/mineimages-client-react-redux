@@ -4,6 +4,7 @@ import * as imagesActions from "../actions/images";
 import * as authActions from "../actions/auth";
 import * as ordersActions from "../actions/orders";
 import * as profileActions from "../actions/profile";
+import * as adminActions from "../actions/admin";
 
 const pageLoadedFlow =
   ({ log }) =>
@@ -97,9 +98,35 @@ const loadOrderFlow =
     }
   };
 
+  const loadCategoriesFlow =
+  ({ log }) =>
+  ({ dispatch }) =>
+  (next) =>
+  (action) => {
+    next(action);
+    if (action.type === adminActions.ADMIN_DELETE_CATEGORIES_SUCCESS) {
+      Swal.fire({
+        icon: "success",
+        title: "เรียบร้อย",
+        text: `ลบข้อมูลประเภทรูปภาพเรียบร้อย`,
+      });
+      window.location.reload()
+    }
+    if (action.type === adminActions.ADMIN_UPDATE_CATEGORIES_SUCCESS) {
+      Swal.fire({
+        icon: "success",
+        title: "เรียบร้อย",
+        text: `แก้ไขข้อมูลเรียบร้อย`,
+      });
+     
+    }
+  
+  };
+
 export default [
   pageLoadedFlow,
   loadAuthActionFlow,
   loadOrderFlow,
   updateProfileFlow,
+  loadCategoriesFlow
 ];

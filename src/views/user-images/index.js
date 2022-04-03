@@ -81,7 +81,7 @@ function UserImages() {
       visible: image.visible,
       status: image.status,
     };
-    console.log(`checkstate ${checkState}`);
+    // console.log(`checkstate ${checkState}`);
     setEditFormData(formValues);
   };
 
@@ -150,11 +150,6 @@ function UserImages() {
       }
     });
   };
-
-  // const handleupdateImage = (e, id) => {
-  //   dispatch(updateImage({ id: id, visible: e.target.value }));
-  // };
-  // const [fastVisibleState, setFastVisibleState] = useState(false);
 
   const columns = [
     {

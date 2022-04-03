@@ -90,10 +90,11 @@ export default function Menu() {
                 <p> Transactions </p>
               </Link>
             </li>
+            <hr />
             <li className="nav-item">
               <a href="../" id="home" className="nav-link">
                 <FontAwesomeIcon className="nav-icon" icon={faHome} />
-                <p>ออกจากระบบ</p>
+                <p>หน้าหลัก</p>
               </a>
             </li>
             <li className="nav-item">

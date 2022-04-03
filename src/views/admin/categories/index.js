@@ -3,24 +3,40 @@ import Layout from "../components/Layout";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoading } from "../../../application/actions/ui";
 import { getAllImages } from "../../../application/selectors/admin";
-import { deleteImages, loadImages } from "../../../application/actions/admin";
+import { deleteCategories, deleteImages, loadImages } from "../../../application/actions/admin";
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { loadCategories } from "../../../application/actions/categories";
 import { getAllCaterories } from "../../../application/selectors/categories";
+import Swal from "sweetalert2";
 
 export default function Categories() {
-  const [loading, setLoading] = useState(false);
-
   const [name, setName] = useState("");
   const [desc, setDesc] = useState("");
 
+  const handleDelete = (e) => {
+    const cateId = e.target.value
 
-  const handleDelete = (e) =>{
-    // dispatch((e.target.value))
-  }
+    Swal.fire({
+      title: "คุณต้องการที่จะลบหรือไม่?",
+      text: "หากลบคุณจะไม่สามารถกู้คืนได้",
+      showDenyButton: true,
+      confirmButtonText: "Yes",
+      denyButtonText: "No",
+      customClass: {
+        actions: "my-actions",
+        denyButton: "order-3",
+        confirmButton: "order-2",
+      },
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(deleteCategories({id:cateId}));
+      }
+    });
+  };
   const allCategories = useSelector(getAllCaterories);
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(loadCategories);
   }, [dispatch]);
@@ -34,13 +50,17 @@ export default function Categories() {
           <td>{item.desc}</td>
           <td>
             <>
-              <Link to={`/admin/categories/update/${item.id}`}>
+              <a href={`/admin/categories/update/${item.id}`}>
                 <button className="btn btn-success">แก้ไข</button>
-              </Link>
+              </a>
             </>
           </td>
           <td>
-            <button value={item.id} onClick={handleDelete} className="btn btn-warning">
+            <button
+              value={item.id}
+              onClick={handleDelete}
+              className="btn btn-warning"
+            >
               ลบ
             </button>
           </td>
