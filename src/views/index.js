@@ -20,6 +20,10 @@ import UserImages from "./user-images";
 import AddImages from "./user-images/AddImages";
 
 import Admin from "./admin";
+// import Users from "./admin/components/Users";
+// import Orders from "./admin/components/Orders";
+// import Transactions from "./admin/components/Transactions";
+// import Images from "./admin/components/Images";
 
 
 export default () => {
@@ -37,6 +41,10 @@ export default () => {
         <Route path="/profile/images/upload" element={<AddImages />} />
 
         <Route path="/admin" element={<Admin />} />
+        {/* <Route path="/admin/users" element={<Users />} />
+        <Route path="/admin/orders" element={<Orders />} />
+        <Route path="/admin/images" element={<Images />} />
+        <Route path="/admin/transactions" element={<Transactions />} /> */}
 
 
         <Route

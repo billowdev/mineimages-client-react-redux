@@ -1,9 +1,10 @@
-import React from 'react'
-
-export default function Content() {
+import React from "react";
+function Content() {
   return (
-	<div className='content-wrapper'>
-		<h1>Hello world</h1>
-	</div>
-  )
+    <div className="content-wrapper">
+      <h1>Content</h1>
+    </div>
+  );
 }
+
+export default Content;
