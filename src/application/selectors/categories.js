@@ -1,1 +1,1 @@
-export const getAllCaterories = state => state.categories.getAllCaterories;
+export const getAllCaterories = state => state.categories.allCategories;

@@ -1,4 +1,7 @@
-// ============================== IMAGES ACTION  ==============================
+// ================================================================================//
+//                                 Images ACTION                                   //
+// ================================================================================//
+
 export const ADMIN_LOAD_IMAGES = "[ADMIN.IMAGES] LOAD";
 export const ADMIN_LOAD_IMAGES_SUCCESS = "[ADMIN.IMAGES] LOAD SUCCESS";
 export const ADMIN_LOAD_IMAGES_FAILED = "[ADMIN.IMAGES] LOAD FAILED";
@@ -22,7 +25,7 @@ export const ADMIN_INSERT_IMAGES = "[ADMIN.IMAGES] INSERT";
 export const ADMIN_INSERT_IMAGES_SUCCESS = "[ADMIN.IMAGES] INSERT SUCCESS";
 export const ADMIN_INSERT_IMAGES_FAILED = "[ADMIN.IMAGES] INSERT FAILED";
 
-export const InsertIMAGES = (image) => ({
+export const InsertImages = (image) => ({
   type: ADMIN_INSERT_IMAGES,
   payload: image,
 });
@@ -75,7 +78,9 @@ export const deleteImagesFailed = (error) => ({
   payload: error,
 });
 
-// ============================== ORDERS ACTION  ==============================
+// ================================================================================//
+//                                 Orders ACTION                                   //
+// ================================================================================//
 export const ADMIN_LOAD_ORDERS = "[ADMIN.ORDERS] LOAD";
 export const ADMIN_LOAD_ORDERS_SUCCESS = "[ADMIN.ORDERS] LOAD SUCCESS";
 export const ADMIN_LOAD_ORDERS_FAILED = "[ADMIN.ORDERS] LOAD SUCCESS";
@@ -151,4 +156,69 @@ export const deleteOrdersFailed = (error) => ({
   payload: error,
 });
 
-// ============================== Transactions ACTION  ==============================
+// ================================================================================//
+//                                Categories ACTION                                //
+// ================================================================================//
+
+export const ADMIN_INSERT_CATEGORIES = "[ADMIN.CATEGORIES] INSERT";
+export const ADMIN_INSERT_CATEGORIES_SUCCESS = "[ADMIN.CATEGORIES] INSERT SUCCESS";
+export const ADMIN_INSERT_CATEGORIES_FAILED = "[ADMIN.CATEGORIES] INSERT FAILED";
+
+export const InsertCategories = (categories) => ({
+  type: ADMIN_INSERT_CATEGORIES,
+  payload: categories,
+});
+
+export const InsertCategoriesSuccess = (order) => ({
+  type: ADMIN_INSERT_CATEGORIES_SUCCESS,
+  payload: order,
+});
+
+export const InsertCategoriesFailed = (error) => ({
+  type: ADMIN_INSERT_CATEGORIES_FAILED,
+  payload: error,
+});
+
+export const ADMIN_UPDATE_CATEGORIES = "[ADMIN.CATEGORIES] UPDATE ";
+export const ADMIN_UPDATE_CATEGORIES_SUCCESS = "[ADMIN.CATEGORIES] UPDATE SUCCESS";
+export const ADMIN_UPDATE_CATEGORIES_FAILED = "[ADMIN.CATEGORIES] UPDATE FAILED";
+
+export const updateCategories = (order) => ({
+  type: ADMIN_UPDATE_CATEGORIES,
+  payload: order,
+});
+
+export const updateCategoriesSuccess = (order) => ({
+  type: ADMIN_UPDATE_CATEGORIES_SUCCESS,
+  payload: order,
+});
+
+export const updateCategoriesFailed = (error) => ({
+  type: ADMIN_UPDATE_CATEGORIES_FAILED,
+  payload: error,
+});
+
+export const ADMIN_DELETE_CATEGORIES = "[ADMIN.CATEGORIES] DELETE";
+export const ADMIN_DELETE_CATEGORIES_SUCCESS = "[ADMIN.CATEGORIES] DELETE SUCCESS";
+export const ADMIN_DELETE_CATEGORIES_FAILED = "[ADMIN.CATEGORIES] DELETE FAILED";
+
+export const deleteCategories = (id) => ({
+  type: ADMIN_DELETE_CATEGORIES,
+  payload: id,
+});
+
+export const deleteCategoriesSuccess = (state) => ({
+  type: ADMIN_DELETE_CATEGORIES_SUCCESS,
+  payload: state,
+});
+
+export const deleteCategoriesFailed = (error) => ({
+  type: ADMIN_DELETE_CATEGORIES_FAILED,
+  payload: error,
+});
+
+
+
+// ================================================================================//
+//                                Transactions ACTION                                //
+// ================================================================================//

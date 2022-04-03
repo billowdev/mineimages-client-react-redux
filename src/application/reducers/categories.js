@@ -11,7 +11,7 @@ import {
 	switch (action.type) {
 	  case LOAD_CATEGORIES_SUCCESS:
 		return {
-		  allCategories: action.payload,
+		  allCategories: action.payload.categories,
 		  error: null,
 		};
 	 

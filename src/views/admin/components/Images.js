@@ -76,9 +76,9 @@ export default function Images() {
               <h3 className="card-title" style={{ lineHeight: "2.1rem" }}>
                 รายชื่อ
               </h3>
-              <a href="form-create.php" className="btn btn-primary float-right">
+              <Link to="/admin/images/add" className="btn btn-primary float-right">
                 เพิ่มข้อมูล
-              </a>
+              </Link>
             </div>
             <div className="card-body">
               <h3 className="text-align-center">รายการภาพ</h3>

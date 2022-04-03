@@ -34,7 +34,6 @@ function AddImages() {
     reader.onloadend = () => {
       setFileData(reader.result);
       uploadImage(reader.result);
-
     };
     reader.onerror = () => {
       console.log("Error");
@@ -43,7 +42,7 @@ function AddImages() {
 
   const uploadImage = async (image) => {
     const data = { name: name, detail: detail, price: price, image };
-    console.log(data)
+    console.log(data);
     try {
       //   await fetch(`${API_URL}/images/upload`, {
       //     method: "POST",
@@ -77,7 +76,6 @@ function AddImages() {
       className="container"
       style={{ marginBottom: "10rem", marginTop: "5rem" }}
     >
-      {allCategories && console.log(allCategories)}
       <div className="row justify-content-center">
         <div className="col-md-6">
           <h1 className="text-center">เพิ่มรูปภาพ</h1>
@@ -135,14 +133,17 @@ function AddImages() {
               <label htmlFor="cat_name">ประเภทรูปภาพ</label>
               <select
                 className="custom-select mb-3"
-                name="cat_name"
-                onChange={(event) => {
-                  setCategory(event.target.value);
+                value={category}
+                onChange={(e) => {
+                  setCategory(e.target.value);
                 }}
               >
-                <option disabled>Select Images Types</option>
-                <option value="general">general</option>
-                <option value="natural">natural</option>
+                {allCategories &&
+                  allCategories.map((value) => (
+                    <option key={value.id} value={value.id}>
+                      {value.name}
+                    </option>
+                  ))}
               </select>
             </div>
             <div className="col-md-6 mt-3">

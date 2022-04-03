@@ -25,6 +25,8 @@ import Orders from "./admin/components/Orders";
 import Transactions from "./admin/components/Transactions";
 import Images from "./admin/components/Images";
 import Categories from "./admin/components/Categories";
+import Images__add from "./admin/components/Images__add";
+import Images__update from "./admin/components/Images__update";
 
 export default () => {
   return (
@@ -40,14 +42,13 @@ export default () => {
         <Route path="/profile/images" element={<UserImages />} />
         <Route path="/profile/images/upload" element={<AddImages />} />
 
-        <Route path="/admin" element={<Admin />} exact />
+        <Route path="/admin" element={<Admin />} />
         <Route path="/admin/users" element={<Users />} />
         <Route path="/admin/orders" element={<Orders />} />
-        <Route
-          path="/admin/Transactions"
-          element={<Transactions />}
-        />
+        <Route path="/admin/Transactions" element={<Transactions />} />
         <Route path="/admin/images" element={<Images />} />
+        <Route path="/admin/images/add" element={<Images__add />} />
+        <Route path="/admin/images/update/:id" element={<Images__update />} />
         <Route path="/admin/categories" element={<Categories />} />
 
         <Route
