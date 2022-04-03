@@ -1,7 +1,9 @@
-import React, { useState } from "react";
-import Footer from "./Footer";
-import Sidebar from "./Sidebar";
+import React, { useState, useEffect } from "react";
 import DataTable from "react-data-table-component";
+import { useDispatch, useSelector } from "react-redux";
+import Layout from "./Layout";
+
+
 
 export default function Orders() {
   const columns = [
@@ -79,27 +81,19 @@ export default function Orders() {
   };
 
   return (
-    <>
-      <div className="body">
-        <header>
-          <Sidebar />
-        </header>
-        <section className="section">
-          <DataTable
-            //   title="MineImages"
-            columns={columns}
-            data={data}
-            progressPending={loading}
-            pagination
-            paginationServer
-            paginationTotalRows={totalRows}
-            onChangeRowsPerPage={handlePerRowsChange}
-            onChangePage={handlePageChange}
-            onSort={handleSort}
-          />
-        </section>
-      </div>
-      <Footer />
-    </>
+    <Layout>
+      <DataTable
+        //   title="MineImages"
+        columns={columns}
+        data={data}
+        progressPending={loading}
+        pagination
+        paginationServer
+        paginationTotalRows={totalRows}
+        onChangeRowsPerPage={handlePerRowsChange}
+        onChangePage={handlePageChange}
+        onSort={handleSort}
+      />
+    </Layout>
   );
 }

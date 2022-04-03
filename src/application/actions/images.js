@@ -31,7 +31,6 @@ export const getImageById = (image) => ({
 	payload: image,
   });
 
-
 // ============================== GET USER IMAGES ACTION  ==============================
 export const GET_USER_IMAGES = "[IMAGE] GET USER IMAGS";
 export const GET_USER_IMAGES_SUCCESS = "[IMAGE] GET USER IMAGS SUCCESS";

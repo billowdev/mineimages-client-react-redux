@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import Layout from "../components/Layout";
 import { Container } from "react-bootstrap";
-import axios from "axios";
 import DataTable from "react-data-table-component";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";

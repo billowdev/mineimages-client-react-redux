@@ -1,17 +1,35 @@
 import {
-	adminLoadImagesSuccess,
-	adminLoadImagesFailed,
 	ADMIN_LOAD_IMAGES,
+	ADMIN_INSERT_IMAGES,
+	ADMIN_UPDATE_IMAGES,
+	ADMIN_DELETE_IMAGES,
+	loadImagesSuccess,
+	insertImagesSuccess,
+	updateImagesSuccess,
+	deleteImagesSuccess,
+	loadImagesFailed,
+	insertImagesFailed,
+	updateImagesFailed,
+	deleteImagesFailed,
 
-	adminLoadOrdersSuccess,
-	adminLoadOrdersFailed,
 	ADMIN_LOAD_ORDERS,
+	ADMIN_INSERT_ORDERS,
+	ADMIN_UPDATE_ORDERS,
+	ADMIN_DELETE_ORDERS,
+	insertOrdersSuccess,
+	loadOrdersSuccess,
+	deleteOrdersSuccess,
+	updateOrdersSuccess,
+	loadOrdersFailed,
+	insertOrdersFailed,
+	updateOrdersFailed,
+	deleteOrdersFailed,
 
   } from "../actions/admin";
   
   import * as uiActions from "../actions/ui";
   
-  const adminLoadImagesFlow =
+  const loadImagesFlow =
 	({ api }) =>
 	({ dispatch }) =>
 	(next) =>
@@ -21,15 +39,15 @@ import {
 		try {
 		  dispatch(uiActions.setLoading(true));
 		  const images = await api.admin.getAll();
-		  dispatch(adminLoadImagesSuccess(images));
+		  dispatch(loadImagesSuccess(images));
 		  dispatch(uiActions.setLoading(false));
 		} catch (err) {
-		  dispatch(adminLoadImagesFailed(err));
+		  dispatch(loadImagesFailed(err));
 		}
 	  }
 	};
 
-	const adminLoadOrdersFlow =
+	const loadOrdersFlow =
 	({ api }) =>
 	({ dispatch }) =>
 	(next) =>
@@ -39,13 +57,13 @@ import {
 		try {
 		//   dispatch(uiActions.setLoading(true));
 		  const Orders = await api.admin.getAll();
-		  dispatch(adminLoadOrdersSuccess(Orders));
+		  dispatch(loadOrdersSuccess(Orders));
 		//   dispatch(uiActions.setLoading(false));
 		} catch (err) {
-		  dispatch(adminLoadOrdersFailed(err));
+		  dispatch(loadOrdersFailed(err));
 		}
 	  }
 	};
   
-  export default [adminLoadImagesFlow, adminLoadOrdersFlow];
+  export default [loadImagesFlow, loadOrdersFlow];
   

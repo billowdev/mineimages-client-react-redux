@@ -32,13 +32,15 @@ const loadAuthActionFlow =
       }).then(function () {
         window.location = "/";
       });
-    } else if (action.type === authActions.SIGNIN_FAILED) {
+    }
+    if (action.type === authActions.SIGNIN_FAILED) {
       Swal.fire({
         icon: "error",
         title: "Login failed",
         text: `Please  try again`,
       });
-    } else if (action.type === authActions.SIGNIN_SUCCESS) {
+    }
+    if (action.type === authActions.SIGNIN_SUCCESS) {
       log("SIGNOUT SUCCESS");
     }
 
@@ -55,7 +57,8 @@ const updateProfileFlow =
     next(action);
     if (action.type === profileActions.UPLOAD_AVARTAR_SUCCESS) {
       dispatch(profileActions.loadProfile);
-    } else if (action.type === profileActions.UPDATE_PROFILE_SUCCESS) {
+    }
+    if (action.type === profileActions.UPDATE_PROFILE_SUCCESS) {
       Swal.fire({
         icon: "success",
         title: "อัปเดตข้อมูลโปรไฟล์สำเร็จ",
@@ -63,12 +66,12 @@ const updateProfileFlow =
         // footer: '<a href="/profile">Profile</a>'
       });
       dispatch(profileActions.loadProfile);
-    } else if (action.type === profileActions.UPLOAD_AVARTAR_FAILED) {
+    }
+    if (action.type === profileActions.UPLOAD_AVARTAR_FAILED) {
       console.log("Upload avartar faile");
-    } else if (action.type === imagesActions.USER_DELETE_IMAGE_SUCCESS) {
+    }
+    if (action.type === imagesActions.USER_DELETE_IMAGE_SUCCESS) {
       window.location.reload();
-    } else {
-      next(action);
     }
   };
 
