@@ -1,14 +1,11 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link, useSearchParams } from "react-router-dom";
+import { useDispatch,  } from "react-redux";
+import { Link,  } from "react-router-dom";
 import {
   InsertCategories,
-  loadCategoriesById,
 } from "../../../application/actions/admin";
-import { getCategoriesById } from "../../../application/selectors/admin";
 import Layout from "../components/Layout";
-
-function Categories__Add() {
+function CategoriesAdd() {
   const dispatch = useDispatch();
   const [name, setName] = useState("");
   const [desc, setDesc] = useState("");
@@ -110,4 +107,4 @@ function Categories__Add() {
   );
 }
 
-export default Categories__Add;
+export default CategoriesAdd;

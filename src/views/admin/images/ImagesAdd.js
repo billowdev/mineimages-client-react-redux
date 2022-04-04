@@ -6,7 +6,7 @@ import { getAllCaterories } from "../../../application/selectors/categories";
 import { loadCategories } from "../../../application/actions/categories";
 import { InsertImages } from "../../../application/actions/admin";
 
-export default function Images__add() {
+export default function ImagesAdd() {
   const allCategories = useSelector(getAllCaterories);
   const dispatch = useDispatch();
   useEffect(() => {

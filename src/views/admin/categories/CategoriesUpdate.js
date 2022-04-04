@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
   loadCategoriesById,
   updateCategories,
@@ -8,8 +8,8 @@ import {
 import { getCategoriesById } from "../../../application/selectors/admin";
 import Layout from "../components/Layout";
 
-function Categories__Update() {
-  const id = window.location.pathname.split("/")[4];
+function CategoriesUpdate() {
+  
   const dispatch = useDispatch();
   const categoryData = useSelector(getCategoriesById);
   const [name, setName] = useState(categoryData.name);
@@ -17,11 +17,11 @@ function Categories__Update() {
 
   const handleUpdate = (e) => {
     e.preventDefault();
-    const data = { id:id, name, desc }
+    const data = { id:window.location.pathname.split("/")[4], name, desc }
     dispatch(updateCategories(data));
   };
   useEffect(() => {
-    dispatch(loadCategoriesById(id));
+    dispatch(loadCategoriesById(window.location.pathname.split("/")[4]));
   }, [dispatch]);
 
   const content = (
@@ -118,4 +118,4 @@ function Categories__Update() {
   );
 }
 
-export default Categories__Update;
+export default CategoriesUpdate;

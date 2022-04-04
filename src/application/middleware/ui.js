@@ -105,25 +105,25 @@ const loadImagesFlow =
   (next) =>
   (action) => {
     next(action);
-    if (action.type === imagesActions.UPLOAD_IMAGE) {
-      if (action.type === PAGE_LOADED) {
-        toast.loading("Uploading...");
-      } else {
-        toast.dismiss();
-      }
-    }
-    if (action.type === imagesActions.UPLOAD_IMAGE_SUCCESS) {
-      toast.success("Upload Successfully!");
-      log(`ON USER UPLOAD IMAGE PAYLOAD: ${action.payload}`);
-    }
-    if (action.type === imagesActions.UPLOAD_IMAGE_FAILED) {
-      Swal.fire({
-        icon: "error",
-        title: "ไม่สามารถอัปโหลดรูปภาพได้",
-        text: `${action.payload.msg}`,
-      });
-      log(`ON USER UPLOAD IMAGE PAYLOAD: ${action.payload}`);
-    }
+    // if (action.type === imagesActions.UPLOAD_IMAGE) {
+    //   if (action.type === PAGE_LOADED) {
+    //     toast.loading("Uploading...");
+    //   } else {
+    //     toast.dismiss();
+    //   }
+    // }
+    // if (action.type === imagesActions.UPLOAD_IMAGE_SUCCESS) {
+    //   toast.success("Upload Successfully!");
+    //   log(`ON USER UPLOAD IMAGE PAYLOAD: ${action.payload}`);
+    // }
+    // if (action.type === imagesActions.UPLOAD_IMAGE_FAILED) {
+    //   Swal.fire({
+    //     icon: "error",
+    //     title: "ไม่สามารถอัปโหลดรูปภาพได้",
+    //     text: `${action.payload.msg}`,
+    //   });
+    //   log(`ON USER UPLOAD IMAGE PAYLOAD: ${action.payload}`);
+    // }
     if (action.type === imagesActions.UPDATE_IMAGE_SUCCESS) {
       log(`ON USER UPDATE IMAGE PAYLOAD: ${action.payload}`);
     }
