@@ -120,7 +120,23 @@ const loadOrderFlow =
       });
      
     }
+    if (action.type === adminActions.ADMIN_INSERT_CATEGORIES_SUCCESS) {
+      Swal.fire({
+        icon: "success",
+        title: "เรียบร้อย",
+        text: `เพิ่มข้อมูลเรียบร้อย`,
+      }).then(()=>{ window.location.assign("/admin/categories")});
+    }
+    if (action.type === adminActions.ADMIN_INSERT_CATEGORIES_FAILED) {
+      Swal.fire({
+        icon: "error",
+        title: "ไม่สามารถเพิ่มข้อมูลได้ ",
+        text: `${action.payload}`,
+      })
+    }
   
+
+   
   };
 
 export default [

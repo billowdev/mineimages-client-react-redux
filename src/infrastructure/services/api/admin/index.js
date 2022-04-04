@@ -12,7 +12,7 @@ export default {
     return resp.data;
   },
   createCategories: async (props) => {
-    const resp = await axios.post(`${API_URL}/admin/categories/insert`, props, {
+    const resp = await axios.post(`${API_URL}/admin/categories/create`, props, {
       headers: { "access-token": token },
     });
     return resp.data;

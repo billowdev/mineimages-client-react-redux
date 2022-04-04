@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useSearchParams } from "react-router-dom";
-import { InsertCategories, loadCategoriesById } from "../../../application/actions/admin";
+import {
+  InsertCategories,
+  loadCategoriesById,
+} from "../../../application/actions/admin";
 import { getCategoriesById } from "../../../application/selectors/admin";
 import Layout from "../components/Layout";
 
@@ -9,11 +12,10 @@ function Categories__Add() {
   const dispatch = useDispatch();
   const [name, setName] = useState("");
   const [desc, setDesc] = useState("");
-const handleFormSubmit =(e)=>{
-	e.preventDefault()
-	dispatch(InsertCategories({name,desc}))
-	window.location.href("/admin/categories")
-}
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    dispatch(InsertCategories({ name, desc }));
+  };
   const content = (
     <div>
       <div className="content-header">
@@ -61,7 +63,10 @@ const handleFormSubmit =(e)=>{
                           name="name"
                           id="name"
                           placeholder="ชื่อประเภท"
-						  onChange={(e)=>{setName(e.target.value)}}
+                          onChange={(e) => {
+                            setName(e.target.value);
+                          }}
+                          required
                         />
                       </div>
                       <div className="form-group col-md-12">
@@ -73,7 +78,10 @@ const handleFormSubmit =(e)=>{
                           name="name"
                           id="name"
                           placeholder="ชื่อประเภท"
-						  onChange={(e)=>{setDesc(e.target.value)}}
+                          onChange={(e) => {
+                            setDesc(e.target.value);
+                          }}
+                          required
                         />
                       </div>
                     </div>
@@ -102,4 +110,4 @@ const handleFormSubmit =(e)=>{
   );
 }
 
-export default Categories__update;
+export default Categories__Add;

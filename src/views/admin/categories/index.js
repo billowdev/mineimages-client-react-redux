@@ -79,7 +79,7 @@ export default function Categories() {
                 รายชื่อ
               </h3>
               <Link
-                to="/admin/images/add"
+                to="/admin/categories/add"
                 className="btn btn-primary float-right"
               >
                 เพิ่มข้อมูล

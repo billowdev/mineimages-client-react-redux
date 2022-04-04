@@ -28,6 +28,7 @@ import Categories from "./admin/categories";
 import Images__add from "./admin/images/Add";
 import Images__update from "./admin/images/Update";
 import Categories__Update from "./admin/categories/Categories__Update";
+import Categories__Add from "./admin/categories/Categories__Add";
 
 export default () => {
   return (
@@ -55,7 +56,7 @@ export default () => {
           path="/admin/categories/update/:id"
           element={<Categories__Update />}
         />
-
+        <Route path="/admin/categories/add" element={<Categories__Add />} />
         <Route
           path="/authentication/activate/:token"
           exact

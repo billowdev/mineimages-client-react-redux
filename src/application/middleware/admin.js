@@ -71,12 +71,26 @@ const loadOrdersFlow =
         dispatch(adminActions.deleteCategoriesFailed(err));
       }
     }
+    
     if (action.type === adminActions.ADMIN_LOAD_CATEGORIES_BY_ID) {
       try {
         const Categories = await api.admin.getCategoriesById(action.payload);
         dispatch(adminActions.loadCategoriesByIdSuccess(Categories));
       } catch (err) {
         dispatch(adminActions.loadCategoriesByIdFailed(err));
+      }
+    }
+    if (action.type === adminActions.ADMIN_INSERT_CATEGORIES) {
+      try {
+        const Categories = await api.admin.createCategories(action.payload);
+        console.log(Categories)
+        if(Categories.success){
+          dispatch(adminActions.InsertCategoriesSuccess(Categories));
+        }else{
+          dispatch(adminActions.InsertCategoriesFailed(Categories.msg));
+        }
+      } catch (err) {
+        dispatch(adminActions.InsertCategoriesFailed(err));
       }
     }
   };
