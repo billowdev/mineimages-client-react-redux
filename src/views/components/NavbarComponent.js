@@ -50,7 +50,8 @@ export default function NavbarComponent() {
                   <NavDropdown
                     title={
                       <>
-                        <FontAwesomeIcon icon={faUser} /> {authStatus.authState.firstName}
+                        <FontAwesomeIcon icon={faUser} />{" "}
+                        {authStatus.authState.firstName}
                       </>
                     }
                     id="basic-nav-dropdown"
@@ -68,18 +69,20 @@ export default function NavbarComponent() {
 
                     {authStatus.isAuth && (
                       <>
+                        {authStatus.authState.persmission == "admin" ? (
+                          <NavDropdown.Item href="/admin">
+                            <FontAwesomeIcon icon={faUnlockKeyhole} /> admin
+                            panel
+                          </NavDropdown.Item>
+                        ) : (
+                          false
+                        )}
                         <NavDropdown.Item onClick={handleLogout}>
                           <>
                             <FontAwesomeIcon icon={faPowerOff} /> logout
                           </>
                         </NavDropdown.Item>
 
-                        {authStatus.permission == "admin" && (
-                          <NavDropdown.Item href="/mineimages/admin">
-                            <FontAwesomeIcon icon={faUnlockKeyhole} /> admin
-                            panel
-                          </NavDropdown.Item>
-                        )}
                       </>
                     )}
                   </NavDropdown>

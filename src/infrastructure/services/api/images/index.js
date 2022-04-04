@@ -34,7 +34,7 @@ export default {
   },
   userDeleteImage: async (props) =>{
     const response = await axios.patch(
-      `${API_URL}/delete`,
+      `${API_URL}/images/delete`,
       JSON.stringify(props),
       {
         headers: {
@@ -44,5 +44,11 @@ export default {
       },
     );
     return response.data;
-  }
+  },
+  createImages: async (props) => {
+    const resp = await axios.post(`${API_URL}/images/upload`, props, {
+      headers: { "access-token": token },
+    });
+    return resp.data;
+  },
 };

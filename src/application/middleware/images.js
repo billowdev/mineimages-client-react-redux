@@ -1,20 +1,4 @@
-import {
-  loadImageSuccess,
-  loadImageFailed,
-  LOAD_IMAGES,
-  GET_IMAGE_BY_ID,
-  getImageByIdSuccess,
-  GET_USER_IMAGES,
-  getUserImagesSuccess,
-  getUserImagesFailed,
-  UPDATE_IMAGE,
-  updateImageSuccess,
-  updateImageFailed,
-  USER_DELETE_IMAGE,
-  userDeleteImageSuccess,
-  userDeleteImageFailed
-} from "../actions/images";
-
+import * as imagesActions from "../actions/images";
 import * as uiActions from "../actions/ui";
 
 const loadImagesFlow =
@@ -23,14 +7,14 @@ const loadImagesFlow =
   (next) =>
   async (action) => {
     next(action);
-    if (action.type === LOAD_IMAGES) {
+    if (action.type === imagesActions.LOAD_IMAGES) {
       try {
         dispatch(uiActions.setLoading(true));
         const images = await api.images.getAll();
-        dispatch(loadImageSuccess(images));
+        dispatch(imagesActions.loadImageSuccess(images));
         dispatch(uiActions.setLoading(false));
       } catch (err) {
-        dispatch(loadImageFailed(err));
+        dispatch(imagesActions.loadImageFailed(err));
       }
     }
   };
@@ -42,14 +26,35 @@ const getImageByIdFlow =
   async (action) => {
     next(action);
     try {
-      if (action.type === GET_IMAGE_BY_ID) {
+      if (action.type === imagesActions.GET_IMAGE_BY_ID) {
         // console.log(`ON IMAGE MIDDLEWARE ${action.payload}`)
         const images = await api.images.getImageById(action.payload);
         // console.log("On middleware get image by id : ", images)
-        dispatch(getImageByIdSuccess(images));
+        dispatch(imagesActions.getImageByIdSuccess(images));
       }
     } catch (err) {
-      console.log("ERROR ON MIDDLEWARE images.getImageByIdFlow");
+      imagesActions.getImageByIdFailed(err);
+    }
+  };
+const uploadImageFlow =
+  ({ api }) =>
+  ({ dispatch }) =>
+  (next) =>
+  async (action) => {
+    next(action);
+    try {
+      dispatch(uiActions.setLoading(true));
+      if (action.type === imagesActions.UPLOAD_IMAGE) {
+        const images = await api.images.createImages(action.payload);
+        if (images.success) {
+          dispatch(imagesActions.uploadImageSuccess(images));
+        } else {
+          dispatch(imagesActions.uploadImageFailed(images));
+        }
+      }
+      dispatch(uiActions.setLoading(false));
+    } catch (err) {
+      dispatch(imagesActions.uploadImageFailed(err));
     }
   };
 
@@ -59,14 +64,14 @@ const getUserImagesFlow =
   (next) =>
   async (action) => {
     next(action);
-    if (action.type === GET_USER_IMAGES) {
+    if (action.type === imagesActions.GET_USER_IMAGES) {
       try {
         dispatch(uiActions.setLoading(true));
         const images = await api.images.getUserImages(action.payload);
-        dispatch(getUserImagesSuccess(images));
+        dispatch(imagesActions.getUserImagesSuccess(images));
         dispatch(uiActions.setLoading(false));
       } catch (err) {
-        dispatch(getUserImagesFailed(err));
+        dispatch(imagesActions.getUserImagesFailed(err));
       }
     }
   };
@@ -77,40 +82,44 @@ const updateImageFlow =
   (next) =>
   async (action) => {
     next(action);
-    if (action.type === UPDATE_IMAGE) {
+    if (action.type === imagesActions.UPDATE_IMAGE) {
       try {
         dispatch(uiActions.setLoading(true));
         await api.images.updateImage(action.payload);
-        dispatch(updateImageSuccess(true));
+        dispatch(imagesActions.updateImageSuccess(true));
         dispatch(uiActions.setLoading(false));
       } catch (err) {
-        dispatch(updateImageFailed(err));
+        dispatch(imagesActions.updateImageFailed(err));
       }
-    } 
+    }
   };
 
-  const deleteImageFlow =
+const deleteImageFlow =
   ({ api }) =>
   ({ dispatch }) =>
   (next) =>
   async (action) => {
     next(action);
-    if (action.type === USER_DELETE_IMAGE) {
+    if (action.type === imagesActions.USER_DELETE_IMAGE) {
       try {
-        console.log("on middle ware", action.payload)
-        // await api.images.userDeleteImage(action.payload);
-        dispatch(userDeleteImageSuccess());
+        console.log("on middle ware", action.payload);
+        const deleteImage = await api.images.userDeleteImage(action.payload);
+        if (deleteImage.success) {
+          dispatch(imagesActions.userDeleteImageSuccess(deleteImage.msg));
+        } else {
+          dispatch(imagesActions.userDeleteImageFailed(deleteImage.msg));
+        }
       } catch (err) {
-        // dispatch(userDeleteImageFailed(err));
+        dispatch(imagesActions.userDeleteImageFailed(err));
       }
     }
   };
 
-  
 export default [
   loadImagesFlow,
   getImageByIdFlow,
   getUserImagesFlow,
   updateImageFlow,
-  deleteImageFlow
+  deleteImageFlow,
+  uploadImageFlow,
 ];

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import Layout from "../components/Layout";
 import { Container } from "react-bootstrap";
-import axios from "axios";
 import DataTable from "react-data-table-component";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -82,7 +81,7 @@ function UserImages() {
       visible: image.visible,
       status: image.status,
     };
-    console.log(`checkstate ${checkState}`);
+    // console.log(`checkstate ${checkState}`);
     setEditFormData(formValues);
   };
 
@@ -122,11 +121,6 @@ function UserImages() {
       status: editFormData.status,
     };
     dispatch(updateImage(saveimage));
-    Swal.fire({
-      icon: "success",
-      title: "เรียบร้อย",
-      text: `ข้อมูลของคุณถูกอัปเดตแล้ว !`,
-    });
   };
 
   const handleDelete = (id) => {
@@ -151,11 +145,6 @@ function UserImages() {
       }
     });
   };
-
-  // const handleupdateImage = (e, id) => {
-  //   dispatch(updateImage({ id: id, visible: e.target.value }));
-  // };
-  // const [fastVisibleState, setFastVisibleState] = useState(false);
 
   const columns = [
     {
