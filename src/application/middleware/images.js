@@ -65,7 +65,6 @@ const loadImagesFlow =
 
     if (action.type === imagesActions.USER_DELETE_IMAGE) {
       try {
-        console.log("on middle ware", action.payload);
         const deleteImage = await api.images.userDeleteImage(action.payload);
         if (deleteImage.success) {
           dispatch(imagesActions.userDeleteImageSuccess(deleteImage.msg));

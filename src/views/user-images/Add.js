@@ -6,7 +6,7 @@
 // import { getAllCaterories } from "../../application/selectors/categories";
 // import { loadCategories } from "../../application/actions/categories";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Layout from "../components/Layout";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllCaterories } from "../../application/selectors/categories";
@@ -15,6 +15,7 @@ import { uploadImage } from "../../application/actions/images";
 import { getLoading } from "../../application/selectors/ui";
 import Swal from "sweetalert2";
 export default function AddImages() {
+  let navigate = useNavigate();
   const loading = useSelector(getLoading);
   const allCategories = useSelector(getAllCaterories);
   const dispatch = useDispatch();
@@ -54,6 +55,12 @@ export default function AddImages() {
         CategoryId: category,
       };
       dispatch(uploadImage(data));
+      navigate("/profile/images");
+      Swal.fire({
+        icon: "loading",
+        title: "Loading...",
+        text: `กำลังอัปโหลดรูปภาพ`,
+      });
       setFileInputState("");
       setPreviewSource("");
     };

@@ -177,7 +177,7 @@ function UserImages() {
       selector: (row) => row.status,
       cell: (row) => (
         <div>
-          <span>{row.status}</span>
+          {row.status=='active'?  <strong style={{color:'green'}}>{row.status}</strong> : <strong style={{color:'red'}} >{row.status}</strong>}
         </div>
       ),
       width: "100px",
@@ -187,7 +187,7 @@ function UserImages() {
       selector: (row) => row.visible,
       cell: (row) => (
         <div>
-          <span>{row.visible}</span>
+          {row.visible=='public'?  <strong style={{color:'green'}}>{row.visible}</strong> : <strong style={{color:'red'}} >{row.visible}</strong>}
           {/* <div name="visible" className="form-check form-switch">
             <input
               className="form-check-input"

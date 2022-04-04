@@ -6,7 +6,7 @@ export default {
     const response = await axios.get(`${API_URL}/images/all`);
     return response.data;
   },
-  getImageById: async (props)=> {
+  getImageById: async (props) => {
     // console.log("ON API image.getImageById", props);
     const response = await axios.post(`${API_URL}/images/detail`, {
       imgid: props,
@@ -28,20 +28,21 @@ export default {
           "Content-Type": "application/json",
           "access-token": token,
         },
-      },
+      }
     );
     return response.data;
   },
-  userDeleteImage: async (props) =>{
+  userDeleteImage: async (props) => {
+    console.log("ON API DELETE IMAGES : ", props);
     const response = await axios.patch(
       `${API_URL}/images/delete`,
-      JSON.stringify(props),
+      JSON.stringify({id:props}),
       {
         headers: {
           "Content-Type": "application/json",
           "access-token": token,
         },
-      },
+      }
     );
     return response.data;
   },

@@ -27,13 +27,13 @@ import ImagesUpdate from "./admin/images/ImagesUpdate";
 import Categories from "./admin/categories";
 import CategoriesUpdate from "./admin/categories/CategoriesUpdate";
 import CategoriesAdd from "./admin/categories/CategoriesAdd";
-// import { Toaster } from "react-hot-toast";
+import { Toaster } from "react-hot-toast";
 
 export default () => {
   return (
     <Router>
       <>
-        {/* <Toaster /> */}
+        <Toaster />
         <Routes>
           <Route index path="/" element={<Home />} />
           <Route path="/signin" element={<Signin />} />
