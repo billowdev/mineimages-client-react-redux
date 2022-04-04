@@ -1,0 +1,1 @@
+export const getCheckoutState = state => state.checkout.checkoutStatus;

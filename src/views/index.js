@@ -13,6 +13,7 @@ import Edit from "./profile/Edit";
 import OrderHistory from "./order-history";
 import UserImages from "./user-images";
 import AddImages from "./user-images/Add";
+import Cart from "./cart";
 
 import Admin from "./admin";
 import Users from "./admin/users";
@@ -29,6 +30,7 @@ import CategoriesUpdate from "./admin/categories/CategoriesUpdate";
 import CategoriesAdd from "./admin/categories/CategoriesAdd";
 import { Toaster } from "react-hot-toast";
 
+
 export default () => {
   return (
     <Router>
@@ -44,6 +46,7 @@ export default () => {
 
           <Route path="/profile/images" element={<UserImages />} />
           <Route path="/profile/images/upload" element={<AddImages />} />
+          <Route path="/cart" element={<Cart />} />
 
           <Route path="/admin" element={<Admin />} />
           <Route path="/admin/users" element={<Users />} />
