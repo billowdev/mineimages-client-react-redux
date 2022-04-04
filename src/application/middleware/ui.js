@@ -5,6 +5,10 @@ import * as authActions from "../actions/auth";
 import * as ordersActions from "../actions/orders";
 import * as profileActions from "../actions/profile";
 import * as adminActions from "../actions/admin";
+import * as cartActions from "../actions/cart";
+import * as checkoutActions from "../actions/checkout";
+
+
 import toast from "react-hot-toast";
 
 const pageLoadedFlow =
@@ -17,6 +21,7 @@ const pageLoadedFlow =
     if (action.type === PAGE_LOADED) {
       log("page loaded");
       dispatch(imagesActions.loadImages);
+      dispatch(cartActions.loadOnCartOrders);
     }
   };
 
@@ -156,6 +161,23 @@ const loadCategoriesFlow =
     }
   };
 
+
+  const loadCheckoutFlow =
+  ({ log }) =>
+  ({ dispatch }) =>
+  (next) =>
+  (action) => {
+    next(action);
+    if (action.type === checkoutActions.LOAD_CHECKOUT_SUCCESS) {
+      Swal.fire({
+        icon: "success",
+        title: "เรียบร้อย",
+        text: `เช็คเอาท์เรียบร้อย ${action.payload.msg}`,
+      });
+      window.location.reload();
+    }
+  };
+
 export default [
   pageLoadedFlow,
   loadAuthActionFlow,
@@ -163,4 +185,5 @@ export default [
   updateProfileFlow,
   loadCategoriesFlow,
   loadImagesFlow,
+  loadCheckoutFlow
 ];
