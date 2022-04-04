@@ -5,6 +5,7 @@ import * as authActions from "../actions/auth";
 import * as ordersActions from "../actions/orders";
 import * as profileActions from "../actions/profile";
 import * as adminActions from "../actions/admin";
+import toast from "react-hot-toast";
 
 const pageLoadedFlow =
   ({ log }) =>
@@ -69,7 +70,7 @@ const updateProfileFlow =
       dispatch(profileActions.loadProfile);
     }
     if (action.type === profileActions.UPLOAD_AVARTAR_FAILED) {
-      console.log("Upload avartar faile");
+      log("Upload avartar faile");
     }
     if (action.type === imagesActions.USER_DELETE_IMAGE_SUCCESS) {
       window.location.reload();
@@ -98,7 +99,45 @@ const loadOrderFlow =
     }
   };
 
-  const loadCategoriesFlow =
+const loadImagesFlow =
+  ({ log }) =>
+  ({ dispatch }) =>
+  (next) =>
+  (action) => {
+    next(action);
+    if (action.type === imagesActions.UPLOAD_IMAGE) {
+      if (action.type === PAGE_LOADED) {
+        toast.loading("Uploading...");
+      } else {
+        toast.dismiss();
+      }
+    }
+    if (action.type === imagesActions.UPLOAD_IMAGE_SUCCESS) {
+      toast.success("Upload Successfully!");
+      log(`ON USER UPLOAD IMAGE PAYLOAD: ${action.payload}`);
+    }
+    if (action.type === imagesActions.UPLOAD_IMAGE_FAILED) {
+      Swal.fire({
+        icon: "error",
+        title: "ไม่สามารถอัปโหลดรูปภาพได้",
+        text: `${action.payload.msg}`,
+      });
+      log(`ON USER UPLOAD IMAGE PAYLOAD: ${action.payload}`);
+    }
+    if (action.type === imagesActions.UPDATE_IMAGE_SUCCESS) {
+      log(`ON USER UPDATE IMAGE PAYLOAD: ${action.payload}`);
+    }
+    if (action.type === imagesActions.USER_DELETE_IMAGE_SUCCESS) {
+      Swal.fire({
+        icon: "success",
+        title: "สำเร็จ",
+        text: `ลบข้อมูลเรียบร้อย`,
+      });
+      log(`ON USER DELETE IMAGE PAYLOAD: ${action.payload}`);
+    }
+  };
+
+const loadCategoriesFlow =
   ({ log }) =>
   ({ dispatch }) =>
   (next) =>
@@ -110,7 +149,7 @@ const loadOrderFlow =
         title: "เรียบร้อย",
         text: `ลบข้อมูลประเภทรูปภาพเรียบร้อย`,
       });
-      window.location.reload()
+      window.location.reload();
     }
     if (action.type === adminActions.ADMIN_UPDATE_CATEGORIES_SUCCESS) {
       Swal.fire({
@@ -118,25 +157,23 @@ const loadOrderFlow =
         title: "เรียบร้อย",
         text: `แก้ไขข้อมูลเรียบร้อย`,
       });
-     
     }
     if (action.type === adminActions.ADMIN_INSERT_CATEGORIES_SUCCESS) {
       Swal.fire({
         icon: "success",
         title: "เรียบร้อย",
         text: `เพิ่มข้อมูลเรียบร้อย`,
-      }).then(()=>{ window.location.assign("/admin/categories")});
+      }).then(() => {
+        window.location.assign("/admin/categories");
+      });
     }
     if (action.type === adminActions.ADMIN_INSERT_CATEGORIES_FAILED) {
       Swal.fire({
         icon: "error",
         title: "ไม่สามารถเพิ่มข้อมูลได้ ",
         text: `${action.payload}`,
-      })
+      });
     }
-  
-
-   
   };
 
 export default [
@@ -144,5 +181,6 @@ export default [
   loadAuthActionFlow,
   loadOrderFlow,
   updateProfileFlow,
-  loadCategoriesFlow
+  loadCategoriesFlow,
+  loadImagesFlow,
 ];

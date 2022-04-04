@@ -20,8 +20,9 @@ export default {
   updateCatefories: async (props) => {
     const resp = await axios.patch(
       `${API_URL}/admin/categories/update`,
-      props,
+      JSON.stringify(props),
       {
+        "Content-Type": "application/json",
         headers: { "access-token": token },
       }
     );
@@ -29,13 +30,15 @@ export default {
   },
   getCategoriesById: async (props) => {
     const resp = await axios.get(`${API_URL}/admin/categories/get/${props}`, {
+      "Content-Type": "application/json",
       headers: { "access-token": token },
     });
     return resp.data;
   },
   deleteCategories: async (props) => {
     const resp = await axios.patch(
-      `${API_URL}/admin/categories/delete`,props,
+      `${API_URL}/admin/categories/delete`,
+      props,
       {
         headers: { "access-token": token },
       }

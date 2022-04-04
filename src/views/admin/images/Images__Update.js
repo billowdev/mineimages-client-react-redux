@@ -1,7 +1,7 @@
 import React from "react";
 import Layout from "../components/Layout";
 
-export default function Images__update() {
+export default function Images__Update() {
   return (
     <Layout>
       <div className="content">

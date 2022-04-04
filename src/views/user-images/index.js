@@ -121,11 +121,6 @@ function UserImages() {
       status: editFormData.status,
     };
     dispatch(updateImage(saveimage));
-    Swal.fire({
-      icon: "success",
-      title: "เรียบร้อย",
-      text: `ข้อมูลของคุณถูกอัปเดตแล้ว !`,
-    });
   };
 
   const handleDelete = (id) => {
