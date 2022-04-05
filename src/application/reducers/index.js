@@ -1,22 +1,28 @@
-import { combineReducers } from 'redux';
-import ui from './ui';
-import auth from './auth';
-import images from './images';
-import orders from './orders';
-import profile from './profile';
-import categories from './categories';
-import admin from './admin';
-import cart from './cart';
-import checkout from './checkout';
+import { combineReducers } from "redux";
+import ui from "./ui";
+import auth from "./auth";
+import images from "./images";
+import orders from "./orders";
+import profile from "./profile";
+import categories from "./categories";
+import cart from "./cart";
+import checkout from "./checkout";
+import adminImages from "./admin/images";
+import adminCategories from "./admin/categories";
+import adminOrders from "./admin/orders";
+import adminUsers from "./admin/users";
 
 export default combineReducers({
-    ui,
-    auth,
-    images,
-    orders,
-    profile,
-    categories,
-    cart,
-    checkout,
-    admin,
-})
+  ui,
+  auth,
+  images,
+  orders,
+  profile,
+  categories,
+  cart,
+  checkout,
+  adminImages,
+  adminCategories,
+  adminOrders,
+  adminUsers
+});

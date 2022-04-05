@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import {
   loadCategoriesById,
   updateCategories,
-} from "../../../application/actions/admin";
+} from "../../../application/actions/admin/categories";
 import { getCategoriesById } from "../../../application/selectors/admin";
 import Layout from "../components/Layout";
 

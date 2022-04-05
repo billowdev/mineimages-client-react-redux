@@ -3,7 +3,7 @@ import { useDispatch,  } from "react-redux";
 import { Link,  } from "react-router-dom";
 import {
   InsertCategories,
-} from "../../../application/actions/admin";
+} from "../../../application/actions/admin/categories";
 import Layout from "../components/Layout";
 function CategoriesAdd() {
   const dispatch = useDispatch();

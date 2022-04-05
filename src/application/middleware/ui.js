@@ -4,7 +4,6 @@ import * as imagesActions from "../actions/images";
 import * as authActions from "../actions/auth";
 import * as ordersActions from "../actions/orders";
 import * as profileActions from "../actions/profile";
-import * as adminActions from "../actions/admin";
 import * as cartActions from "../actions/cart";
 import * as checkoutActions from "../actions/checkout";
 
@@ -122,46 +121,6 @@ const loadImagesFlow =
     }
   };
 
-const loadCategoriesFlow =
-  ({ log }) =>
-  ({ dispatch }) =>
-  (next) =>
-  (action) => {
-    next(action);
-    if (action.type === adminActions.ADMIN_DELETE_CATEGORIES_SUCCESS) {
-      Swal.fire({
-        icon: "success",
-        title: "เรียบร้อย",
-        text: `ลบข้อมูลประเภทรูปภาพเรียบร้อย`,
-      });
-      window.location.reload();
-    }
-    if (action.type === adminActions.ADMIN_UPDATE_CATEGORIES_SUCCESS) {
-      Swal.fire({
-        icon: "success",
-        title: "เรียบร้อย",
-        text: `แก้ไขข้อมูลเรียบร้อย`,
-      });
-    }
-    if (action.type === adminActions.ADMIN_INSERT_CATEGORIES_SUCCESS) {
-      Swal.fire({
-        icon: "success",
-        title: "เรียบร้อย",
-        text: `เพิ่มข้อมูลเรียบร้อย`,
-      }).then(() => {
-        window.location.assign("/admin/categories");
-      });
-    }
-    if (action.type === adminActions.ADMIN_INSERT_CATEGORIES_FAILED) {
-      Swal.fire({
-        icon: "error",
-        title: "ไม่สามารถเพิ่มข้อมูลได้ ",
-        text: `${action.payload}`,
-      });
-    }
-  };
-
-
   const loadCheckoutFlow =
   ({ log }) =>
   ({ dispatch }) =>
@@ -183,7 +142,6 @@ export default [
   loadAuthActionFlow,
   loadOrderFlow,
   updateProfileFlow,
-  loadCategoriesFlow,
   loadImagesFlow,
   loadCheckoutFlow
 ];

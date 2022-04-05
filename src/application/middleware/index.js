@@ -4,9 +4,15 @@ import images from './images';
 import profile from './profile';
 import orders from './orders';
 import categories from './categories';
-import admin from './admin';
 import cart from './cart';
 import checkout from './checkout';
+
+import adminUi from './admin/ui';
+import adminImages from './admin/images';
+import adminOrders from './admin/orders';
+import adminCategories from './admin/categories';
+import adminUsers from './admin/users';
+
 
 export default [
     ...ui,
@@ -16,6 +22,11 @@ export default [
     ...orders,
     ...categories,
     ...cart,
-    ...admin,
     ...checkout,
+    ...adminUi,
+    ...adminImages,
+    ...adminOrders,
+    ...adminCategories,
+    ...adminUsers,
+
 ]
