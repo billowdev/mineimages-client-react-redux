@@ -18,9 +18,14 @@ export default {
     return resp.data;
   },
   updateCatefories: async (props) => {
+    Object.keys(props).forEach((key) => {
+      if (props[key] === undefined) {
+        delete props[key];
+      }
+    });
     const resp = await axios.patch(
       `${API_URL}/admin/categories/update`,
-      JSON.stringify(props),
+      props,
       {
         "Content-Type": "application/json",
         headers: { "access-token": token },
@@ -44,5 +49,11 @@ export default {
       }
     );
     return resp.data;
+  },
+  getAllUsers: async (props) => {
+    const response = await axios.get(`${API_URL}/admin/users/get${props}`, {
+      headers: { "access-token": token },
+    });
+    return response.data;
   },
 };

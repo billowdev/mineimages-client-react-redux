@@ -3,7 +3,7 @@ import Layout from "../components/Layout";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoading } from "../../../application/actions/ui";
 import { getAllImages } from "../../../application/selectors/admin";
-import { loadImages } from "../../../application/actions/admin";
+import { loadImages } from "../../../application/actions/admin/images";
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 

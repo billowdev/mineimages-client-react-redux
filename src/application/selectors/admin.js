@@ -1,5 +1,9 @@
-export const getAllImages = state => state.admin.allImages;
-export const getModalImages = state => state.admin.modalImages;
-export const getAllOrders = state => state.admin.allOrders;
-export const getCategoriesById = state => state.admin.category;
+export const getAllImages = state => state.adminImages.allImages;
+export const getModalImages = state => state.adminImages.modalImages;
+export const getAllOrders = state => state.adminOrders.allOrders;
+export const getCategoriesById = state => state.adminCategories.category;
+
+
+export const getAllUsers = state => state.adminUsers.allUsers;
+export const getModalUsers = state => state.adminUsers.modalUsers;
 
