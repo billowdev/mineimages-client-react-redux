@@ -28,6 +28,7 @@ import ImagesUpdate from "./admin/images/ImagesUpdate";
 import Categories from "./admin/categories";
 import CategoriesUpdate from "./admin/categories/CategoriesUpdate";
 import CategoriesAdd from "./admin/categories/CategoriesAdd";
+import UsersAdd from "./admin/users/UsersAdd";
 import { Toaster } from "react-hot-toast";
 
 
@@ -35,7 +36,10 @@ export default () => {
   return (
     <Router>
       <>
-        <Toaster />
+        <Toaster 
+        position="top-right"
+        reverseOrder={false}
+        />
         <Routes>
           <Route index path="/" element={<Home />} />
           <Route path="/signin" element={<Signin />} />
@@ -50,6 +54,7 @@ export default () => {
 
           <Route path="/admin" element={<Admin />} />
           <Route path="/admin/users" element={<Users />} />
+          <Route path="/admin/users/add" element={<UsersAdd />} />
           <Route path="/admin/orders" element={<Orders />} />
           <Route path="/admin/Transactions" element={<Transactions />} />
           <Route path="/admin/images" element={<Images />} />

@@ -4,6 +4,8 @@ import DataTable from "react-data-table-component";
 import { useDispatch, useSelector } from "react-redux";
 import { loadUsers } from "../../../application/actions/admin/users";
 import { getAllUsers } from "../../../application/selectors/admin";
+import { updateUsers } from "../../../application/actions/admin/users";
+import { deleteUsers } from "../../../application/actions/admin/users";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 
@@ -54,6 +56,7 @@ export default function Users() {
   useEffect(() => {
     fetchUsersData();
   }, [page, sortColumn, sortColumnDirection, perPage, dispatch]);
+
   const usersData = useSelector(getAllUsers);
 
   //Edit data
@@ -77,7 +80,7 @@ export default function Users() {
     country: "",
   });
 
-  const [checkState, setCheckState] = useState(false);
+  // const [checkState, setCheckState] = useState(false);
   const [editDataId, setEditDataId] = useState(null);
 
   const handleEditDataForm = (e, data) => {
@@ -130,7 +133,8 @@ export default function Users() {
       postalCode: editFormData.postalCode,
       country: editFormData.country,
     };
-    // dispatch(updateImage(saveData));
+    dispatch(updateUsers(saveData));
+    fetchUsersData();
   };
 
   const handleDelete = (id) => {
@@ -147,16 +151,22 @@ export default function Users() {
       },
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire("Saved!", `ลบรูปภาพเรียบร้อย ${id}`, "success").then(
-          (resp) => {
-            // dispatch(userDeleteImage(id));
-          }
-        );
+        dispatch(deleteUsers(id));
+        fetchUsersData();
       }
     });
   };
 
-  const handleChangeStatus = () => {};
+  const handleChangeStatus = (e, id) => {
+    let state = "inactive";
+    if (e.target.checked) {
+      state = "active";
+    }
+    const user = { id:id, status: state };
+    console.log(user);
+    dispatch(updateUsers(user));
+ 
+  };
   const columns = [
     {
       name: "id",
@@ -180,7 +190,7 @@ export default function Users() {
       name: "email",
       selector: (row) => row.email,
       sortable: true,
-      // width: "200px",
+      width: "200px",
     },
     {
       name: "telephone",
@@ -208,13 +218,13 @@ export default function Users() {
       cell: (row) => (
         <div>
           <span>{row.status == "active" ? "active" : "inactive"}</span>
-          <div name="visible" className="form-check form-switch">
+          <div name="status" className="form-check form-switch">
             <input
               className="form-check-input"
               type="checkbox"
-              id="visible"
+              id="status"
               defaultChecked={row.status == "active" ? true : false}
-              onChange={handleChangeStatus}
+              onChange={(e)=>{handleChangeStatus(e, row.id)}}
             />
           </div>
         </div>
@@ -292,7 +302,8 @@ export default function Users() {
                         name="firstName"
                         id="firstName"
                         placeholder="ชื่อ"
-                        value={editFormData.firstName}
+                        defaultValue={editFormData.firstName}
+                        onChange={handleEditFormClick("firstName")}
                       />
                     </div>
                     <div className="form-group col-md-6">
@@ -303,7 +314,8 @@ export default function Users() {
                         name="lastName"
                         id="lastName"
                         placeholder="นามสกุล"
-                        value={editFormData.lastName}
+                        defaultValue={editFormData.lastName}
+                        onChange={handleEditFormClick("lastName")}
                       />
                     </div>
                     <div className="form-group col-md-12">
@@ -316,6 +328,7 @@ export default function Users() {
                         placeholder="email"
                         value={editFormData.email}
                         // disabled
+                        onChange={handleEditFormClick("email")}
                       />
                     </div>
                     <div className="form-group col-md-6 ">
@@ -360,6 +373,7 @@ export default function Users() {
                       id="name"
                       placeholder="เกี่ยวกับ"
                       defaultValue={editFormData.about}
+                      onChange={handleEditFormClick("about")}
                     />
                     <div className="form-group col-md-6">
                       <label htmlFor="url">addressLine1</label>
@@ -370,6 +384,7 @@ export default function Users() {
                         id="addressLine1"
                         placeholder="addressLine1"
                         value={editFormData.addressLine1}
+                        onChange={handleEditFormClick("addressLine1")}
                         // disabled
                       />
                     </div>
@@ -382,6 +397,8 @@ export default function Users() {
                         id="addressLine2"
                         placeholder="addressLine2"
                         value={editFormData.addressLine2}
+                        onChange={handleEditFormClick("addressLine2")}
+
                         // disabled
                       />
                     </div>
@@ -394,6 +411,8 @@ export default function Users() {
                         id="city"
                         placeholder="city"
                         value={editFormData.city}
+                        onChange={handleEditFormClick("city")}
+
                         // disabled
                       />
                     </div>
@@ -406,6 +425,8 @@ export default function Users() {
                         id="postalCode"
                         placeholder="postalCode"
                         value={editFormData.postalCode}
+                        onChange={handleEditFormClick("postalCode")}
+
                         // disabled
                       />
                     </div>
@@ -418,7 +439,7 @@ export default function Users() {
                         id="country"
                         placeholder="country"
                         value={editFormData.country}
-                        // disabled
+                        onChange={handleEditFormClick("country")}
                       />
                     </div>
                   </div>
@@ -437,8 +458,8 @@ export default function Users() {
                 <button
                   data-bs-dismiss="modal"
                   className="btn btn-danger float-start"
-                  onClick={(e) => {
-                    handleDelete(editFormData.id);
+                  onClick={() => {
+                    handleDelete(editDataId);
                   }}
                 >
                   ลบ
@@ -483,7 +504,7 @@ export default function Users() {
                   <button type="submit" class="btn btn-outline-success ms-2">
                     ค้นหา
                   </button>
-                  <Link to="/profile/images/upload">
+                  <Link to="/admin/users/add">
                     <button class="btn btn-outline-success ms-2">เพิ่ม</button>
                   </Link>
                 </div>

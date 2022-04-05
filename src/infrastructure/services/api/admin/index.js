@@ -56,4 +56,76 @@ export default {
     });
     return response.data;
   },
+  updateUsersData: async (props) => {
+    const {
+      id,
+      firstName,
+      lastName,
+      email,
+      about,
+      telephone,
+      permission,
+      status,
+      avartar,
+    } = props;
+    const { addressLine1, addressLine2, postalCode, city, country } = props;
+    let user = {
+      id,
+      firstName,
+      lastName,
+      email,
+      about,
+      telephone,
+      permission,
+      status,
+      avartar,
+    };
+    let address = { addressLine1, addressLine2, postalCode, city, country };
+    Object.keys(user).forEach((key) => {
+      if (user[key] === undefined || user[key] === null || user[key] === "") {
+        delete user[key];
+      }
+    });
+    Object.keys(address).forEach((key) => {
+      if (
+        address[key] === undefined ||
+        address[key] === null ||
+        address[key] === ""
+      ) {
+        delete address[key];
+      }
+    });
+    var url = `${API_URL}/admin/users/update`;
+    const response = await axios.patch(
+      url,
+      { user, address },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "access-token": token,
+        },
+      }
+    );
+    return response.data;
+  },
+  deleteUserData: async (props) => {
+    const resp = await axios.patch(
+      `${API_URL}/admin/users/delete`,
+      {id:props},
+      {
+        headers: { "access-token": token },
+      }
+    );
+    return resp.data;
+  },
+  createUsers:  async (props) => {
+    const resp = await axios.post(
+      `${API_URL}/admin/users/create`,
+      props,
+      {
+        headers: { "access-token": token },
+      }
+    );
+    return resp.data;
+  },
 };
