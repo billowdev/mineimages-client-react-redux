@@ -1,32 +1,27 @@
 import React, { useState, useEffect } from "react";
 import Layout from "../components/Layout";
 import { useDispatch, useSelector } from "react-redux";
-import { setLoading } from "../../../application/actions/ui";
 import { getAllImages } from "../../../application/selectors/admin";
-import { loadImages } from "../../../application/actions/admin/images";
-import { Button } from "react-bootstrap";
+import { loadImages, updateImages } from "../../../application/actions/admin/images";
 import { Link } from "react-router-dom";
+import DataTable from "react-data-table-component";
+import log from "../../../infrastructure/services/logger/console";
+import { loadState, saveState } from "../../helpers/Persist";
 
 export default function Images() {
   const dispatch = useDispatch();
   const allImagesData = useSelector(getAllImages);
 
-  // const [loading, setLoading] = useState(false);
-
+  const [loading, setLoading] = useState(false);
   const [perPage, setPerPage] = useState(10);
   const [page, setPage] = useState(1);
   const [sortColumn, setSortColumn] = useState("");
   const [sortColumnDirection, setSortColumnDirection] = useState("");
   const [search, setSearch] = useState("");
 
-  const handleSearchChange = (event) => {
-    setSearch(event.target.value);
-  };
-
-  const handleSearchSubmit = (event) => {
+  const fetchData = () => {
     setLoading(true);
-    event.preventDefault();
-    var params = `order?page=${page}&per_page=${perPage}&delay=1`;
+    var params = `?page=${page}&per_page=${perPage}&delay=1`;
 
     if (sortColumn) {
       params += `&sort_column=${sortColumn}&sort_direction=${sortColumnDirection}`;
@@ -34,128 +29,166 @@ export default function Images() {
     if (search) {
       params += `&search=${search}`;
     }
+    dispatch(loadImages(params));
+    setLoading(false);
+  };
+  const handlePageChange = (page) => {
+    setPage(page);
   };
 
-  const imagesData = () => {
-    return allImagesData.map((item, key) => {
-      return (
-        <tr key={item.id}>
-          <td style={{ width: "10px" }}>{key + 1}</td>
-          <td style={{ width: "250px" }}>
-            <img src={item.Image.pathWatermark} width="200px" />
-          </td>
-          <td>{item.Image.name}</td>
-          <td style={{ width: "250px" }}>{item.Image.detail}</td>
-          <td>{item.price}</td>
-          <td>{item.status}</td>
-          <td>
-            {" "}
-            <span>{`${item.createdAt.slice(0, 10)}  ${item.createdAt.slice(
-              11,
-              19
-            )}`}</span>
-          </td>
-          <td>
-            <div>
-              <Link to={`/public-profile/${item.Image.UserId}`}>
-                <Button className="btn-success">owner</Button>
-              </Link>
-            </div>
-          </td>
-        </tr>
-      );
-    });
+  const handlePerRowsChange = async (newPerPage, page) => {
+    setPerPage(newPerPage);
   };
 
-  const tableSection = (
-    <div className="container-fluid user-images">
-      <div className="row mb-2">
-        <div className="col-12">
-          <div className="card">
-            <div className="card-header">
-              <h3 className="card-title" style={{ lineHeight: "2.1rem" }}>
-                รายชื่อ
-              </h3>
-              <Link to="/admin/images/add" className="btn btn-primary float-right">
-                เพิ่มข้อมูล
-              </Link>
-            </div>
-            <div className="card-body">
-              <h3 className="text-align-center">รายการภาพ</h3>
-              <form onSubmit={handleSearchSubmit}>
-                <div className="input-group">
-                  <input
-                    type="search"
-                    className="form-control rounded"
-                    placeholder="Search"
-                    aria-label="Search"
-                    aria-describedby="search-addon"
-                    onChange={handleSearchChange}
-                  />
-                  <button type="submit" className="btn btn-outline-primary">
-                    search
-                  </button>
-                </div>
-              </form>
+  const handleSort = (column, sortDirection) => {
+    setSortColumn(column.firstName);
+    setSortColumnDirection(sortDirection);
+  };
 
-              <table
-                id="example"
-                className="table table-striped"
-                style={{ width: "100%" }}
-              >
-                <thead>
-                  <tr>
-                    <th>NO.</th>
-                    <th>ภาพ</th>
-                    <th>ชื่อภาพ</th>
-                    <th>รายละเอียด</th>
-                    <th>ราคา</th>
-                    <th>สถานะ</th>
-                    <th>วันที่</th>
-                    <th>เจ้าของภาพ</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {allImagesData != [] ? (
-                    imagesData()
-                  ) : (
-                    <p className="mt-3 mb-3">Have no your image</p>
-                  )}
-                </tbody>
-                <tfoot>
-                  <tr>
-                    <th>NO.</th>
-                    <th>ภาพ</th>
-                    <th>ชื่อภาพ</th>
-                    <th>รายละเอียด</th>
-                    <th>ราคา</th>
-                    <th>สถานะ</th>
-                    <th>วันที่</th>
-                    <th>เจ้าของภาพ</th>
-                  </tr>
-                </tfoot>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
+  const handleSearchChange = (event) => {
+    setSearch(event.target.value);
+    fetchData();
+  };
+
+  const handleSearchSubmit = (event) => {
+    event.preventDefault();
+    fetchData();
+  };
+  const handleChangeStatus = (e, id) => {
+    let state = "inactive";
+    if (e.target.checked) {
+      state = "active";
+    }
+    const img = { id:id, status: state };
+    // dispatch(updateImages(img));
+ 
+  };
+  const handleChangeVisible = (e, id) => {
+    let state = "private";
+    if (e.target.checked) {
+      state = "public";
+    }
+    const img = { id:id, status: state };
+  };
+
+  const handleEditImages = ()=>{
+
+  }
+  window.onunload=()=>{
+    window.localStorage.clear();
+  }
 
   useEffect(() => {
-    var url = `?page=${page}&per_page=${perPage}&delay=1`;
+    fetchData();
+    saveState('allimagesdata', allImagesData)
+  }, [page, sortColumn, sortColumnDirection, perPage, dispatch]);
 
-    if (sortColumn) {
-      url += `&sort_column=${sortColumn}&sort_direction=${sortColumnDirection}`;
-    }
-    if (search) {
-      url += `&search=${search}`;
-    }
-    dispatch(loadImages(url));
-  }, [dispatch]);
+  const columns = [
+    {
+      name: "Images",
+      selector: (row) => row.pathOrigin,
+      cell: (row) => (
+        <img src={row.pathOrigin} width={140} height={140} alt={row.name} />
+      ),
+    },
+    {
+      name: "Name",
+      selector: (row) => row.name,
+      sortable: true,
+      width: "200px",
+    },
+    {
+      name: "Detail",
+      selector: (row) => row.detail,
+      sortable: true,
+      cell: (row) => <p>{row.detail}</p>,
+    },
+    {
+      name: "price",
+      selector: (row) => row.price,
+      sortable: true,
+      width: "100px",
+    },
+    {
+      name: "Status",
+      selector: (row) => row.status,
+      cell: (row) => (
+        <div>
+        <div name="status" className="form-check form-switch">
+          <input
+            className="form-check-input"
+            type="checkbox"
+            id="status"
+            value={row.status == "active" ? "inactive" : "active"}
+            defaultChecked={row.status == "active" ? true : false}
+            onClick={(e) => {
+              handleChangeStatus(e, row.id);
+            }}
+          />
+        </div>
+      </div>
+      ),
+      width: "100px",
+    },
+    {
+      name: "visible",
+      selector: (row) => row.visible,
+      cell: (row) => (
+        <div>
+          <div name="visible" className="form-check form-switch">
+            <input
+              className="form-check-input"
+              type="checkbox"
+              id="visible"
+              value={row.visible == "public" ? "private" : "public"}
+              defaultChecked={row.visible == "public" ? true : false}
+              onClick={(e) => {
+                handleChangeVisible(e, row.id);
+              }}
+            />
+          </div>
+        </div>
+      ),
+      width: "120px",
+    },
+    {
+      name: "",
+      selector: (row) => row.id,
+      cell: (row) => (
+        <div>
+         <Link to={`/admin/images/update/${row.id}`}>
+         <button
+            className="btn btn-success"
+            value={row}
+            data-bs-toggle="modal"
+            data-bs-target="#editModalForm"
+          >
+            แก้ไข
+          </button>
+         </Link>
+        </div>
+      ),
+      width: "100px",
+    },
+  ];
+
+  const contentSection = (
+    <DataTable
+    columns={columns}
+    data={allImagesData.images}
+    progressPending={loading}
+    pagination
+    paginationServer
+    paginationTotalRows={allImagesData.total}
+    onChangeRowsPerPage={handlePerRowsChange}
+    onChangePage={handlePageChange}
+    onSort={handleSort}
+  />
+  );
 
   return (
     <Layout>
+      {true && console.log(allImagesData)}
       <div className="content-header">
         <div className="container-fluid">
           <div className="row mb-2">
@@ -170,8 +203,32 @@ export default function Images() {
           </div>
         </div>
       </div>
-      <div className="content">
-      {tableSection}
+      <div className="container-fluid">
+        <div className="row mb-2">
+          <div className="col-12">
+            <div className="card">
+              <form onSubmit={handleSearchSubmit}>
+                <div className="input-group">
+                  <input
+                    type="search"
+                    class="form-control rounded"
+                    placeholder="Search"
+                    aria-label="Search"
+                    aria-describedby="search-addon"
+                    onChange={handleSearchChange}
+                  />
+                  <button type="submit" class="btn btn-outline-success ms-2">
+                    ค้นหา
+                  </button>
+                  <Link to="/admin/users/add">
+                    <button class="btn btn-outline-success ms-2">เพิ่ม</button>
+                  </Link>
+                </div>
+              </form>
+              <div className="content">{contentSection}</div>
+            </div>
+          </div>
+        </div>
       </div>
     </Layout>
   );

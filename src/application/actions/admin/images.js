@@ -21,22 +21,22 @@ export const loadImagesFailed = (error) => ({
   payload: error,
 });
 
-export const ADMIN_INSERT_IMAGES = "[ADMIN.IMAGES] INSERT";
-export const ADMIN_INSERT_IMAGES_SUCCESS = "[ADMIN.IMAGES] INSERT SUCCESS";
-export const ADMIN_INSERT_IMAGES_FAILED = "[ADMIN.IMAGES] INSERT FAILED";
+export const ADMIN_CREATE_IMAGES = "[ADMIN.IMAGES] CREATE";
+export const ADMIN_CREATE_IMAGES_SUCCESS = "[ADMIN.IMAGES] CREATE SUCCESS";
+export const ADMIN_CREATE_IMAGES_FAILED = "[ADMIN.IMAGES] CREATE FAILED";
 
-export const InsertImages = (image) => ({
-  type: ADMIN_INSERT_IMAGES,
+export const createImages = (image) => ({
+  type: ADMIN_CREATE_IMAGES,
   payload: image,
 });
 
-export const InsertImagesSuccess = (image) => ({
-  type: ADMIN_INSERT_IMAGES_SUCCESS,
+export const createImagesSuccess = (image) => ({
+  type: ADMIN_CREATE_IMAGES_SUCCESS,
   payload: image,
 });
 
-export const InsertImagesFailed = (error) => ({
-  type: ADMIN_INSERT_IMAGES_FAILED,
+export const createImagesFailed = (error) => ({
+  type: ADMIN_CREATE_IMAGES_FAILED,
   payload: error,
 });
 

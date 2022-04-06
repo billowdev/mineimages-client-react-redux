@@ -10,21 +10,22 @@ const loadImagesFlow =
     if (action.type === imagesActions.ADMIN_LOAD_IMAGES) {
       try {
         dispatch(uiActions.setLoading(true));
-        const images = await api.admin.getAll();
+        const images = await api.admin.getAllImages(action.payload);
+        console.log(`on images admin middle ware`, images)
         dispatch(imagesActions.loadImagesSuccess(images));
         dispatch(uiActions.setLoading(false));
       } catch (err) {
         dispatch(imagesActions.loadImagesFailed(err));
       }
     }
-    if (action.type === imagesActions.ADMIN_INSERT_IMAGES) {
+    if (action.type === imagesActions.ADMIN_CREATE_IMAGES) {
       try {
         dispatch(uiActions.setLoading(true));
         const images = await api.admin.createImages(action.payload);
-        dispatch(imagesActions.InsertImagesSuccess(images));
+        dispatch(imagesActions.createImagesSuccess(images));
         dispatch(uiActions.setLoading(false));
       } catch (err) {
-        dispatch(imagesActions.InsertImagesFailed(err));
+        dispatch(imagesActions.createImagesFailed(err));
       }
     }
   };

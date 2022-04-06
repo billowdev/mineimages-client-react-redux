@@ -20,22 +20,22 @@ export const loadOrdersFailed = (error) => ({
   payload: error,
 });
 
-export const ADMIN_INSERT_ORDERS = "[ADMIN.ORDER] INSERT";
-export const ADMIN_INSERT_ORDERS_SUCCESS = "[ADMIN.ORDER] INSERT SUCCESS";
-export const ADMIN_INSERT_ORDERS_FAILED = "[ADMIN.ORDER] INSERT FAILED";
+export const ADMIN_CREATE_ORDERS = "[ADMIN.ORDER] CREATE";
+export const ADMIN_CREATE_ORDERS_SUCCESS = "[ADMIN.ORDER] CREATE SUCCESS";
+export const ADMIN_CREATE_ORDERS_FAILED = "[ADMIN.ORDER] CREATE FAILED";
 
-export const InsertOrders = (order) => ({
-  type: ADMIN_INSERT_ORDERS,
+export const createOrders = (order) => ({
+  type: ADMIN_CREATE_ORDERS,
   payload: order,
 });
 
-export const InsertOrdersSuccess = (order) => ({
-  type: ADMIN_INSERT_ORDERS_SUCCESS,
+export const createOrdersSuccess = (order) => ({
+  type: ADMIN_CREATE_ORDERS_SUCCESS,
   payload: order,
 });
 
-export const InsertOrdersFailed = (error) => ({
-  type: ADMIN_INSERT_ORDERS_FAILED,
+export const createOrdersFailed = (error) => ({
+  type: ADMIN_CREATE_ORDERS_FAILED,
   payload: error,
 });
 

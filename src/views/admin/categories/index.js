@@ -16,7 +16,6 @@ export default function Categories() {
 
   const handleDelete = (e) => {
     const cateId = e.target.value
-
     Swal.fire({
       title: "คุณต้องการที่จะลบหรือไม่?",
       text: "หากลบคุณจะไม่สามารถกู้คืนได้",
@@ -76,7 +75,7 @@ export default function Categories() {
           <div className="card">
             <div className="card-header">
               <h3 className="card-title" style={{ lineHeight: "2.1rem" }}>
-                รายชื่อ
+                รายการประเภทรูปภาพ
               </h3>
               <Link
                 to="/admin/categories/add"

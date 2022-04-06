@@ -12,7 +12,7 @@ import {
 	switch (action.type) {
 	  case ADMIN_LOAD_IMAGES_SUCCESS:
 		return {
-		  allImages: action.payload,
+		  allImages: action.payload.data,
 		  error: null,
 		};
 	  default:

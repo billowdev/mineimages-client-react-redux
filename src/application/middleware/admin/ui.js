@@ -3,6 +3,8 @@ import Swal from "sweetalert2";
 import * as categoriesActions from "../../actions/admin/categories";
 import * as usersActions from "../../actions/admin/users";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+
 const pageLoadedFlow =
   ({ log }) =>
   ({ dispatch }) =>
@@ -34,6 +36,8 @@ const loadCategoriesFlow =
         icon: "success",
         title: "เรียบร้อย",
         text: `แก้ไขข้อมูลเรียบร้อย`,
+      }).then(()=>{
+        window.location = "/admin/categories"
       });
     }
     if (action.type === categoriesActions.ADMIN_INSERT_CATEGORIES_SUCCESS) {

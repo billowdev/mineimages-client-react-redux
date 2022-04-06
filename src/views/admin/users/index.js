@@ -52,11 +52,6 @@ export default function Users() {
     fetchUsersData();
   };
 
-  const dispatch = useDispatch();
-  useEffect(() => {
-    fetchUsersData();
-  }, [page, sortColumn, sortColumnDirection, perPage, dispatch]);
-
   const usersData = useSelector(getAllUsers);
 
   //Edit data
@@ -152,7 +147,7 @@ export default function Users() {
     }).then((result) => {
       if (result.isConfirmed) {
         dispatch(deleteUsers(id));
-        fetchUsersData();
+        fetchUsersData()
       }
     });
   };
@@ -162,11 +157,24 @@ export default function Users() {
     if (e.target.checked) {
       state = "active";
     }
-    const user = { id:id, status: state };
-    console.log(user);
+    const user = { id: id, status: state };
     dispatch(updateUsers(user));
- 
+    fetchUsersData();
   };
+
+  const dispatch = useDispatch();
+  
+  useEffect(() => {
+    fetchUsersData();
+  }, [
+    page,
+    sortColumn,
+    sortColumnDirection,
+    perPage,
+    dispatch,
+  ]);
+
+ 
   const columns = [
     {
       name: "id",
@@ -224,7 +232,9 @@ export default function Users() {
               type="checkbox"
               id="status"
               defaultChecked={row.status == "active" ? true : false}
-              onChange={(e)=>{handleChangeStatus(e, row.id)}}
+              onChange={(e) => {
+                handleChangeStatus(e, row.id);
+              }}
             />
           </div>
         </div>

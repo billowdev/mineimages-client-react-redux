@@ -1,18 +1,33 @@
 import axios from "axios";
 const { API_URL, token } = require("../config");
 export default {
+  getAllImages: async (props) => {
+    const resp = await axios.get(`${API_URL}/admin/images${props}`, {
+      headers: { "access-token": token },
+    });
+    return resp.data;
+  },
+  createImages: async (props) => {
+    const resp = await axios.post(`${API_URL}/admin/images/create`, props, {
+      headers: { "access-token": token },
+    });
+  },
   getAllOrders: async () => {
-    const response = await axios.get(`${API_URL}/admin/orders`);
-    return response.data;
+    const resp = await axios.get(`${API_URL}/admin/orders`, {
+      headers: { "access-token": token },
+    });
+    return resp.data;
   },
   createImages: async (props) => {
     const resp = await axios.post(`${API_URL}/images/upload`, props, {
+      "Content-Type": "application/json",
       headers: { "access-token": token },
     });
     return resp.data;
   },
   createCategories: async (props) => {
     const resp = await axios.post(`${API_URL}/admin/categories/create`, props, {
+      "Content-Type": "application/json",
       headers: { "access-token": token },
     });
     return resp.data;
@@ -45,16 +60,17 @@ export default {
       `${API_URL}/admin/categories/delete`,
       props,
       {
+        "Content-Type": "application/json",
         headers: { "access-token": token },
       }
     );
     return resp.data;
   },
   getAllUsers: async (props) => {
-    const response = await axios.get(`${API_URL}/admin/users/get${props}`, {
+    const resp = await axios.get(`${API_URL}/admin/users/get${props}`, {
       headers: { "access-token": token },
     });
-    return response.data;
+    return resp.data;
   },
   updateUsersData: async (props) => {
     const {
@@ -96,7 +112,7 @@ export default {
       }
     });
     var url = `${API_URL}/admin/users/update`;
-    const response = await axios.patch(
+    const resp = await axios.patch(
       url,
       { user, address },
       {
@@ -106,26 +122,24 @@ export default {
         },
       }
     );
-    return response.data;
+    return resp.data;
   },
   deleteUserData: async (props) => {
     const resp = await axios.patch(
       `${API_URL}/admin/users/delete`,
-      {id:props},
+      { id: props },
       {
+        "Content-Type": "application/json",
         headers: { "access-token": token },
       }
     );
     return resp.data;
   },
-  createUsers:  async (props) => {
-    const resp = await axios.post(
-      `${API_URL}/admin/users/create`,
-      props,
-      {
-        headers: { "access-token": token },
-      }
-    );
+  createUsers: async (props) => {
+    const resp = await axios.post(`${API_URL}/admin/users/create`, props, {
+      "Content-Type": "application/json",
+      headers: { "access-token": token },
+    });
     return resp.data;
   },
 };

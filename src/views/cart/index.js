@@ -25,6 +25,9 @@ function Cart() {
     dispatch(pageLoaded);
   }, [dispatch]);
 
+  const numberWithCommas = (val) => {
+    return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  };
   const handleCheckout = () => {
     Swal.fire({
       title: "คุณต้องการเช็คเอาท์?",
@@ -89,7 +92,7 @@ function Cart() {
                     </div>
                     <div className="col-lg-4 col-md-6 mb-4 mb-lg-0">
                       <p className="text-start text-md-center">
-                        <strong>{item.price}</strong>
+                        <strong>{numberWithCommas(item.price)}</strong>
                       </p>
                     </div>
                     <hr className="my-4" />
@@ -141,26 +144,33 @@ function Cart() {
                       <ul className="list-group list-group-flush">
                         <li className="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
                           Products
-                          {totalPrice == 0 ? (
+                          {/* {totalPrice == 0 ? (
                             <span>0</span>
                           ) : (
-                            <span>{`${totalPrice}`}</span>
-                          )}
+                            <span>{`${numberWithCommas(totalPrice)}`}</span>
+                          )} */}
                         </li>
                         <li className="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
                           <div>
                             <strong>Total amount</strong>
                             <strong>
-                              <p className="mb-0">(including VAT)</p>
+                              <p className="mb-0">( VAT 7%)</p>
                             </strong>
                           </div>
                           <span>
                             {totalPrice == 0 ? (
                               <strong>0</strong>
                             ) : (
-                              <strong>{`${
-                                totalPrice + (totalPrice * 7) / 100
-                              }`}</strong>
+                              <>
+                                <div>
+                                  <span>{`${numberWithCommas(
+                                    totalPrice 
+                                  )}`}</span>
+                                </div>
+                                <strong>{`${numberWithCommas(
+                                  totalPrice + (totalPrice * 7) / 100
+                                )}`}</strong>
+                              </>
                             )}
                           </span>
                         </li>
