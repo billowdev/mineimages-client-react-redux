@@ -12,12 +12,6 @@ export default {
       headers: { "access-token": token },
     });
   },
-  getAllOrders: async () => {
-    const resp = await axios.get(`${API_URL}/admin/orders`, {
-      headers: { "access-token": token },
-    });
-    return resp.data;
-  },
   createImages: async (props) => {
     const resp = await axios.post(`${API_URL}/images/upload`, props, {
       "Content-Type": "application/json",
@@ -138,6 +132,23 @@ export default {
   createUsers: async (props) => {
     const resp = await axios.post(`${API_URL}/admin/users/create`, props, {
       "Content-Type": "application/json",
+      headers: { "access-token": token },
+    });
+    return resp.data;
+  },
+  updateTransactions: async (props) => {
+    const { id, data } = props;
+    const resp = await axios.patch(
+      `${API_URL}/admin/transactions/update/${id}`,
+      data,
+      {
+        headers: { "access-token": token },
+      }
+    );
+    return resp.data;
+  },
+  getAllOrders: async (props) => {
+    const resp = await axios.get(`${API_URL}/admin/orders/get${props}`, {
       headers: { "access-token": token },
     });
     return resp.data;
