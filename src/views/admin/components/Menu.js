@@ -9,6 +9,7 @@ import {
   faMoneyBill,
   faHome,
   faBars,
+  faCheck,
 } from "@fortawesome/free-solid-svg-icons";
 import { Link, Outlet } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -82,6 +83,12 @@ export default function Menu() {
               <Link to="/admin/orders" className="nav-link">
                 <FontAwesomeIcon className="nav-icon" icon={faShoppingCart} />
                 <p> ออเดอร์ </p>
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link to="/admin/confirm-orders" className="nav-link">
+                <FontAwesomeIcon className="nav-icon" icon={faCheck} />
+                <p> ยืนยันออเดอร์ </p>
               </Link>
             </li>
             <li className="nav-item">
