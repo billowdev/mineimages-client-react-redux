@@ -2,16 +2,22 @@ import React, { useState, useEffect } from "react";
 import DataTable from "react-data-table-component";
 import { useDispatch, useSelector } from "react-redux";
 import Layout from "../components/Layout";
-import { getAllOrders } from "../../../application/selectors/admin";
+import { getAllOrdersOnTransactions } from "../../../application/selectors/admin";
 import { loadOrders } from "../../../application/actions/admin/orders";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCheck,
 } from "@fortawesome/free-solid-svg-icons";
+import { confirmTransactions, loadOrdersOnTransaction } from "../../../application/actions/admin/transactions";
+import Swal from "sweetalert2";
 
 export default function ConfirmOrders() {
+  const numberWithCommas = (val) => {
+    return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  };
+
   const dispatch = useDispatch();
-  const allOrders = useSelector(getAllOrders);
+  const allOrdersTransaction = useSelector(getAllOrdersOnTransactions);
 
   const [loading, setLoading] = useState(false);
   const [totalRows, setTotalRows] = useState(0);
@@ -52,7 +58,7 @@ export default function ConfirmOrders() {
     if (search) {
       url += `&search=${search}`;
     }
-    dispatch(loadOrders(url));
+    dispatch(loadOrdersOnTransaction(url));
     setLoading(false);
   };
 
@@ -101,9 +107,13 @@ export default function ConfirmOrders() {
       width: "280px",
     },
     {
-      name: "price",
-      selector: (row) => row.price,
-      sortable: true,
+      name: "total price",
+      selector: (row) => row.orders,
+      cell: (row) => (
+        <div>
+          <span>{numberWithCommas(row.totalPrice)}</span>
+        </div>
+      ),
     },
     {
       name: "status",
@@ -116,21 +126,22 @@ export default function ConfirmOrders() {
       ),
     },
     {
-      name: "TransactionId",
+      name: "user id",
       sortable: true,
-      selector: (row) => row.TransactionId,
+      selector: (row) => row.UserId,
       cell: (row) => (
         <div>
-          <span>{row.TransactionId}</span>
+          <span>{row.UserId}</span>
         </div>
       ),
+      width:"280px"
     },
     {
       name: "",
       selector: (row) => row.ImageId,
       cell: (row) => (
         <div>
-           <button
+           {/* <button
             className="btn btn-success me-3"
             value={row.Image}
             data-bs-toggle="modal"
@@ -140,15 +151,23 @@ export default function ConfirmOrders() {
             }}
           >
             รายละเอียด
-          </button>
+          </button> */}
 
           <button
             className="btn btn-success"
-            value={row.Image}
-            data-bs-toggle="modal"
-            data-bs-target="#editModalForm"
             onClick={(e) => {
-              handleViewData(e, row.Image);
+              Swal.fire({
+                title: 'confirm?',
+                text: `ราคาทั้งหมด ${numberWithCommas(row.totalPrice)}`,
+                showCancelButton: true,
+                confirmButtonText: 'confirm order',
+              }).then((result) => {
+                /* Read more about isConfirmed, isDenied below */
+                if (result.isConfirmed) {
+                  dispatch(confirmTransactions({id:row.id}))
+                  fetchData();
+                } 
+              })
             }}
           >
             <FontAwesomeIcon className="nav-icon" icon={faCheck} />
@@ -164,7 +183,7 @@ export default function ConfirmOrders() {
         <div className="container-fluid">
           <div className="row mb-2">
             <div className="col-sm-6">
-              <h5 className="m-0 text-dark">จัดการออเดอร์</h5>
+              <h5 className="m-0 text-dark">ยืนยันการชำระเงิน</h5>
             </div>
             <div className="col-sm-6">
               <ol className="breadcrumb float-sm-right">
@@ -174,14 +193,15 @@ export default function ConfirmOrders() {
           </div>
         </div>
       </div>
+      {/* {true&& console.log(allOrdersTransaction)} */}
       <DataTable
         //   title="MineImages"
         columns={columns}
-        data={allOrders.data}
+        data={allOrdersTransaction&&allOrdersTransaction.data}
         progressPending={loading}
         pagination
         paginationServer
-        paginationTotalRows={allOrders.totalRows}
+        paginationTotalRows={allOrdersTransaction&&allOrdersTransaction.totalRows}
         onChangeRowsPerPage={handlePerRowsChange}
         onChangePage={handlePageChange}
         onSort={handleSort}
@@ -250,7 +270,7 @@ export default function ConfirmOrders() {
                         name="price"
                         id="price"
                         placeholder="price"
-                        defaultValue={viewFormData.price}
+                        defaultValue={numberWithCommas(viewFormData.price)}
                         disabled
                       />
                     </div>

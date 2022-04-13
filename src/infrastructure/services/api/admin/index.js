@@ -150,6 +150,40 @@ export default {
     });
     return resp.data;
   },
+  getOrdersOnTransactions: async (props) => {
+    const resp = await axios.get(
+      `${API_URL}/admin/transactions/get/on-transaction${props}`,
+      {
+        headers: { "access-token": token },
+      }
+    );
+    // console.log("on api", resp.data);
+    let newData = [];
+    const rwaData = resp.data.data;
+    rwaData.forEach((el) => {
+      const orders = el.Orders;
+      let sum = 0;
+      orders.forEach((price) => {
+        sum += parseInt(price.price);
+      });
+      newData.push(
+        {
+          id: el.id,
+          UserId: el.UserId,
+          status: el.status,
+          totalPrice: sum,
+          createdAt: el.createdAt,
+          updatedAt: el.updatedAt,
+        }
+      );
+    });
+    const page = resp.data.page
+    const per_page = resp.data.per_page
+    const total = resp.data.total
+    const total_pages = resp.data.total_pages
+
+    return {page,per_page,total, total_pages, data:newData};
+  },
   updateTransactions: async (props) => {
     const { id, data } = props;
     const resp = await axios.patch(
@@ -159,6 +193,12 @@ export default {
         headers: { "access-token": token },
       }
     );
+    return resp.data;
+  },
+  confirmTransaction: async(props)=>{
+    const resp = await axios.get(`${API_URL}/admin/checkout/confirm/${props.id}`, {
+      headers: { "access-token": token },
+    });
     return resp.data;
   },
   getAllOrders: async (props) => {

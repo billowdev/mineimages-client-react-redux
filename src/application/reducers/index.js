@@ -11,6 +11,7 @@ import adminImages from "./admin/images";
 import adminCategories from "./admin/categories";
 import adminOrders from "./admin/orders";
 import adminUsers from "./admin/users";
+import adminTransactions from "./admin/transactions";
 
 export default combineReducers({
   ui,
@@ -24,5 +25,6 @@ export default combineReducers({
   adminImages,
   adminCategories,
   adminOrders,
-  adminUsers
+  adminUsers,
+  adminTransactions
 });
