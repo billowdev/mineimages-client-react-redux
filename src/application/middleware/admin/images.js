@@ -28,6 +28,26 @@ const loadImagesFlow =
         dispatch(imagesActions.createImagesFailed(err));
       }
     }
+    if (action.type === imagesActions.ADMIN_LOAD_IMAGES_BY_ID) {
+      try {
+        dispatch(uiActions.setLoading(true));
+        const images = await api.admin.getImageById(action.payload);
+        dispatch(imagesActions.loadImagesByIdSuccess(images));
+        dispatch(uiActions.setLoading(false));
+      } catch (err) {
+        dispatch(imagesActions.loadImagesByIdFailed(err));
+      }
+    }
+    if (action.type === imagesActions.ADMIN_UPDATE_IMAGES) {
+      try {
+        dispatch(uiActions.setLoading(true));
+        const images = await api.admin.updateImage(action.payload);
+        dispatch(imagesActions.updateImagesSuccess(images));
+        dispatch(uiActions.setLoading(false));
+      } catch (err) {
+        dispatch(imagesActions.updateImagesFailed(err));
+      }
+    }
   };
 
 export default [loadImagesFlow];

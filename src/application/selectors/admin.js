@@ -1,6 +1,6 @@
 export const getAllImages = state => state.adminImages.allImages;
 export const getModalImages = state => state.adminImages.modalImages;
-
+export const getImageById = state => state.adminImages.imageById
 export const getAllOrders = state => state.adminOrders.allOrders;
 
 

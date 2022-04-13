@@ -5,8 +5,6 @@ import { getAllImages } from "../../../application/selectors/admin";
 import { loadImages, updateImages } from "../../../application/actions/admin/images";
 import { Link } from "react-router-dom";
 import DataTable from "react-data-table-component";
-import log from "../../../infrastructure/services/logger/console";
-import { loadState, saveState } from "../../helpers/Persist";
 
 export default function Images() {
   const dispatch = useDispatch();
@@ -60,27 +58,20 @@ export default function Images() {
       state = "active";
     }
     const img = { id:id, status: state };
-    // dispatch(updateImages(img));
- 
+    dispatch(updateImages(img));
   };
   const handleChangeVisible = (e, id) => {
     let state = "private";
     if (e.target.checked) {
       state = "public";
     }
-    const img = { id:id, status: state };
+    const img = { id:id, visible: state };
+    console.log(img)
+    dispatch(updateImages(img));
   };
-
-  const handleEditImages = ()=>{
-
-  }
-  window.onunload=()=>{
-    window.localStorage.clear();
-  }
 
   useEffect(() => {
     fetchData();
-    saveState('allimagesdata', allImagesData)
   }, [page, sortColumn, sortColumnDirection, perPage, dispatch]);
 
   const columns = [
@@ -175,11 +166,11 @@ export default function Images() {
   const contentSection = (
     <DataTable
     columns={columns}
-    data={allImagesData.images}
+    data={allImagesData&&allImagesData.images}
     progressPending={loading}
     pagination
     paginationServer
-    paginationTotalRows={allImagesData.total}
+    paginationTotalRows={allImagesData&&allImagesData.total}
     onChangeRowsPerPage={handlePerRowsChange}
     onChangePage={handlePageChange}
     onSort={handleSort}
@@ -220,9 +211,6 @@ export default function Images() {
                   <button type="submit" class="btn btn-outline-success ms-2">
                     ค้นหา
                   </button>
-                  <Link to="/admin/users/add">
-                    <button class="btn btn-outline-success ms-2">เพิ่ม</button>
-                  </Link>
                 </div>
               </form>
               <div className="content">{contentSection}</div>

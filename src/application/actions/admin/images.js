@@ -21,6 +21,27 @@ export const loadImagesFailed = (error) => ({
   payload: error,
 });
 
+
+export const ADMIN_LOAD_IMAGES_BY_ID = "[ADMIN.IMAGES] LOAD BY ID";
+export const ADMIN_LOAD_IMAGES_BY_ID_SUCCESS = "[ADMIN.IMAGES] LOAD BY ID SUCCESS";
+export const ADMIN_LOAD_IMAGES_BY_ID_FAILED = "[ADMIN.IMAGES] LOAD BY ID FAILED";
+
+export const loadImagesById = (url) => ({
+  type: ADMIN_LOAD_IMAGES_BY_ID,
+  payload: url,
+});
+
+export const loadImagesByIdSuccess = (image) => ({
+  type: ADMIN_LOAD_IMAGES_BY_ID_SUCCESS,
+  payload: image,
+});
+
+export const loadImagesByIdFailed = (error) => ({
+  type: ADMIN_LOAD_IMAGES_BY_ID_FAILED,
+  payload: error,
+});
+
+
 export const ADMIN_CREATE_IMAGES = "[ADMIN.IMAGES] CREATE";
 export const ADMIN_CREATE_IMAGES_SUCCESS = "[ADMIN.IMAGES] CREATE SUCCESS";
 export const ADMIN_CREATE_IMAGES_FAILED = "[ADMIN.IMAGES] CREATE FAILED";
@@ -77,3 +98,4 @@ export const deleteImagesFailed = (error) => ({
   type: ADMIN_DELETE_IMAGES_FAILED,
   payload: error,
 });
+

@@ -7,10 +7,24 @@ export default {
     });
     return resp.data;
   },
-  createImages: async (props) => {
-    const resp = await axios.post(`${API_URL}/admin/images/create`, props, {
+  getImageById: async (props) => {
+    const resp = await axios.get(`${API_URL}/admin/images/byId/${props}`, {
       headers: { "access-token": token },
     });
+    return resp.data;
+  },
+  updateImage: async (props) => {
+    const response = await axios.patch(
+      `${API_URL}/images`,
+      JSON.stringify(props),
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "access-token": token,
+        },
+      }
+    );
+    return response.data;
   },
   createImages: async (props) => {
     const resp = await axios.post(`${API_URL}/images/upload`, props, {
