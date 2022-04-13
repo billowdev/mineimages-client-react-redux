@@ -11,6 +11,7 @@ import adminUi from './admin/ui';
 import adminImages from './admin/images';
 import adminOrders from './admin/orders';
 import adminCategories from './admin/categories';
+import adminTransactions from './admin/transactions';
 import adminUsers from './admin/users';
 
 
@@ -28,5 +29,5 @@ export default [
     ...adminOrders,
     ...adminCategories,
     ...adminUsers,
-
+    ...adminTransactions
 ]

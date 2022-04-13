@@ -12,7 +12,7 @@ import {
 } from "../../application/selectors/cart";
 import { pageLoaded } from "../../application/actions/ui";
 import { getLoading } from "../../application/selectors/ui";
-import { loadOnCartOrders } from "../../application/actions/cart";
+// import { loadOnCartOrders } from "../../application/actions/cart";
 import { loadCheckout } from "../../application/actions/checkout";
 
 function Cart() {

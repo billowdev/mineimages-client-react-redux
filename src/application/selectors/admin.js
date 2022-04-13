@@ -3,6 +3,8 @@ export const getModalImages = state => state.adminImages.modalImages;
 export const getImageById = state => state.adminImages.imageById
 export const getAllOrders = state => state.adminOrders.allOrders;
 
+export const getAllOrdersOnTransactions = state => state.adminTransactions.pendingTransactions;
+
 
 export const getCategoriesById = state => state.adminCategories.category;
 
