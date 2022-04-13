@@ -17,17 +17,15 @@ import Cart from "./cart";
 
 import Admin from "./admin";
 import Users from "./admin/users";
-// import UsersAdd from "./admin/users/UsersAdd";
-// import UsersUpdate from "./admin/users/UsersUpdate";
 import Orders from "./admin/orders";
-// import OrdersUpdate from "./admin/orders/OrdersUpdate";
 import Transactions from "./admin/transactions";
-// import TransactionsUpdate from "./admin/transactions/TransactionsUpdate";
 import Images from "./admin/images";
 import ImagesUpdate from "./admin/images/ImagesUpdate";
 import Categories from "./admin/categories";
 import CategoriesUpdate from "./admin/categories/CategoriesUpdate";
 import CategoriesAdd from "./admin/categories/CategoriesAdd";
+import ConfirmOrders from "./admin/confirm-orders";
+
 import UsersAdd from "./admin/users/UsersAdd";
 import { Toaster } from "react-hot-toast";
 
@@ -56,7 +54,8 @@ export default () => {
           <Route path="/admin/users" element={<Users />} />
           <Route path="/admin/users/add" element={<UsersAdd />} />
           <Route path="/admin/orders" element={<Orders />} />
-          <Route path="/admin/Transactions" element={<Transactions />} />
+          <Route path="/admin/transactions" element={<Transactions />} />
+          <Route path="/admin/confirm-orders" element={<ConfirmOrders />} />
           <Route path="/admin/images" element={<Images />} />
           {/* <Route path="/admin/images/add" element={<Images__Add />} /> */}
           <Route path="/admin/images/update/:id" element={<ImagesUpdate />} />

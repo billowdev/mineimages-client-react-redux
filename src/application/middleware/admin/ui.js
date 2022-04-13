@@ -2,7 +2,10 @@ import { PAGE_LOADED } from "../../actions/admin/ui";
 import Swal from "sweetalert2";
 import * as categoriesActions from "../../actions/admin/categories";
 import * as usersActions from "../../actions/admin/users";
+import * as imagesActions from "../../actions/admin/images";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+
 const pageLoadedFlow =
   ({ log }) =>
   ({ dispatch }) =>
@@ -34,6 +37,8 @@ const loadCategoriesFlow =
         icon: "success",
         title: "เรียบร้อย",
         text: `แก้ไขข้อมูลเรียบร้อย`,
+      }).then(()=>{
+        window.location = "/admin/categories"
       });
     }
     if (action.type === categoriesActions.ADMIN_INSERT_CATEGORIES_SUCCESS) {
@@ -53,6 +58,19 @@ const loadCategoriesFlow =
       });
     }
   };
+const loadImageFlow = 
+({ log }) =>
+({ dispatch }) =>
+(next) =>
+(action) => {
+  next(action);
+  if (action.type === imagesActions.ADMIN_UPDATE_IMAGES_SUCCESS) {
+    toast.success("อัปเดตข้อมูลเรียบร้อย");
+  }
+  if (action.type === imagesActions.ADMIN_UPDATE_IMAGES_FAILED) {
+    toast.error("อัปเดตข้อมูลไม่สำเร็จ");
+  }
+};
 
 const usersLoadedFlow =
   ({ log }) =>
@@ -86,4 +104,4 @@ const usersLoadedFlow =
     }
   };
 
-export default [pageLoadedFlow, loadCategoriesFlow, usersLoadedFlow];
+export default [pageLoadedFlow, loadCategoriesFlow, usersLoadedFlow, loadImageFlow];

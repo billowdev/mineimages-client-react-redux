@@ -53,8 +53,8 @@ function Home() {
               >
                 <Transformation
                   crop="scale"
-                  width="300"
-                  height="200"
+                  // width="200"
+                  height="300"
                   dpr="auto"
                   responsive_placeholder="blank"
                 />

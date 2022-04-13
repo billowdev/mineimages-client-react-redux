@@ -4,8 +4,12 @@ import { useDispatch, useSelector } from "react-redux";
 import Layout from "../components/Layout";
 import { getAllOrders } from "../../../application/selectors/admin";
 import { loadOrders } from "../../../application/actions/admin/orders";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faCheck,
+} from "@fortawesome/free-solid-svg-icons";
 
-export default function Orders() {
+export default function ConfirmOrders() {
   const dispatch = useDispatch();
   const allOrders = useSelector(getAllOrders);
 
@@ -126,6 +130,18 @@ export default function Orders() {
       selector: (row) => row.ImageId,
       cell: (row) => (
         <div>
+           <button
+            className="btn btn-success me-3"
+            value={row.Image}
+            data-bs-toggle="modal"
+            data-bs-target="#editModalForm"
+            onClick={(e) => {
+              handleViewData(e, row.Image);
+            }}
+          >
+            รายละเอียด
+          </button>
+
           <button
             className="btn btn-success"
             value={row.Image}
@@ -135,7 +151,7 @@ export default function Orders() {
               handleViewData(e, row.Image);
             }}
           >
-            ดูรูปภาพ
+            <FontAwesomeIcon className="nav-icon" icon={faCheck} />
           </button>
         </div>
       ),
@@ -171,8 +187,7 @@ export default function Orders() {
         onSort={handleSort}
       />
 
-
-<div
+      <div
         className="modal fade"
         id="editModalForm"
         tabIndex="-1"
@@ -200,8 +215,8 @@ export default function Orders() {
               <form id="users-update-form">
                 <div className="card-body">
                   <div className="form-row">
-                  <div className="form-group col-md-12">
-                     <img src={viewFormData.pathWatermark} /> 
+                    <div className="form-group col-md-12">
+                      <img src={viewFormData.pathWatermark} />
                     </div>
                     <div className="form-group col-md-12">
                       <label htmlFor="url">id</label>
@@ -239,7 +254,6 @@ export default function Orders() {
                         disabled
                       />
                     </div>
-                    
                   </div>
                 </div>
               </form>
@@ -253,13 +267,11 @@ export default function Orders() {
                 >
                   ปิด
                 </button>
-                
               </div>
             </div>
           </div>
         </div>
       </div>
-
     </Layout>
   );
 }
