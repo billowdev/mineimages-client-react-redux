@@ -8,6 +8,9 @@ import {
   loadCompleteOrdersSuccess,
   loadCompleteOrdersFailed,
   LOAD_COMPLETE_ORDERS,
+  DELETE_ORDER,
+  deleteOrderSuccess,
+  deleteOrderFailed,
 } from "../actions/orders";
 
 import * as uiActions from "../actions/ui";
@@ -30,14 +33,6 @@ const loadOrdersFlow =
         dispatch(loadOrdersFailed(err));
       }
     }
-  };
-
-const userOrderFlow =
-  ({ api }) =>
-  ({ dispatch }) =>
-  (next) =>
-  async (action) => {
-    next(action);
     if (action.type === USER_ORDER) {
       try {
         const orders = await api.orders.userOrder(action.payload);
@@ -51,17 +46,9 @@ const userOrderFlow =
         dispatch(userOrderFailed(err));
       }
     }
-  };
-
-const loadCompleteOrdersFlow =
-  ({ api }) =>
-  ({ dispatch }) =>
-  (next) =>
-  async (action) => {
     if (action.type === LOAD_COMPLETE_ORDERS) {
       try {
         dispatch(uiActions.setLoading(true));
-
         const orders = await api.orders.getCompleteOrders();
         dispatch(loadCompleteOrdersSuccess(orders));
         dispatch(uiActions.setLoading(false));
@@ -69,6 +56,15 @@ const loadCompleteOrdersFlow =
         dispatch(loadCompleteOrdersFailed(err));
       }
     }
-    next(action);
+    if (action.type === DELETE_ORDER) {
+      try {
+        const orders = await api.orders.deleteOrder(action.payload);
+        dispatch(deleteOrderSuccess(orders));
+      } catch (err) {
+        dispatch(deleteOrderFailed(err));
+      }
+    }
   };
-export default [loadOrdersFlow, userOrderFlow, loadCompleteOrdersFlow];
+
+
+export default [loadOrdersFlow ];

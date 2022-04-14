@@ -58,3 +58,23 @@ export const loadCompleteOrdersFailed = (error) => ({
   type: LOAD_COMPLETE_ORDERS_FAILED,
   payload: error,
 });
+
+export const DELETE_ORDER = "[ORDERS] DELETE";
+export const DELETE_ORDER_SUCCESS =
+  "[ORDERS] DELETE SUCCESS";
+export const DELETE_ORDER_FAILED =
+  "[ORDERS] DELETE FAILED";
+
+export const deleteOrder = (id) => ({
+  type: DELETE_ORDER,
+  payload: id,
+});
+export const deleteOrderSuccess = (status) => ({
+  type: DELETE_ORDER_SUCCESS,
+  payload: status,
+});
+
+export const deleteOrderFailed = (error) => ({
+  type: DELETE_ORDER_FAILED,
+  payload: error,
+});

@@ -135,6 +135,10 @@ const loadImagesFlow =
       });
       window.location.reload();
     }
+    if (action.type === ordersActions.DELETE_ORDER_SUCCESS) {
+      toast.success("delete Successfully!");
+    }
+    
   };
 
 export default [

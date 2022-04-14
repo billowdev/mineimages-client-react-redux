@@ -20,4 +20,11 @@ export default {
     });
     return response.data;
   },
+  deleteOrder: async (props) => {
+
+    const response = await axios.get(`${API_URL}/order/delete/${props}`, {
+      headers: { "access-token": token },
+    });
+    return response.data;
+  },
 };

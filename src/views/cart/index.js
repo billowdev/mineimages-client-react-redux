@@ -15,6 +15,11 @@ import { getLoading } from "../../application/selectors/ui";
 // import { loadOnCartOrders } from "../../application/actions/cart";
 import { loadCheckout } from "../../application/actions/checkout";
 
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import { Link, Outlet } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { deleteOrder } from "../../application/actions/orders";
+
 function Cart() {
   const dispatch = useDispatch();
   const oncart = useSelector(getOnCartrders);
@@ -27,6 +32,26 @@ function Cart() {
 
   const numberWithCommas = (val) => {
     return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  };
+  const handleDelete = (id) => {
+    Swal.fire({
+      title: "คุณต้องการที่จะลบหรือไม่?",
+      text: "หากลบแล้วสามารถกดสั่งซื้อใหม่ได้",
+      showDenyButton: true,
+      confirmButtonText: "Yes",
+      denyButtonText: "No",
+      customClass: {
+        actions: "my-actions",
+        denyButton: "order-3",
+        confirmButton: "order-2",
+      },
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(deleteOrder(id));
+        window.location.reload();
+      }
+    });
+   
   };
   const handleCheckout = () => {
     Swal.fire({
@@ -56,6 +81,17 @@ function Cart() {
               return (
                 <div className="card-body" key={key}>
                   <div className="row">
+                    <div>
+                      <button
+                        type="button"
+                        className="btn btn-danger btn-sm me-1 mb-2 float-end"
+                        data-mdb-toggle="tooltip"
+                        title="Remove item"
+                        onClick={()=>{handleDelete(item.id)}}
+                      >
+                        <FontAwesomeIcon className="nav-icon" icon={faXmark} />
+                      </button>
+                    </div>
                     <div className="col-lg-3 col-md-12 mb-4 mb-lg-0">
                       <div
                         className="bg-image hover-overlay hover-zoom ripple rounded"
@@ -81,14 +117,6 @@ function Cart() {
                       </p>
                       <p>{item["Image.detail"]}</p>
                       <p>{item["User.firstName"]}</p>
-                      <button
-                        type="button"
-                        className="btn btn-primary btn-sm me-1 mb-2"
-                        data-mdb-toggle="tooltip"
-                        title="Remove item"
-                      >
-                        <i className="bi bi-trash"></i>
-                      </button>
                     </div>
                     <div className="col-lg-4 col-md-6 mb-4 mb-lg-0">
                       <p className="text-start text-md-center">
@@ -164,7 +192,7 @@ function Cart() {
                               <>
                                 <div>
                                   <span>{`${numberWithCommas(
-                                    totalPrice 
+                                    totalPrice
                                   )}`}</span>
                                 </div>
                                 <strong>{`${numberWithCommas(
