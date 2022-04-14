@@ -23,16 +23,31 @@ export default {
   },
   updateProfile: async (props) => {
     var url = `${API_URL}/user/profile`;
-    const response = await axios.patch(
-      url,
-      JSON.stringify(props),
-      {
-        headers: {
-          "Content-Type": "application/json",
-          "access-token": token,
-        },
-      }
-    );
-    return response.data
+    const response = await axios.patch(url, JSON.stringify(props), {
+      headers: {
+        "Content-Type": "application/json",
+        "access-token": token,
+      },
+    });
+    return response.data;
   },
+  getAllImagesUserOwned: async () => {
+    var url = `${API_URL}/images/all/owned`;
+    const resp = await axios.get(url, {
+      headers: {
+        "access-token": token,
+      },
+    });
+    return resp.data
+  },
+  getBenefitCompleteOrders: async () => {
+    var url = `${API_URL}/order/complete/benefit`;
+    const resp = await axios.get(url, {
+      headers: {
+        "access-token": token,
+      },
+    });
+    return resp.data
+  },
+  
 };

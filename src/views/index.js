@@ -9,6 +9,7 @@ import {
 } from "react-router-dom";
 import Home from "./home";
 import Profile from "./profile";
+import LineChart from "./profile/LineChart";
 import Edit from "./profile/Edit";
 import OrderHistory from "./order-history";
 import UserImages from "./user-images";
@@ -44,6 +45,8 @@ export default () => {
           <Route path="/signup" element={<Signup />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/profile/edit" element={<Edit />} />
+          <Route path="/profile/chart" element={<LineChart />} />
+          
           <Route path="/profile/orders" element={<OrderHistory />} />
 
           <Route path="/profile/images" element={<UserImages />} />

@@ -36,7 +36,7 @@ function OrderHistory() {
   };
 
   const orderData = () => {
-    return stateOrder.map((item, key) => {
+    return stateOrder&&stateOrder.map((item, key) => {
       return (
         <tr key={item.id}>
           <td style={{ width: "10px" }}>{key + 1}</td>

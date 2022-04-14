@@ -27,6 +27,16 @@ const loadTransactionsFlow =
         dispatch(transactionActions.confirmTransactionsFailed(err));
       }
     }
+    if (action.type === transactionActions.COMPLETED_TRANSACTION) {
+      try {
+        dispatch(uiActions.setLoading(true));
+        const confirm = await api.admin.getCompletedTransactions(action.payload);
+        dispatch(transactionActions.completedTransactionsSuccess(confirm));
+        dispatch(uiActions.setLoading(false));
+      } catch (err) {
+        dispatch(transactionActions.completedTransactionsFailed(err));
+      }
+    }
   };
 
 export default [loadTransactionsFlow];
