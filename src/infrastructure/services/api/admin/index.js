@@ -201,6 +201,12 @@ export default {
     });
     return resp.data;
   },
+  getCompletedTransactions: async () => {
+    const resp = await axios.get(`${API_URL}/admin/transaction/get/completed`, {
+      headers: { "access-token": token },
+    });
+    return resp.data;
+  },
   getAllOrders: async (props) => {
     const resp = await axios.get(`${API_URL}/admin/orders/get${props}`, {
       headers: { "access-token": token },

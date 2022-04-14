@@ -63,10 +63,8 @@ export const loadOrdersOnTransactionFailed = (error) => ({
   payload: error,
 });
 
-
 export const CONFIRM_TRANSACTION = "[TRANSACTIONS] CONFIRM ";
-export const CONFIRM_TRANSACTION_SUCCESS =
-  "[TRANSACTIONS] CONFIRM SUCCESS";
+export const CONFIRM_TRANSACTION_SUCCESS = "[TRANSACTIONS] CONFIRM SUCCESS";
 export const CONFIRM_TRANSACTION_FAILED = "[TRANSACTIONS] CONFIRM FAILED";
 
 export const confirmTransactions = (id) => ({
@@ -81,5 +79,23 @@ export const confirmTransactionsSuccess = (transaction) => ({
 
 export const confirmTransactionsFailed = (error) => ({
   type: CONFIRM_TRANSACTION_FAILED,
+  payload: error,
+});
+
+export const COMPLETED_TRANSACTION = "[TRANSACTIONS] COMPLETE ";
+export const COMPLETED_TRANSACTION_SUCCESS = "[TRANSACTIONS] COMPLETE SUCCESS";
+export const COMPLETED_TRANSACTION_FAILED = "[TRANSACTIONS] COMPLETE FAILED";
+
+export const completedTransactions = {
+  type: COMPLETED_TRANSACTION,
+};
+
+export const completedTransactionsSuccess = (transaction) => ({
+  type: COMPLETED_TRANSACTION_SUCCESS,
+  payload: transaction,
+});
+
+export const completedTransactionsFailed = (error) => ({
+  type: COMPLETED_TRANSACTION_FAILED,
   payload: error,
 });
