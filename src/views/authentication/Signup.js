@@ -52,7 +52,6 @@ export default function Signup() {
         });
       }
     }).catch(()=>{
-  
       Swal.fire({
         icon: "error",
         title: "Signup Failed",
