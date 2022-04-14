@@ -46,7 +46,7 @@ const loadAuthActionFlow =
         text: `Please  try again`,
       });
     }
-    if (action.type === authActions.SIGNIN_SUCCESS) {
+    if (action.type === authActions.SIGNOUT_SUCCESS) {
       log("SIGNOUT SUCCESS");
     }
 
