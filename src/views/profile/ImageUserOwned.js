@@ -1,7 +1,7 @@
 import React from "react";
 
 export default function ImageUserOwned(props) {
-  const data = props.props.props;
+  const data = props.props;
   return data.complete.map((item, idx) => {
     return (
       <div className="row" key={idx}>

@@ -1,4 +1,9 @@
-import { LOAD_PROFILE_SUCCESS, UPDATE_PROFILE_SUCCESS } from "../actions/profile";
+import {
+  BENEFIT_COMPLETE_ORDERS_SUCCESS,
+  LOAD_ALL_IMAGES_OWNED_SUCCESS,
+  LOAD_PROFILE_SUCCESS,
+  UPDATE_PROFILE_SUCCESS,
+} from "../actions/profile";
 const initialState = {
   id: null,
   email: null,
@@ -13,6 +18,8 @@ const initialState = {
   city: null,
   postalCode: null,
   country: null,
+  allImagesOwned: [],
+  allBenefit: [],
   error: null,
 };
 
@@ -35,14 +42,17 @@ const reducer = (state = initialState, action) => {
         country: action.payload.country,
         error: null,
       };
-    case UPDATE_PROFILE_SUCCESS:
+    case LOAD_ALL_IMAGES_OWNED_SUCCESS:
       return {
-       state
-      }
+        allImagesOwned: action.payload.data,
+      };
+    case BENEFIT_COMPLETE_ORDERS_SUCCESS:
+      return {
+        allBenefit: action.payload.data.complete,
+      };
     default:
       return state;
   }
 };
-
 
 export default reducer;
