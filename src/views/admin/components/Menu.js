@@ -91,12 +91,12 @@ export default function Menu() {
                 <p> ยืนยันออเดอร์ </p>
               </Link>
             </li>
-            <li className="nav-item">
+            {/* <li className="nav-item">
               <Link to="/admin/transactions" className="nav-link ">
                 <FontAwesomeIcon className="nav-icon" icon={faMoneyBill} />
                 <p> Transactions </p>
               </Link>
-            </li>
+            </li> */}
             <hr />
             <li className="nav-item">
               <a href="../" id="home" className="nav-link">
