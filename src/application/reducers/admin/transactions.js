@@ -16,7 +16,7 @@ const reducer = (state = initialState, action) => {
       };
     case COMPLETED_TRANSACTION_SUCCESS:
       return {
-        completedTransactions: [],
+        completedTransactions: action.payload,
         error: null
       }
     default:

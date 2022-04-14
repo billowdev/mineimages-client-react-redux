@@ -202,10 +202,29 @@ export default {
     return resp.data;
   },
   getCompletedTransactions: async () => {
-    const resp = await axios.get(`${API_URL}/admin/transaction/get/completed`, {
+    const resp = await axios.get(`${API_URL}/admin/transactions/get/completed`, {
       headers: { "access-token": token },
     });
-    return resp.data;
+    let newData = [];
+    const rwaData = resp.data.data;
+    rwaData.forEach((el) => {
+      const orders = el.Orders;
+      let sum = 0;
+      orders.forEach((price) => {
+        sum += parseInt(price.price);
+      });
+      newData.push(
+        {
+          id: el.id,
+          UserId: el.UserId,
+          status: el.status,
+          totalPrice: sum,
+          createdAt: el.createdAt,
+          updatedAt: el.updatedAt,
+        }
+      );
+    });
+    return newData;
   },
   getAllOrders: async (props) => {
     const resp = await axios.get(`${API_URL}/admin/orders/get${props}`, {
