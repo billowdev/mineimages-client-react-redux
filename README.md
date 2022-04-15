@@ -37,8 +37,6 @@
 
 <h3 align="center">MineImages</h3>
 
-<h3 align="center">project_title</h3>
-
   <p align="center">
     Mineimages project is the project in the web programming concept CRUD goals for learning new things this project has used the React-Redux for client-side and server-side is used Node js with MySQL Sequelize other features are upload image to Cloudinary use Jimp package to put watermark to picture and a few things what I learn from this project are system analysis Data Flow Diagram ER-Diagram Database Design and school project document
     <br />
