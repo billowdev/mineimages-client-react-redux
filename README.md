@@ -153,6 +153,7 @@ This is an example of how to list things you need to use the software and how to
 
 - [x] Simple cart
 - [x] admin page
+- [ ] private route
 - [ ] Persist state avoid dispatch wheel
 - [ ] Integrated payment gateway
 
