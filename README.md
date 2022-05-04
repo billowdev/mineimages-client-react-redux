@@ -207,18 +207,6 @@ Project Link: [https://github.com/lacakira/mineimages-client](https://github.com
 <!-- USAGE EXAMPLES -->
 ## Implementation
 
-
-_For project documentation (Thai Language) [Documentation](./README/document/การพัฒนาเว็บแอพพลิเคชันขายรูปภาพ.pdf)_
-
-
-
-### Data Flow Diagram
-
-#### - Context Diagram
-<div align="center">
-<img src="./README/images/system-analysis/context.png" alt="context" width="600">
-</div>
-
 ### ER-Diagram
 <div align="center">
 <img src="./README/images/system-analysis/ER-Diagram.png" alt="ER-Diagram" width="600">
