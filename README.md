@@ -195,7 +195,7 @@ AdminLTE.io reserves the right to change the license of future releases.
 <!-- CONTACT -->
 ## Contact
 
-Akkarapon Phikulsri - lacakira.contact@gmail.com  - [lacakira's site](https://lacakira.github.io/portfolio) 
+Akkarapon Phikulsri - lacakira@gmail.com  - [lacakira's site](https://lacakira.github.io/portfolio) 
 
 Project Link: [https://github.com/lacakira/mineimages-client](https://github.com/lacakira/mineimages-client)
 
